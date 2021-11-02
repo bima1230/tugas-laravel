@@ -52,12 +52,10 @@
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
- @yield(adminapp.konten)
+ @yield("adminapp.content")
     <!-- /.content-header -->
 
-    <!-- Main content -->
-   @include('adminapp.content')
-    <!-- /.content -->
+   
   </div>
   <!-- /.content-wrapper -->
  @include('adminapp.footer')
