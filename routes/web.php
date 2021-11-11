@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-/*
+use  App\Http\Controllers\ProdukController;
+/*/
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -17,3 +17,5 @@ Route::get('/', function () {
     return view('pages.content');
 });
 
+Route::get('produk',[ProdukController::class,'index']);
+Route::get('produk/delete/{id}',[ProdukController::class,'destroy']);
