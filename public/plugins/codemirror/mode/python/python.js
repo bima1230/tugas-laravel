@@ -62,7 +62,11 @@
       var identifiers = parserConf.identifiers|| /^[_A-Za-z\u00A1-\uFFFF][_A-Za-z0-9\u00A1-\uFFFF]*/;
       myKeywords = myKeywords.concat(["nonlocal", "False", "True", "None", "async", "await"]);
       myBuiltins = myBuiltins.concat(["ascii", "bytes", "exec", "print"]);
+<<<<<<< HEAD
       var stringPrefixes = new RegExp("^(([rbuf]|(br)|(fr))?('{3}|\"{3}|['\"]))", "i");
+=======
+      var stringPrefixes = new RegExp("^(([rbuf]|(br)|(rb)|(fr)|(rf))?('{3}|\"{3}|['\"]))", "i");
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     } else {
       var identifiers = parserConf.identifiers|| /^[_A-Za-z][_A-Za-z0-9]*/;
       myKeywords = myKeywords.concat(["exec", "print"]);
@@ -298,7 +302,14 @@
     }
 
     function tokenLexer(stream, state) {
+<<<<<<< HEAD
       if (stream.sol()) state.beginningOfLine = true;
+=======
+      if (stream.sol()) {
+        state.beginningOfLine = true;
+        state.dedent = false;
+      }
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
       var style = state.tokenize(stream, state);
       var current = stream.current();
@@ -315,10 +326,17 @@
 
       // Handle scope changes.
       if (current == "pass" || current == "return")
+<<<<<<< HEAD
         state.dedent += 1;
 
       if (current == "lambda") state.lambda = true;
       if (current == ":" && !state.lambda && top(state).type == "py")
+=======
+        state.dedent = true;
+
+      if (current == "lambda") state.lambda = true;
+      if (current == ":" && !state.lambda && top(state).type == "py" && stream.match(/^\s*(?:#|$)/, false))
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
         pushPyScope(state);
 
       if (current.length == 1 && !/string|comment/.test(style)) {
@@ -332,10 +350,15 @@
           else return ERRORCLASS;
         }
       }
+<<<<<<< HEAD
       if (state.dedent > 0 && stream.eol() && top(state).type == "py") {
         if (state.scopes.length > 1) state.scopes.pop();
         state.dedent -= 1;
       }
+=======
+      if (state.dedent && stream.eol() && top(state).type == "py" && state.scopes.length > 1)
+        state.scopes.pop();
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
       return style;
     }
@@ -370,14 +393,24 @@
         if (state.tokenize != tokenBase)
           return state.tokenize.isString ? CodeMirror.Pass : 0;
 
+<<<<<<< HEAD
         var scope = top(state), closing = scope.type == textAfter.charAt(0)
+=======
+        var scope = top(state)
+        var closing = scope.type == textAfter.charAt(0) ||
+            scope.type == "py" && !state.dedent && /^(else:|elif |except |finally:)/.test(textAfter)
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
         if (scope.align != null)
           return scope.align - (closing ? 1 : 0)
         else
           return scope.offset - (closing ? hangingIndent : 0)
       },
 
+<<<<<<< HEAD
       electricInput: /^\s*[\}\]\)]$/,
+=======
+      electricInput: /^\s*([\}\]\)]|else:|elif |except |finally:)$/,
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
       closeBrackets: {triples: "'\""},
       lineComment: "#",
       fold: "indent"

@@ -164,10 +164,17 @@
         } else {
           if(delim = stream.match(/^%([^\w\s=])/)) {
             delim = delim[1];
+<<<<<<< HEAD
           } else if (stream.match(/^%[a-zA-Z0-9_\u009F-\uFFFF]*/)) {
             // Macro variables
             return "meta";
           } else {
+=======
+          } else if (stream.match(/^%[a-zA-Z_\u009F-\uFFFF][\w\u009F-\uFFFF]*/)) {
+            // Macro variables
+            return "meta";
+          } else if (stream.eat('%')) {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
             // '%' operator
             return "operator";
           }

@@ -4,7 +4,11 @@
 *
 * uPlot.js (μPlot)
 * A small, fast chart for time series, lines, areas, ohlc & bars
+<<<<<<< HEAD
 * https://github.com/leeoniya/uPlot (v1.6.7)
+=======
+* https://github.com/leeoniya/uPlot (v1.6.15)
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 */
 
 var uPlot = (function () {
@@ -12,6 +16,7 @@ var uPlot = (function () {
 
 	var FEAT_TIME          = true;
 
+<<<<<<< HEAD
 	function debounce(fn, time) {
 		var pending = null;
 
@@ -26,6 +31,8 @@ var uPlot = (function () {
 		}
 	}
 
+=======
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	// binary search for index of closest value
 	function closestIdx(num, arr, lo, hi) {
 		var mid;
@@ -110,12 +117,27 @@ var uPlot = (function () {
 	}
 
 	function rangeLog(min, max, base, fullMags) {
+<<<<<<< HEAD
+=======
+		var minSign = sign(min);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 		var logFn = base == 10 ? log10 : log2;
 
 		if (min == max) {
+<<<<<<< HEAD
 			min /= base;
 			max *= base;
+=======
+			if (minSign == -1) {
+				min *= base;
+				max /= base;
+			}
+			else {
+				min /= base;
+				max *= base;
+			}
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		}
 
 		var minExp, maxExp, minMaxIncrs;
@@ -154,6 +176,16 @@ var uPlot = (function () {
 		return minMax;
 	}
 
+<<<<<<< HEAD
+=======
+	var rangePad = 0.1;
+
+	var autoRangePart = {
+		mode: 3,
+		pad: rangePad,
+	};
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	var _eqRangePart = {
 		pad:  0,
 		soft: null,
@@ -200,17 +232,51 @@ var uPlot = (function () {
 		var softMaxMode = ifNull(cmax.mode, 0);
 
 		var delta        = _max - _min;
+<<<<<<< HEAD
+=======
+
+		// this handles situations like 89.7, 89.69999999999999
+		// by assuming 0.001x deltas are precision errors
+	//	if (delta > 0 && delta < abs(_max) / 1e3)
+	//		delta = 0;
+
+		// treat data as flat if delta is less than 1 billionth
+		if (delta < 1e-9) {
+			delta = 0;
+
+			// if soft mode is 2 and all vals are flat at 0, avoid the 0.1 * 1e3 fallback
+			// this prevents 0,0,0 from ranging to -100,100 when softMin/softMax are -1,1
+			if (_min == 0 || _max == 0) {
+				delta = 1e-9;
+
+				if (softMinMode == 2 && softMin != inf)
+					{ padMin = 0; }
+
+				if (softMaxMode == 2 && softMax != -inf)
+					{ padMax = 0; }
+			}
+		}
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		var nonZeroDelta = delta || abs(_max) || 1e3;
 		var mag          = log10(nonZeroDelta);
 		var base         = pow(10, floor(mag));
 
 		var _padMin  = nonZeroDelta * (delta == 0 ? (_min == 0 ? .1 : 1) : padMin);
+<<<<<<< HEAD
 		var _newMin  = roundDec(incrRoundDn(_min - _padMin, base/10), 6);
+=======
+		var _newMin  = roundDec(incrRoundDn(_min - _padMin, base/10), 9);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		var _softMin = _min >= softMin && (softMinMode == 1 || softMinMode == 3 && _newMin <= softMin || softMinMode == 2 && _newMin >= softMin) ? softMin : inf;
 		var minLim   = max(hardMin, _newMin < _softMin && _min >= _softMin ? _softMin : min(_softMin, _newMin));
 
 		var _padMax  = nonZeroDelta * (delta == 0 ? (_max == 0 ? .1 : 1) : padMax);
+<<<<<<< HEAD
 		var _newMax  = roundDec(incrRoundUp(_max + _padMax, base/10), 6);
+=======
+		var _newMax  = roundDec(incrRoundUp(_max + _padMax, base/10), 9);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		var _softMax = _max <= softMax && (softMaxMode == 1 || softMaxMode == 3 && _newMax >= softMax || softMaxMode == 2 && _newMax <= softMax) ? softMax : -inf;
 		var maxLim   = min(hardMax, _newMax > _softMax && _max <= _softMax ? _softMax : max(_softMax, _newMax));
 
@@ -233,7 +299,11 @@ var uPlot = (function () {
 	var min = M.min;
 	var max = M.max;
 	var pow = M.pow;
+<<<<<<< HEAD
 	var sqrt = M.sqrt;
+=======
+	var sign = M.sign;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	var log10 = M.log10;
 	var log2 = M.log2;
 	var sinh =  (v, linthresh) => {
@@ -261,12 +331,22 @@ var uPlot = (function () {
 		return typeof v == "function" ? v : () => v;
 	}
 
+<<<<<<< HEAD
+=======
+	var retArg0 = _0 => _0;
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	var retArg1 = (_0, _1) => _1;
 
 	var retNull = _ => null;
 
 	var retTrue = _ => true;
 
+<<<<<<< HEAD
+=======
+	var retEq = (a, b) => a == b;
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	function incrRoundUp(num, incr) {
 		return ceil(num/incr)*incr;
 	}
@@ -310,6 +390,11 @@ var uPlot = (function () {
 
 	var EMPTY_OBJ = {};
 
+<<<<<<< HEAD
+=======
+	var nullNullTuple = [null, null];
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	var isArr = Array.isArray;
 
 	function isStr(v) {
@@ -428,7 +513,11 @@ var uPlot = (function () {
 					var yVal = ys[i$2];
 					var alignedIdx = xIdxs.get(xs$1[i$2]);
 
+<<<<<<< HEAD
 					if (yVal == null) {
+=======
+					if (yVal === null) {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 						if (nullMode != NULL_REMOVE) {
 							yVals[alignedIdx] = yVal;
 
@@ -469,6 +558,12 @@ var uPlot = (function () {
 	var resize      = "resize";
 	var scroll      = "scroll";
 
+<<<<<<< HEAD
+=======
+	var change      = "change";
+	var ddpxchange  = "dppxchange";
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	var pre = "u-";
 
 	var UPLOT          =       "uplot";
@@ -494,7 +589,23 @@ var uPlot = (function () {
 
 	var doc = document;
 	var win = window;
+<<<<<<< HEAD
 	var pxRatio = devicePixelRatio;
+=======
+	var pxRatio;
+
+	var query;
+
+	function setPxRatio() {
+		pxRatio = devicePixelRatio;
+
+		query && off(change, query, setPxRatio);
+		query = matchMedia(("screen and (min-resolution: " + (pxRatio - 0.001) + "dppx) and (max-resolution: " + (pxRatio + 0.001) + "dppx)"));
+		on(change, query, setPxRatio);
+
+		win.dispatchEvent(new CustomEvent(ddpxchange));
+	}
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 	function addClass(el, c) {
 		if (c != null) {
@@ -528,6 +639,7 @@ var uPlot = (function () {
 		return placeTag("div", cls, targ);
 	}
 
+<<<<<<< HEAD
 	function trans(el, xPos, yPos, xMax, yMax) {
 		el.style.transform = "translate(" + xPos + "px," + yPos + "px)";
 
@@ -547,6 +659,51 @@ var uPlot = (function () {
 		el.removeEventListener(ev, cb, evOpts);
 	}
 
+=======
+	var xformCache = new WeakMap();
+
+	function trans(el, xPos, yPos, xMax, yMax) {
+		var xform = "translate(" + xPos + "px," + yPos + "px)";
+		var xformOld = xformCache.get(el);
+
+		if (xform != xformOld) {
+			el.style.transform = xform;
+			xformCache.set(el, xform);
+
+			if (xPos < 0 || yPos < 0 || xPos > xMax || yPos > yMax)
+				{ addClass(el, OFF); }
+			else
+				{ remClass(el, OFF); }
+		}
+	}
+
+	var colorCache = new WeakMap();
+
+	function color(el, background, borderColor) {
+		var newColor = background + borderColor;
+		var oldColor = colorCache.get(el);
+
+		if (newColor != oldColor) {
+			colorCache.set(el, newColor);
+			el.style.background = background;
+			el.style.borderColor = borderColor;
+		}
+	}
+
+	var evOpts = {passive: true};
+	var evOpts2 = assign({capture: true}, evOpts);
+
+	function on(ev, el, cb, capt) {
+		el.addEventListener(ev, cb, capt ? evOpts2 : evOpts);
+	}
+
+	function off(ev, el, cb, capt) {
+		el.removeEventListener(ev, cb, capt ? evOpts2 : evOpts);
+	}
+
+	setPxRatio();
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	var months = [
 		"January",
 		"February",
@@ -808,26 +965,45 @@ var uPlot = (function () {
 
 				// get the timezone-adjusted date
 				var minDate = tzDate(scaleMin);
+<<<<<<< HEAD
 				var minDateTs = minDate * ms;
 
 				// get ts of 12am (this lands us at or before the original scaleMin)
 				var minMin = mkDate(minDate.getFullYear(), isYr ? 0 : minDate.getMonth(), isMo || isYr ? 1 : minDate.getDate());
 				var minMinTs = minMin * ms;
+=======
+				var minDateTs = roundDec(minDate * ms, 3);
+
+				// get ts of 12am (this lands us at or before the original scaleMin)
+				var minMin = mkDate(minDate.getFullYear(), isYr ? 0 : minDate.getMonth(), isMo || isYr ? 1 : minDate.getDate());
+				var minMinTs = roundDec(minMin * ms, 3);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 				if (isMo || isYr) {
 					var moIncr = isMo ? foundIncr / mo : 0;
 					var yrIncr = isYr ? foundIncr / y  : 0;
 				//	let tzOffset = scaleMin - minDateTs;		// needed?
+<<<<<<< HEAD
 					var split = minDateTs == minMinTs ? minDateTs : mkDate(minMin.getFullYear() + yrIncr, minMin.getMonth() + moIncr, 1) * ms;
 					var splitDate = new Date(split / ms);
+=======
+					var split = minDateTs == minMinTs ? minDateTs : roundDec(mkDate(minMin.getFullYear() + yrIncr, minMin.getMonth() + moIncr, 1) * ms, 3);
+					var splitDate = new Date(round(split / ms));
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 					var baseYear = splitDate.getFullYear();
 					var baseMonth = splitDate.getMonth();
 
 					for (var i = 0; split <= scaleMax; i++) {
 						var next = mkDate(baseYear + yrIncr * i, baseMonth + moIncr * i, 1);
+<<<<<<< HEAD
 						var offs = next - tzDate(next * ms);
 
 						split = (+next + offs) * ms;
+=======
+						var offs = next - tzDate(roundDec(next * ms, 3));
+
+						split = roundDec((+next + offs) * ms, 3);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 						if (split <= scaleMax)
 							{ splits.push(split); }
@@ -983,10 +1159,13 @@ var uPlot = (function () {
 		return (self, val) => stamp(tzDate(val));
 	}
 
+<<<<<<< HEAD
 	var legendWidth = 2;
 
 	var legendDash = "solid";
 
+=======
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	function legendStroke(self, seriesIdx) {
 		var s = self.series[seriesIdx];
 		return s.width ? s.stroke(self, seriesIdx) : s.points.width ? s.points.stroke(self, seriesIdx) : null;
@@ -996,11 +1175,31 @@ var uPlot = (function () {
 		return self.series[seriesIdx].fill(self, seriesIdx);
 	}
 
+<<<<<<< HEAD
+=======
+	var legendOpts = {
+		show: true,
+		live: true,
+		isolate: false,
+		markers: {
+			show: true,
+			width: 2,
+			stroke: legendStroke,
+			fill: legendFill,
+			dash: "solid",
+		},
+		idx: null,
+		idxs: null,
+		values: [],
+	};
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	function cursorPointShow(self, si) {
 		var o = self.cursor.points;
 
 		var pt = placeDiv();
 
+<<<<<<< HEAD
 		var stroke = o.stroke(self, si);
 		var fill = o.fill(self, si);
 
@@ -1019,10 +1218,24 @@ var uPlot = (function () {
 		setStylePx(pt, "marginLeft", mar);
 		setStylePx(pt, "marginTop", mar);
 
+=======
+		var size = o.size(self, si);
+		setStylePx(pt, WIDTH, size);
+		setStylePx(pt, HEIGHT, size);
+
+		var mar = size / -2;
+		setStylePx(pt, "marginLeft", mar);
+		setStylePx(pt, "marginTop", mar);
+
+		var width = o.width(self, si, size);
+		width && setStylePx(pt, "borderWidth", width);
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		return pt;
 	}
 
 	function cursorPointFill(self, si) {
+<<<<<<< HEAD
 		var s = self.series[si];
 		return s.stroke(self, si);
 	}
@@ -1035,6 +1248,20 @@ var uPlot = (function () {
 	function cursorPointSize(self, si) {
 		var s = self.series[si];
 		return ptDia(s.width, 1);
+=======
+		var sp = self.series[si].points;
+		return sp._fill || sp._stroke;
+	}
+
+	function cursorPointStroke(self, si) {
+		var sp = self.series[si].points;
+		return sp._stroke || sp._fill;
+	}
+
+	function cursorPointSize(self, si) {
+		var sp = self.series[si].points;
+		return ptDia(sp.width, 1);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	}
 
 	function dataIdx(self, seriesIdx, cursorIdx) {
@@ -1102,6 +1329,10 @@ var uPlot = (function () {
 		top: -10,
 		idx: null,
 		dataIdx: dataIdx,
+<<<<<<< HEAD
+=======
+		idxs: null,
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	};
 
 	var grid = {
@@ -1125,6 +1356,10 @@ var uPlot = (function () {
 		space: 50,
 		gap: 5,
 		size: 50,
+<<<<<<< HEAD
+=======
+		labelGap: 0,
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		labelSize: 30,
 		labelFont: labelFont,
 		side: 2,
@@ -1253,6 +1488,10 @@ var uPlot = (function () {
 		space: 30,
 		gap: 5,
 		size: 50,
+<<<<<<< HEAD
+=======
+		labelGap: 0,
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		labelSize: 30,
 		labelFont: labelFont,
 		side: 3,
@@ -1272,6 +1511,7 @@ var uPlot = (function () {
 		return roundDec(dia * mult, 3);
 	}
 
+<<<<<<< HEAD
 	function seriesPoints(self, si) {
 		var xsc = self.scales[self.series[0].scale];
 		var dim = xsc.ori == 0 ? self.bbox.width : self.bbox.height;
@@ -1279,6 +1519,20 @@ var uPlot = (function () {
 	//	const dia = ptDia(s.width, pxRatio);
 		var maxPts = dim / (s.points.space * pxRatio);
 		var idxs = self.series[0].idxs;
+=======
+	function seriesPointsShow(self, si) {
+		var ref = self.series[0];
+		var scale = ref.scale;
+		var idxs = ref.idxs;
+		var xData = self._data[0];
+		var p0 = self.valToPos(xData[idxs[0]], scale, true);
+		var p1 = self.valToPos(xData[idxs[1]], scale, true);
+		var dim = abs(p1 - p0);
+
+		var s = self.series[si];
+	//	const dia = ptDia(s.width, pxRatio);
+		var maxPts = dim / (s.points.space * pxRatio);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		return idxs[1] - idxs[0] <= maxPts;
 	}
 
@@ -1293,11 +1547,21 @@ var uPlot = (function () {
 		auto: true,
 		sorted: 0,
 		show: true,
+<<<<<<< HEAD
 		band: false,
 		spanGaps: false,
 		alpha: 1,
 		points: {
 			show: seriesPoints,
+=======
+		spanGaps: false,
+		gaps: (self, seriesIdx, idx0, idx1, nullGaps) => nullGaps,
+		alpha: 1,
+		points: {
+			show: seriesPointsShow,
+			filter: null,
+		//  paths:
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		//	stroke: "#000",
 		//	fill: "#fff",
 		//	width: 1,
@@ -1351,6 +1615,7 @@ var uPlot = (function () {
 		var s = syncs[key];
 
 		if (!s) {
+<<<<<<< HEAD
 			var clients = [];
 
 			s = {
@@ -1365,6 +1630,21 @@ var uPlot = (function () {
 					for (var i$1 = 0; i$1 < clients.length; i$1++)
 						{ clients[i$1] != self && clients[i$1].pub(type, self, x, y, w, h, i$1); }
 				}
+=======
+			s = {
+				key: key,
+				plots: [],
+				sub: function sub(plot) {
+					s.plots.push(plot);
+				},
+				unsub: function unsub(plot) {
+					s.plots = s.plots.filter(c => c != plot);
+				},
+				pub: function pub(type, self, x, y, w, h, i) {
+					for (var j = 0; j < s.plots.length; j++)
+						{ s.plots[j] != self && s.plots[j].pub(type, self, x, y, w, h, i); }
+				},
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			};
 
 			if (key != null)
@@ -1374,6 +1654,12 @@ var uPlot = (function () {
 		return s;
 	}
 
+<<<<<<< HEAD
+=======
+	var BAND_CLIP_FILL   = 1 << 0;
+	var BAND_CLIP_STROKE = 1 << 1;
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	function orient(u, seriesIdx, cb) {
 		var series = u.series[seriesIdx];
 		var scales = u.scales;
@@ -1480,9 +1766,17 @@ var uPlot = (function () {
 			for (var i = 0; i < gaps.length; i++) {
 				var g = gaps[i];
 
+<<<<<<< HEAD
 				rect(clip, prevGapEnd, plotTop, g[0] - prevGapEnd, plotTop + plotHgt);
 
 				prevGapEnd = g[1];
+=======
+				if (g[1] > g[0]) {
+					rect(clip, prevGapEnd, plotTop, g[0] - prevGapEnd, plotTop + plotHgt);
+
+					prevGapEnd = g[1];
+				}
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			}
 
 			rect(clip, prevGapEnd, plotTop, plotLft + plotWid - prevGapEnd, plotTop + plotHgt);
@@ -1492,6 +1786,7 @@ var uPlot = (function () {
 	}
 
 	function addGap(gaps, fromX, toX) {
+<<<<<<< HEAD
 		if (toX > fromX) {
 			var prevGap = gaps[gaps.length - 1];
 
@@ -1500,6 +1795,18 @@ var uPlot = (function () {
 			else
 				{ gaps.push([fromX, toX]); }
 		}
+=======
+		var prevGap = gaps[gaps.length - 1];
+
+		if (prevGap && prevGap[0] == fromX)			// TODO: gaps must be encoded at stroke widths?
+			{ prevGap[1] = toX; }
+		else
+			{ gaps.push([fromX, toX]); }
+	}
+
+	function pxRoundGen(pxAlign) {
+		return pxAlign == 0 ? retArg0 : pxAlign == 1 ? round : v => incrRound(v, pxAlign);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	}
 
 	// orientation-inverting canvas functions
@@ -1513,11 +1820,90 @@ var uPlot = (function () {
 	function arcV(p, y, x, r, startAngle, endAngle) { p.arc(x, y, r, startAngle, endAngle); }
 	function bezierCurveToH(p, bp1x, bp1y, bp2x, bp2y, p2x, p2y) { p.bezierCurveTo(bp1x, bp1y, bp2x, bp2y, p2x, p2y); }function bezierCurveToV(p, bp1y, bp1x, bp2y, bp2x, p2y, p2x) { p.bezierCurveTo(bp1x, bp1y, bp2x, bp2y, p2x, p2y); }
 
+<<<<<<< HEAD
 	function _drawAcc(lineTo) {
 		return (stroke, accX, minY, maxY, outY) => {
 			if (minY != maxY) {
 				lineTo(stroke, accX, minY);
 				lineTo(stroke, accX, maxY);
+=======
+	// TODO: drawWrap(seriesIdx, drawPoints) (save, restore, translate, clip)
+	function points(opts) {
+		return (u, seriesIdx, idx0, idx1, filtIdxs) => {
+		//	log("drawPoints()", arguments);
+
+			return orient(u, seriesIdx, (series, dataX, dataY, scaleX, scaleY, valToPosX, valToPosY, xOff, yOff, xDim, yDim) => {
+				var pxRound = series.pxRound;
+				var points = series.points;
+
+				var moveTo, arc;
+
+				if (scaleX.ori == 0) {
+					moveTo = moveToH;
+					arc = arcH;
+				}
+				else {
+					moveTo = moveToV;
+					arc = arcV;
+				}
+
+				var width = roundDec(points.width * pxRatio, 3);
+
+				var rad = (points.size - points.width) / 2 * pxRatio;
+				var dia = roundDec(rad * 2, 3);
+
+				var fill = new Path2D();
+				var clip = new Path2D();
+
+				var ref = u.bbox;
+				var lft = ref.left;
+				var top = ref.top;
+				var wid = ref.width;
+				var hgt = ref.height;
+
+				rectH(clip,
+					lft - dia,
+					top - dia,
+					wid + dia * 2,
+					hgt + dia * 2
+				);
+
+				var drawPoint = pi => {
+					if (dataY[pi] != null) {
+						var x = pxRound(valToPosX(dataX[pi], scaleX, xDim, xOff));
+						var y = pxRound(valToPosY(dataY[pi], scaleY, yDim, yOff));
+
+						moveTo(fill, x + rad, y);
+						arc(fill, x, y, rad, 0, PI * 2);
+					}
+				};
+
+				if (filtIdxs)
+					{ filtIdxs.forEach(drawPoint); }
+				else {
+					for (var pi = idx0; pi <= idx1; pi++)
+						{ drawPoint(pi); }
+				}
+
+				return {
+					stroke: width > 0 ? fill : null,
+					fill: fill,
+					clip: clip,
+					flags: BAND_CLIP_FILL | BAND_CLIP_STROKE,
+				};
+			});
+		};
+	}
+
+	function _drawAcc(lineTo) {
+		return (stroke, accX, minY, maxY, inY, outY) => {
+			if (minY != maxY) {
+				if (inY != minY && outY != minY)
+					{ lineTo(stroke, accX, minY); }
+				if (inY != maxY && outY != maxY)
+					{ lineTo(stroke, accX, maxY); }
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 				lineTo(stroke, accX, outY);
 			}
 		};
@@ -1529,6 +1915,11 @@ var uPlot = (function () {
 	function linear() {
 		return (u, seriesIdx, idx0, idx1) => {
 			return orient(u, seriesIdx, (series, dataX, dataY, scaleX, scaleY, valToPosX, valToPosY, xOff, yOff, xDim, yDim) => {
+<<<<<<< HEAD
+=======
+				var pxRound = series.pxRound;
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 				var lineTo, drawAcc;
 
 				if (scaleX.ori == 0) {
@@ -1542,17 +1933,31 @@ var uPlot = (function () {
 
 				var dir = scaleX.dir * (scaleX.ori == 0 ? 1 : -1);
 
+<<<<<<< HEAD
 				var _paths = {stroke: new Path2D(), fill: null, clip: null, band: null};
+=======
+				var _paths = {stroke: new Path2D(), fill: null, clip: null, band: null, gaps: null, flags: BAND_CLIP_FILL};
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 				var stroke = _paths.stroke;
 
 				var minY = inf,
 					maxY = -inf,
+<<<<<<< HEAD
 					outY, outX, drawnAtX;
 
 				var gaps = [];
 
 				var accX = round(valToPosX(dataX[dir == 1 ? idx0 : idx1], scaleX, xDim, xOff));
 				var accGaps = false;
+=======
+					inY, outY, outX, drawnAtX;
+
+				var gaps = [];
+
+				var accX = pxRound(valToPosX(dataX[dir == 1 ? idx0 : idx1], scaleX, xDim, xOff));
+				var accGaps = false;
+				var prevYNull = false;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 				// data edges
 				var lftIdx = nonNullIdx(dataY, idx0, idx1,  1 * dir);
@@ -1564,6 +1969,7 @@ var uPlot = (function () {
 					{ addGap(gaps, xOff, lftX); }
 
 				for (var i = dir == 1 ? idx0 : idx1; i >= idx0 && i <= idx1; i += dir) {
+<<<<<<< HEAD
 					var x = round(valToPosX(dataX[i], scaleX, xDim, xOff));
 
 					if (x == accX) {
@@ -1572,18 +1978,39 @@ var uPlot = (function () {
 
 							if (minY == inf)
 								{ lineTo(stroke, x, outY); }
+=======
+					var x = pxRound(valToPosX(dataX[i], scaleX, xDim, xOff));
+
+					if (x == accX) {
+						if (dataY[i] != null) {
+							outY = pxRound(valToPosY(dataY[i], scaleY, yDim, yOff));
+
+							if (minY == inf) {
+								lineTo(stroke, x, outY);
+								inY = outY;
+							}
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 							minY = min(outY, minY);
 							maxY = max(outY, maxY);
 						}
+<<<<<<< HEAD
 						else if (!accGaps && dataY[i] === null)
 							{ accGaps = true; }
+=======
+						else if (dataY[i] === null)
+							{ accGaps = prevYNull = true; }
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 					}
 					else {
 						var _addGap = false;
 
 						if (minY != inf) {
+<<<<<<< HEAD
 							drawAcc(stroke, accX, minY, maxY, outY);
+=======
+							drawAcc(stroke, accX, minY, maxY, inY, outY);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 							outX = drawnAtX = accX;
 						}
 						else if (accGaps) {
@@ -1592,6 +2019,7 @@ var uPlot = (function () {
 						}
 
 						if (dataY[i] != null) {
+<<<<<<< HEAD
 							outY = round(valToPosY(dataY[i], scaleY, yDim, yOff));
 							lineTo(stroke, x, outY);
 							minY = maxY = outY;
@@ -1599,13 +2027,33 @@ var uPlot = (function () {
 							// prior pixel can have data but still start a gap if ends with null
 							if (x - accX > 1 && dataY[i - dir] === null)
 								{ _addGap = true; }
+=======
+							outY = pxRound(valToPosY(dataY[i], scaleY, yDim, yOff));
+							lineTo(stroke, x, outY);
+							minY = maxY = inY = outY;
+
+							// prior pixel can have data but still start a gap if ends with null
+							if (prevYNull && x - accX > 1)
+								{ _addGap = true; }
+
+							prevYNull = false;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 						}
 						else {
 							minY = inf;
 							maxY = -inf;
 
+<<<<<<< HEAD
 							if (!accGaps && dataY[i] === null)
 								{ accGaps = true; }
+=======
+							if (dataY[i] === null) {
+								accGaps = true;
+
+								if (x - accX > 1)
+									{ _addGap = true; }
+							}
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 						}
 
 						_addGap && addGap(gaps, outX, x);
@@ -1615,7 +2063,11 @@ var uPlot = (function () {
 				}
 
 				if (minY != inf && minY != maxY && drawnAtX != accX)
+<<<<<<< HEAD
 					{ drawAcc(stroke, accX, minY, maxY, outY); }
+=======
+					{ drawAcc(stroke, accX, minY, maxY, inY, outY); }
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 				if (rgtX < xOff + xDim)
 					{ addGap(gaps, rgtX, xOff + xDim); }
@@ -1623,12 +2075,17 @@ var uPlot = (function () {
 				if (series.fill != null) {
 					var fill = _paths.fill = new Path2D(stroke);
 
+<<<<<<< HEAD
 					var fillTo = round(valToPosY(series.fillTo(u, seriesIdx, series.min, series.max), scaleY, yDim, yOff));
+=======
+					var fillTo = pxRound(valToPosY(series.fillTo(u, seriesIdx, series.min, series.max), scaleY, yDim, yOff));
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 					lineTo(fill, rgtX, fillTo);
 					lineTo(fill, lftX, fillTo);
 				}
 
+<<<<<<< HEAD
 				if (!series.spanGaps)
 					{ _paths.clip = clipGaps(gaps, scaleX.ori, xOff, yOff, xDim, yDim); }
 
@@ -1707,6 +2164,9 @@ var uPlot = (function () {
 					lineTo(fill, prevXPos, minY);
 					lineTo(fill, firstXPos, minY);
 				}
+=======
+				_paths.gaps = gaps = series.gaps(u, seriesIdx, idx0, idx1, gaps);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 				if (!series.spanGaps)
 					{ _paths.clip = clipGaps(gaps, scaleX.ori, xOff, yOff, xDim, yDim); }
@@ -1718,6 +2178,7 @@ var uPlot = (function () {
 				}
 
 				return _paths;
+<<<<<<< HEAD
 
 				//  if FEAT_PATHS: false in rollup.config.js
 				//	u.ctx.save();
@@ -1730,10 +2191,13 @@ var uPlot = (function () {
 				//	u.ctx.fill(fill);
 				//	u.ctx.restore();
 				//	return null;
+=======
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			});
 		};
 	}
 
+<<<<<<< HEAD
 	// adapted from https://gist.github.com/nicholaswmin/c2661eb11cad5671d816 (MIT)
 
 	function catmullRomFitting(xCoords, yCoords, alpha, moveTo, bezierCurveTo) {
@@ -1844,6 +2308,8 @@ var uPlot = (function () {
 		return path;
 	}
 
+=======
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	function stepped(opts) {
 		var align = ifNull(opts.align, 1);
 		// whether to draw ascenders/descenders at null/gap bondaries
@@ -1851,9 +2317,17 @@ var uPlot = (function () {
 
 		return (u, seriesIdx, idx0, idx1) => {
 			return orient(u, seriesIdx, (series, dataX, dataY, scaleX, scaleY, valToPosX, valToPosY, xOff, yOff, xDim, yDim) => {
+<<<<<<< HEAD
 				var lineTo = scaleX.ori == 0 ? lineToH : lineToV;
 
 				var _paths = {stroke: new Path2D(), fill: null, clip: null, band: null};
+=======
+				var pxRound = series.pxRound;
+
+				var lineTo = scaleX.ori == 0 ? lineToH : lineToV;
+
+				var _paths = {stroke: new Path2D(), fill: null, clip: null, band: null, gaps: null, flags: BAND_CLIP_FILL};
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 				var stroke = _paths.stroke;
 
 				var _dir = 1 * scaleX.dir * (scaleX.ori == 0 ? 1 : -1);
@@ -1863,8 +2337,13 @@ var uPlot = (function () {
 
 				var gaps = [];
 				var inGap = false;
+<<<<<<< HEAD
 				var prevYPos  = round(valToPosY(dataY[_dir == 1 ? idx0 : idx1], scaleY, yDim, yOff));
 				var firstXPos = round(valToPosX(dataX[_dir == 1 ? idx0 : idx1], scaleX, xDim, xOff));
+=======
+				var prevYPos  = pxRound(valToPosY(dataY[_dir == 1 ? idx0 : idx1], scaleY, yDim, yOff));
+				var firstXPos = pxRound(valToPosX(dataX[_dir == 1 ? idx0 : idx1], scaleX, xDim, xOff));
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 				var prevXPos = firstXPos;
 
 				lineTo(stroke, firstXPos, prevYPos);
@@ -1872,7 +2351,11 @@ var uPlot = (function () {
 				for (var i = _dir == 1 ? idx0 : idx1; i >= idx0 && i <= idx1; i += _dir) {
 					var yVal1 = dataY[i];
 
+<<<<<<< HEAD
 					var x1 = round(valToPosX(dataX[i], scaleX, xDim, xOff));
+=======
+					var x1 = pxRound(valToPosX(dataX[i], scaleX, xDim, xOff));
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 					if (yVal1 == null) {
 						if (yVal1 === null) {
@@ -1882,7 +2365,11 @@ var uPlot = (function () {
 						continue;
 					}
 
+<<<<<<< HEAD
 					var y1 = round(valToPosY(yVal1, scaleY, yDim, yOff));
+=======
+					var y1 = pxRound(valToPosY(yVal1, scaleY, yDim, yOff));
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 					if (inGap) {
 						addGap(gaps, prevXPos, x1);
@@ -1915,12 +2402,21 @@ var uPlot = (function () {
 					var fill = _paths.fill = new Path2D(stroke);
 
 					var fillTo = series.fillTo(u, seriesIdx, series.min, series.max);
+<<<<<<< HEAD
 					var minY = round(valToPosY(fillTo, scaleY, yDim, yOff));
+=======
+					var minY = pxRound(valToPosY(fillTo, scaleY, yDim, yOff));
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 					lineTo(fill, prevXPos, minY);
 					lineTo(fill, firstXPos, minY);
 				}
 
+<<<<<<< HEAD
+=======
+				_paths.gaps = gaps = series.gaps(u, seriesIdx, idx0, idx1, gaps);
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 				if (!series.spanGaps)
 					{ _paths.clip = clipGaps(gaps, scaleX.ori, xOff, yOff, xDim, yDim); }
 
@@ -1937,6 +2433,7 @@ var uPlot = (function () {
 
 	function bars(opts) {
 		opts = opts || EMPTY_OBJ;
+<<<<<<< HEAD
 		var size = ifNull(opts.size, [0.6, inf]);
 		var align = opts.align || 0;
 
@@ -1950,11 +2447,37 @@ var uPlot = (function () {
 				var colWid = valToPosX(dataX[1], scaleX, xDim, xOff) - valToPosX(dataX[0], scaleX, xDim, xOff);
 
 				var gapWid = colWid * gapFactor;
+=======
+		var size = ifNull(opts.size, [0.6, inf, 1]);
+		var align = opts.align || 0;
+		var extraGap = (opts.gap || 0) * pxRatio;
+
+		var gapFactor = 1 - size[0];
+		var maxWidth  = ifNull(size[1], inf) * pxRatio;
+		var minWidth  = ifNull(size[2], 1) * pxRatio;
+
+		var disp = opts.disp;
+		var _each = ifNull(opts.each, _ => {});
+
+		return (u, seriesIdx, idx0, idx1) => {
+			return orient(u, seriesIdx, (series, dataX, dataY, scaleX, scaleY, valToPosX, valToPosY, xOff, yOff, xDim, yDim) => {
+				var pxRound = series.pxRound;
+
+				var _dirX = scaleX.dir * (scaleX.ori == 0 ? 1 : -1);
+				var _dirY = scaleY.dir * (scaleY.ori == 1 ? 1 : -1);
+
+				var rect = scaleX.ori == 0 ? rectH : rectV;
+
+				var each = scaleX.ori == 0 ? _each : (u, seriesIdx, i, top, lft, hgt, wid) => {
+					_each(u, seriesIdx, i, lft, top, wid, hgt);
+				};
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 				var fillToY = series.fillTo(u, seriesIdx, series.min, series.max);
 
 				var y0Pos = valToPosY(fillToY, scaleY, yDim, yOff);
 
+<<<<<<< HEAD
 				var strokeWidth = round(series.width * pxRatio);
 
 				var barWid = round(min(maxWidth, colWid - gapWid) - strokeWidth);
@@ -1962,6 +2485,54 @@ var uPlot = (function () {
 				var xShift = align == 1 ? 0 : align == -1 ? barWid : barWid / 2;
 
 				var _paths = {stroke: new Path2D(), fill: null, clip: null, band: null};
+=======
+				var xShift, barWid;
+
+				var strokeWidth = pxRound(series.width * pxRatio);
+
+				if (disp != null) {
+					dataX = disp.x0.values(u, seriesIdx, idx0, idx1);
+
+					if (disp.x0.unit == 2)
+						{ dataX = dataX.map(pct => u.posToVal(xOff + pct * xDim, scaleX.key, true)); }
+
+					// assumes uniform sizes, for now
+					var sizes = disp.size.values(u, seriesIdx, idx0, idx1);
+
+					if (disp.size.unit == 2)
+						{ barWid = sizes[0] * xDim; }
+					else
+						{ barWid = valToPosX(sizes[0], scaleX, xDim, xOff) - valToPosX(0, scaleX, xDim, xOff); } // assumes linear scale (delta from 0)
+
+					barWid = pxRound(barWid - strokeWidth);
+
+					xShift = (_dirX == 1 ? -strokeWidth / 2 : barWid + strokeWidth / 2);
+				}
+				else {
+					var colWid = xDim;
+
+					if (dataX.length > 1) {
+						// scan full dataset for smallest adjacent delta
+						// will not work properly for non-linear x scales, since does not do expensive valToPosX calcs till end
+						for (var i = 1, minDelta = Infinity; i < dataX.length; i++) {
+							var delta = abs(dataX[i] - dataX[i-1]);
+
+							if (delta < minDelta) {
+								minDelta = delta;
+								colWid = abs(valToPosX(dataX[i], scaleX, xDim, xOff) - valToPosX(dataX[i-1], scaleX, xDim, xOff));
+							}
+						}
+					}
+
+					var gapWid = colWid * gapFactor;
+
+					barWid = pxRound(min(maxWidth, max(minWidth, colWid - gapWid)) - strokeWidth - extraGap);
+
+					xShift = (align == 0 ? barWid / 2 : align == _dirX ? 0 : barWid) - align * _dirX * extraGap / 2;
+				}
+
+				var _paths = {stroke: new Path2D(), fill: null, clip: null, band: null, gaps: null, flags: BAND_CLIP_FILL | BAND_CLIP_STROKE};  // disp, geom
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 				var hasBands = u.bands.length > 0;
 				var yLimit;
@@ -1976,33 +2547,52 @@ var uPlot = (function () {
 				var stroke = _paths.stroke;
 				var band = _paths.band;
 
+<<<<<<< HEAD
 				var _dir = scaleX.dir * (scaleX.ori == 0 ? 1 : -1);
 
 				for (var i = _dir == 1 ? idx0 : idx1; i >= idx0 && i <= idx1; i += _dir) {
 					var yVal = dataY[i];
+=======
+				for (var i$1 = _dirX == 1 ? idx0 : idx1; i$1 >= idx0 && i$1 <= idx1; i$1 += _dirX) {
+					var yVal = dataY[i$1];
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 					// interpolate upwards band clips
 					if (yVal == null) {
 						if (hasBands) {
 							// simple, but inefficient bi-directinal linear scans on each iteration
+<<<<<<< HEAD
 							var prevNonNull = nonNullIdx(dataY, _dir == 1 ? idx0 : idx1, i, -_dir);
 							var nextNonNull = nonNullIdx(dataY, i, _dir == 1 ? idx1 : idx0,  _dir);
+=======
+							var prevNonNull = nonNullIdx(dataY, _dirX == 1 ? idx0 : idx1, i$1, -_dirX);
+							var nextNonNull = nonNullIdx(dataY, i$1, _dirX == 1 ? idx1 : idx0,  _dirX);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 							var prevVal = dataY[prevNonNull];
 							var nextVal = dataY[nextNonNull];
 
+<<<<<<< HEAD
 							yVal = prevVal + (i - prevNonNull) / (nextNonNull - prevNonNull) * (nextVal - prevVal);
+=======
+							yVal = prevVal + (i$1 - prevNonNull) / (nextNonNull - prevNonNull) * (nextVal - prevVal);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 						}
 						else
 							{ continue; }
 					}
 
+<<<<<<< HEAD
 					var xVal = scaleX.distr == 2 ? i : dataX[i];
+=======
+					var xVal = scaleX.distr != 2 || disp != null ? dataX[i$1] : i$1;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 					// TODO: all xPos can be pre-computed once for all series in aligned set
 					var xPos = valToPosX(xVal, scaleX, xDim, xOff);
 					var yPos = valToPosY(yVal, scaleY, yDim, yOff);
 
+<<<<<<< HEAD
 					var lft = round(xPos - xShift);
 					var btm = round(max(yPos, y0Pos));
 					var top = round(min(yPos, y0Pos));
@@ -2015,6 +2605,37 @@ var uPlot = (function () {
 						top = yLimit;
 						barHgt = btm - top;
 						rect(band, lft, top, barWid, barHgt);
+=======
+					var lft = pxRound(xPos - xShift);
+					var btm = pxRound(max(yPos, y0Pos));
+					var top = pxRound(min(yPos, y0Pos));
+					var barHgt = btm - top;
+
+					if (dataY[i$1] != null) {
+						rect(stroke, lft, top, barWid, barHgt);
+
+						each(u, seriesIdx, i$1,
+							lft    - strokeWidth / 2,
+							top    - strokeWidth / 2,
+							barWid + strokeWidth,
+							barHgt + strokeWidth
+						);
+					}
+
+					if (hasBands) {
+						if (_dirY == 1) {
+							btm = top;
+							top = yLimit;
+						}
+						else {
+							top = btm;
+							btm = yLimit;
+						}
+
+						barHgt = btm - top;
+
+						rect(band, lft - strokeWidth / 2, top + strokeWidth / 2, barWid + strokeWidth, barHgt - strokeWidth);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 					}
 				}
 
@@ -2026,7 +2647,185 @@ var uPlot = (function () {
 		};
 	}
 
+<<<<<<< HEAD
 	var linearPath = linear() ;
+=======
+	function splineInterp(interp, opts) {
+		return (u, seriesIdx, idx0, idx1) => {
+			return orient(u, seriesIdx, (series, dataX, dataY, scaleX, scaleY, valToPosX, valToPosY, xOff, yOff, xDim, yDim) => {
+				var pxRound = series.pxRound;
+
+				var moveTo, bezierCurveTo, lineTo;
+
+				if (scaleX.ori == 0) {
+					moveTo = moveToH;
+					lineTo = lineToH;
+					bezierCurveTo = bezierCurveToH;
+				}
+				else {
+					moveTo = moveToV;
+					lineTo = lineToV;
+					bezierCurveTo = bezierCurveToV;
+				}
+
+				var _dir = 1 * scaleX.dir * (scaleX.ori == 0 ? 1 : -1);
+
+				idx0 = nonNullIdx(dataY, idx0, idx1,  1);
+				idx1 = nonNullIdx(dataY, idx0, idx1, -1);
+
+				var gaps = [];
+				var inGap = false;
+				var firstXPos = pxRound(valToPosX(dataX[_dir == 1 ? idx0 : idx1], scaleX, xDim, xOff));
+				var prevXPos = firstXPos;
+
+				var xCoords = [];
+				var yCoords = [];
+
+				for (var i = _dir == 1 ? idx0 : idx1; i >= idx0 && i <= idx1; i += _dir) {
+					var yVal = dataY[i];
+					var xVal = dataX[i];
+					var xPos = valToPosX(xVal, scaleX, xDim, xOff);
+
+					if (yVal == null) {
+						if (yVal === null) {
+							addGap(gaps, prevXPos, xPos);
+							inGap = true;
+						}
+						continue;
+					}
+					else {
+						if (inGap) {
+							addGap(gaps, prevXPos, xPos);
+							inGap = false;
+						}
+
+						xCoords.push((prevXPos = xPos));
+						yCoords.push(valToPosY(dataY[i], scaleY, yDim, yOff));
+					}
+				}
+
+				var _paths = {stroke: interp(xCoords, yCoords, moveTo, lineTo, bezierCurveTo, pxRound), fill: null, clip: null, band: null, gaps: null, flags: BAND_CLIP_FILL};
+				var stroke = _paths.stroke;
+
+				if (series.fill != null && stroke != null) {
+					var fill = _paths.fill = new Path2D(stroke);
+
+					var fillTo = series.fillTo(u, seriesIdx, series.min, series.max);
+					var minY = pxRound(valToPosY(fillTo, scaleY, yDim, yOff));
+
+					lineTo(fill, prevXPos, minY);
+					lineTo(fill, firstXPos, minY);
+				}
+
+				_paths.gaps = gaps = series.gaps(u, seriesIdx, idx0, idx1, gaps);
+
+				if (!series.spanGaps)
+					{ _paths.clip = clipGaps(gaps, scaleX.ori, xOff, yOff, xDim, yDim); }
+
+				if (u.bands.length > 0) {
+					// ADDL OPT: only create band clips for series that are band lower edges
+					// if (b.series[1] == i && _paths.band == null)
+					_paths.band = clipBandLine(u, seriesIdx, idx0, idx1, stroke);
+				}
+
+				return _paths;
+
+				//  if FEAT_PATHS: false in rollup.config.js
+				//	u.ctx.save();
+				//	u.ctx.beginPath();
+				//	u.ctx.rect(u.bbox.left, u.bbox.top, u.bbox.width, u.bbox.height);
+				//	u.ctx.clip();
+				//	u.ctx.strokeStyle = u.series[sidx].stroke;
+				//	u.ctx.stroke(stroke);
+				//	u.ctx.fillStyle = u.series[sidx].fill;
+				//	u.ctx.fill(fill);
+				//	u.ctx.restore();
+				//	return null;
+			});
+		};
+	}
+
+	function monotoneCubic(opts) {
+		return splineInterp(_monotoneCubic);
+	}
+
+	// Monotone Cubic Spline interpolation, adapted from the Chartist.js implementation:
+	// https://github.com/gionkunz/chartist-js/blob/e7e78201bffe9609915e5e53cfafa29a5d6c49f9/src/scripts/interpolation.js#L240-L369
+	function _monotoneCubic(xs, ys, moveTo, lineTo, bezierCurveTo, pxRound) {
+		var n = xs.length;
+
+		if (n < 2)
+			{ return null; }
+
+		var path = new Path2D();
+
+		moveTo(path, xs[0], ys[0]);
+
+		if (n == 2)
+			{ lineTo(path, xs[1], ys[1]); }
+		else {
+			var ms  = Array(n),
+				ds  = Array(n - 1),
+				dys = Array(n - 1),
+				dxs = Array(n - 1);
+
+			// calc deltas and derivative
+			for (var i = 0; i < n - 1; i++) {
+				dys[i] = ys[i + 1] - ys[i];
+				dxs[i] = xs[i + 1] - xs[i];
+				ds[i]  = dys[i] / dxs[i];
+			}
+
+			// determine desired slope (m) at each point using Fritsch-Carlson method
+			// http://math.stackexchange.com/questions/45218/implementation-of-monotone-cubic-interpolation
+			ms[0] = ds[0];
+
+			for (var i$1 = 1; i$1 < n - 1; i$1++) {
+				if (ds[i$1] === 0 || ds[i$1 - 1] === 0 || (ds[i$1 - 1] > 0) !== (ds[i$1] > 0))
+					{ ms[i$1] = 0; }
+				else {
+					ms[i$1] = 3 * (dxs[i$1 - 1] + dxs[i$1]) / (
+						(2 * dxs[i$1] + dxs[i$1 - 1]) / ds[i$1 - 1] +
+						(dxs[i$1] + 2 * dxs[i$1 - 1]) / ds[i$1]
+					);
+
+					if (!isFinite(ms[i$1]))
+						{ ms[i$1] = 0; }
+				}
+			}
+
+			ms[n - 1] = ds[n - 2];
+
+			for (var i$2 = 0; i$2 < n - 1; i$2++) {
+				bezierCurveTo(
+					path,
+					xs[i$2] + dxs[i$2] / 3,
+					ys[i$2] + ms[i$2] * dxs[i$2] / 3,
+					xs[i$2 + 1] - dxs[i$2] / 3,
+					ys[i$2 + 1] - ms[i$2 + 1] * dxs[i$2] / 3,
+					xs[i$2 + 1],
+					ys[i$2 + 1]
+				);
+			}
+		}
+
+		return path;
+	}
+
+	var cursorPlots = new Set();
+
+	function invalidateRects() {
+		cursorPlots.forEach(u => {
+			u.syncRect(true);
+		});
+	}
+
+	on(resize, win, invalidateRects);
+	on(scroll, win, invalidateRects, true);
+
+	var linearPath = linear() ;
+	var pointsPath = points() ;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 	function setDefaults(d, xo, yo, initY) {
 		var d2 = initY ? [d[0], d[1]].concat(d.slice(2)) : [d[0]].concat(d.slice(1));
@@ -2037,10 +2836,15 @@ var uPlot = (function () {
 		return assign({}, (i == 0 ? xo : yo), o);
 	}
 
+<<<<<<< HEAD
 	var nullMinMax = [null, null];
 
 	function snapNumX(self, dataMin, dataMax) {
 		return dataMin == null ? nullMinMax : [dataMin, dataMax];
+=======
+	function snapNumX(self, dataMin, dataMax) {
+		return dataMin == null ? nullNullTuple : [dataMin, dataMax];
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	}
 
 	var snapTimeX = snapNumX;
@@ -2048,17 +2852,29 @@ var uPlot = (function () {
 	// this ensures that non-temporal/numeric y-axes get multiple-snapped padding added above/below
 	// TODO: also account for incrs when snapping to ensure top of axis gets a tick & value
 	function snapNumY(self, dataMin, dataMax) {
+<<<<<<< HEAD
 		return dataMin == null ? nullMinMax : rangeNum(dataMin, dataMax, 0.1, true);
 	}
 
 	function snapLogY(self, dataMin, dataMax, scale) {
 		return dataMin == null ? nullMinMax : rangeLog(dataMin, dataMax, self.scales[scale].log, false);
+=======
+		return dataMin == null ? nullNullTuple : rangeNum(dataMin, dataMax, rangePad, true);
+	}
+
+	function snapLogY(self, dataMin, dataMax, scale) {
+		return dataMin == null ? nullNullTuple : rangeLog(dataMin, dataMax, self.scales[scale].log, false);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	}
 
 	var snapLogX = snapLogY;
 
 	function snapAsinhY(self, dataMin, dataMax, scale) {
+<<<<<<< HEAD
 		return dataMin == null ? nullMinMax : rangeAsinh(dataMin, dataMax, self.scales[scale].log, false);
+=======
+		return dataMin == null ? nullNullTuple : rangeAsinh(dataMin, dataMax, self.scales[scale].log, false);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	}
 
 	var snapAsinhX = snapAsinhY;
@@ -2082,9 +2898,25 @@ var uPlot = (function () {
 	}
 
 	function pxRatioFont(font) {
+<<<<<<< HEAD
 		var fontSize;
 		font = font.replace(/(\d+)px/, (m, p1) => (fontSize = round(p1 * pxRatio)) + 'px');
 		return [font, fontSize];
+=======
+		var fontSize, fontSizeCss;
+		font = font.replace(/(\d+)px/, (m, p1) => (fontSize = round((fontSizeCss = +p1) * pxRatio)) + 'px');
+		return [font, fontSize, fontSizeCss];
+	}
+
+	function syncFontSize(axis) {
+		if (axis.show) {
+			[axis.font, axis.labelFont].forEach(f => {
+				var size = roundDec(f[2] * pxRatio, 1);
+				f[0] = f[0].replace(/[0-9.]+px/, size + 'px');
+				f[1] = size;
+			});
+		}
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	}
 
 	function uPlot(opts, data, then) {
@@ -2137,6 +2969,7 @@ var uPlot = (function () {
 		var ctx = self.ctx = can.getContext("2d");
 
 		var wrap = placeDiv(WRAP, root);
+<<<<<<< HEAD
 		var under = placeDiv(UNDER, wrap);
 		wrap.appendChild(can);
 		var over = placeDiv(OVER, wrap);
@@ -2144,6 +2977,17 @@ var uPlot = (function () {
 		opts = copy(opts);
 
 		var pxAlign = ifNull(opts.pxAlign, true);
+=======
+		var under = self.under = placeDiv(UNDER, wrap);
+		wrap.appendChild(can);
+		var over = self.over = placeDiv(OVER, wrap);
+
+		opts = copy(opts);
+
+		var pxAlign = +ifNull(opts.pxAlign, 1);
+
+		var pxRound = pxRoundGen(pxAlign);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 		(opts.plugins || []).forEach(p => {
 			if (p.opts)
@@ -2193,10 +3037,36 @@ var uPlot = (function () {
 
 					var rangeIsArr = isArr(rn);
 
+<<<<<<< HEAD
 					if (scaleKey != xScaleKey && !rangeIsArr && isObj(rn)) {
 						var cfg = rn;
 						// this is similar to snapNumY
 						rn = (self, dataMin, dataMax) => dataMin == null ? nullMinMax : rangeNum(dataMin, dataMax, cfg);
+=======
+					if (scaleKey != xScaleKey) {
+						// if range array has null limits, it should be auto
+						if (rangeIsArr && (rn[0] == null || rn[1] == null)) {
+							rn = {
+								min: rn[0] == null ? autoRangePart : {
+									mode: 1,
+									hard: rn[0],
+									soft: rn[0],
+								},
+								max: rn[1] == null ? autoRangePart : {
+									mode: 1,
+									hard: rn[1],
+									soft: rn[1],
+								},
+							};
+							rangeIsArr = false;
+						}
+
+						if (!rangeIsArr && isObj(rn)) {
+							var cfg = rn;
+							// this is similar to snapNumY
+							rn = (self, dataMin, dataMax) => dataMin == null ? nullNullTuple : rangeNum(dataMin, dataMax, cfg);
+						}
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 					}
 
 					sc.range = fnOrSelf(rn || (isTime ? snapTimeX : scaleKey == xScaleKey ?
@@ -2232,14 +3102,21 @@ var uPlot = (function () {
 
 		var xScaleDistr = scaleX.distr;
 
+<<<<<<< HEAD
 		var valToPosX, valToPosY, moveTo, arc;
+=======
+		var valToPosX, valToPosY;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 		if (scaleX.ori == 0) {
 			addClass(root, ORI_HZ);
 			valToPosX = getHPos;
 			valToPosY = getVPos;
+<<<<<<< HEAD
 			moveTo    = moveToH;
 			arc       = arcH;
+=======
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			/*
 			updOriDims = () => {
 				xDimCan = plotWid;
@@ -2258,8 +3135,11 @@ var uPlot = (function () {
 			addClass(root, ORI_VT);
 			valToPosX = getVPos;
 			valToPosY = getHPos;
+<<<<<<< HEAD
 			moveTo    = moveToV;
 			arc       = arcV;
+=======
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			/*
 			updOriDims = () => {
 				xDimCan = plotHgt;
@@ -2288,13 +3168,18 @@ var uPlot = (function () {
 		}
 
 	//	self.tz = opts.tz || Intl.DateTimeFormat().resolvedOptions().timeZone;
+<<<<<<< HEAD
 		var _tzDate  = (opts.tzDate || (ts => new Date(ts / ms)));
+=======
+		var _tzDate  = (opts.tzDate || (ts => new Date(round(ts / ms))));
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		var _fmtDate = (opts.fmtDate || fmtDate);
 
 		var _timeAxisSplits = (ms == 1 ? timeAxisSplitsMs(_tzDate) : timeAxisSplitsS(_tzDate));
 		var _timeAxisVals   = timeAxisVals(_tzDate, timeAxisStamps((ms == 1 ? _timeAxisStampsMs : _timeAxisStampsS), _fmtDate));
 		var _timeSeriesVal  = timeSeriesVal(_tzDate, timeSeriesStamp(_timeSeriesStamp, _fmtDate));
 
+<<<<<<< HEAD
 		var legend     = assign({show: true, live: true}, opts.legend);
 		var showLegend = legend.show;
 
@@ -2303,10 +3188,26 @@ var uPlot = (function () {
 			legend.dash   = fnOrSelf(legend.dash   || legendDash);
 			legend.stroke = fnOrSelf(legend.stroke || legendStroke);
 			legend.fill   = fnOrSelf(legend.fill   || legendFill);
+=======
+		var activeIdxs = [];
+
+		var legend     = (self.legend = assign({}, legendOpts, opts.legend));
+		var showLegend = legend.show;
+		var markers    = legend.markers;
+
+		{
+			legend.idxs = activeIdxs;
+
+			markers.width  = fnOrSelf(markers.width);
+			markers.dash   = fnOrSelf(markers.dash);
+			markers.stroke = fnOrSelf(markers.stroke);
+			markers.fill   = fnOrSelf(markers.fill);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		}
 
 		var legendEl;
 		var legendRows = [];
+<<<<<<< HEAD
 		var legendCols;
 		var multiValLegend = false;
 
@@ -2315,27 +3216,62 @@ var uPlot = (function () {
 
 			var getMultiVals = series[1] ? series[1].values : null;
 			multiValLegend = getMultiVals != null;
+=======
+		var legendCells = [];
+		var legendCols;
+		var multiValLegend = false;
+		var NULL_LEGEND_VALUES = {};
+
+		if (legend.live) {
+			var getMultiVals = series[1] ? series[1].values : null;
+			multiValLegend = getMultiVals != null;
+			legendCols = multiValLegend ? getMultiVals(self, 1, 0) : {_: 0};
+
+			for (var k$2 in legendCols)
+				{ NULL_LEGEND_VALUES[k$2] = "--"; }
+		}
+
+		if (showLegend) {
+			legendEl = placeTag("table", LEGEND, root);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 			if (multiValLegend) {
 				var head = placeTag("tr", LEGEND_THEAD, legendEl);
 				placeTag("th", null, head);
+<<<<<<< HEAD
 				legendCols = getMultiVals(self, 1, 0);
+=======
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 				for (var key in legendCols)
 					{ placeTag("th", LEGEND_LABEL, head).textContent = key; }
 			}
 			else {
+<<<<<<< HEAD
 				legendCols = {_: 0};
+=======
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 				addClass(legendEl, LEGEND_INLINE);
 				legend.live && addClass(legendEl, LEGEND_LIVE);
 			}
 		}
 
+<<<<<<< HEAD
 		function initLegendRow(s, i) {
 			if (i == 0 && (multiValLegend || !legend.live))
 				{ return null; }
 
 			var _row = [];
+=======
+		var son  = {show: true};
+		var soff = {show: false};
+
+		function initLegendRow(s, i) {
+			if (i == 0 && (multiValLegend || !legend.live))
+				{ return nullNullTuple; }
+
+			var cells = [];
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 			var row = placeTag("tr", LEGEND_SERIES, legendEl, legendEl.childNodes[i]);
 
@@ -2346,6 +3282,7 @@ var uPlot = (function () {
 
 			var label = placeTag("th", null, row);
 
+<<<<<<< HEAD
 			var indic = placeDiv(LEGEND_MARKER, label);
 
 			if (i > 0) {
@@ -2355,17 +3292,51 @@ var uPlot = (function () {
 					{ indic.style.border = width + "px " + legend.dash(self, i) + " " + legend.stroke(self, i); }
 
 				indic.style.background = legend.fill(self, i);
+=======
+			if (markers.show) {
+				var indic = placeDiv(LEGEND_MARKER, label);
+
+				if (i > 0) {
+					var width  = markers.width(self, i);
+
+					if (width)
+						{ indic.style.border = width + "px " + markers.dash(self, i) + " " + markers.stroke(self, i); }
+
+					indic.style.background = markers.fill(self, i);
+				}
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			}
 
 			var text = placeDiv(LEGEND_LABEL, label);
 			text.textContent = s.label;
 
 			if (i > 0) {
+<<<<<<< HEAD
+=======
+				if (!markers.show)
+					{ text.style.color = s.width > 0 ? markers.stroke(self, i) : markers.fill(self, i); }
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 				onMouse("click", label, e => {
 					if (cursor._lock)
 						{ return; }
 
+<<<<<<< HEAD
 					setSeries(series.indexOf(s), {show: !s.show}, syncOpts.setSeries);
+=======
+					var seriesIdx = series.indexOf(s);
+
+					if (e.ctrlKey != legend.isolate) {
+						// if any other series is shown, isolate this one. else show all
+						var isolate = series.some((s, i) => i > 0 && i != seriesIdx && s.show);
+
+						series.forEach((s, i) => {
+							i > 0 && setSeries(i, isolate ? (i == seriesIdx ? son : soff) : son, syncOpts.setSeries);
+						});
+					}
+					else
+						{ setSeries(seriesIdx, {show: !s.show}, syncOpts.setSeries); }
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 				});
 
 				if (cursorFocus) {
@@ -2381,10 +3352,17 @@ var uPlot = (function () {
 			for (var key in legendCols) {
 				var v = placeTag("td", LEGEND_VALUE, row);
 				v.textContent = "--";
+<<<<<<< HEAD
 				_row.push(v);
 			}
 
 			return _row;
+=======
+				cells.push(v);
+			}
+
+			return [row, cells];
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		}
 
 		var mouseListeners = new Map();
@@ -2401,8 +3379,21 @@ var uPlot = (function () {
 
 		function offMouse(ev, targ, fn) {
 			var targListeners = mouseListeners.get(targ) || {};
+<<<<<<< HEAD
 			off(ev, targ, targListeners[ev]);
 			targListeners[ev] = null;
+=======
+
+			for (var k in targListeners) {
+				if (ev == null || k == ev) {
+					off(k, targ, targListeners[k]);
+					delete targListeners[k];
+				}
+			}
+
+			if (ev == null)
+				{ mouseListeners.delete(targ); }
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		}
 
 		var fullWidCss = 0;
@@ -2428,16 +3419,25 @@ var uPlot = (function () {
 		var shouldSetCursor = false;
 		var shouldSetLegend = false;
 
+<<<<<<< HEAD
 		function _setSize(width, height) {
 			if (width != self.width || height != self.height)
+=======
+		function _setSize(width, height, force) {
+			if (force || (width != self.width || height != self.height))
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 				{ calcSize(width, height); }
 
 			resetYSeries(false);
 
 			shouldConvergeSize = true;
 			shouldSetSize = true;
+<<<<<<< HEAD
 			shouldSetCursor = true;
 			shouldSetLegend = true;
+=======
+			shouldSetCursor = shouldSetLegend = cursor.left >= 0;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			commit();
 		}
 
@@ -2461,6 +3461,12 @@ var uPlot = (function () {
 		//	updOriDims();
 		}
 
+<<<<<<< HEAD
+=======
+		// ensures size calc convergence
+		var CYCLE_LIMIT = 3;
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		function convergeSize() {
 			var converged = false;
 
@@ -2472,7 +3478,11 @@ var uPlot = (function () {
 				var axesConverged = axesCalc(cycleNum);
 				var paddingConverged = paddingCalc(cycleNum);
 
+<<<<<<< HEAD
 				converged = axesConverged && paddingConverged;
+=======
+				converged = cycleNum == CYCLE_LIMIT || (axesConverged && paddingConverged);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 				if (!converged) {
 					calcSize(self.width, self.height);
@@ -2555,7 +3565,10 @@ var uPlot = (function () {
 			var off0 = plotTopCss;
 
 			function incrOffset(side, size) {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 				switch (side) {
 					case 1: off1 += size; return off1 - size;
 					case 2: off2 += size; return off2 - size;
@@ -2579,6 +3592,11 @@ var uPlot = (function () {
 		var cursor = (self.cursor = assign({}, cursorOpts, opts.cursor));
 
 		{
+<<<<<<< HEAD
+=======
+			cursor.idxs = activeIdxs;
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			cursor._lock = false;
 
 			var points = cursor.points;
@@ -2622,7 +3640,12 @@ var uPlot = (function () {
 				s.width  = s.width == null ? 1 : s.width;
 				s.paths  = s.paths || linearPath || retNull;
 				s.fillTo = fnOrSelf(s.fillTo || seriesFillTo);
+<<<<<<< HEAD
 				s.pxAlign = ifNull(s.pxAlign, true);
+=======
+				s.pxAlign = +ifNull(s.pxAlign, pxAlign);
+				s.pxRound = pxRoundGen(s.pxAlign);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 				s.stroke = fnOrSelf(s.stroke || null);
 				s.fill   = fnOrSelf(s.fill || null);
@@ -2634,10 +3657,15 @@ var uPlot = (function () {
 					width: max(1, _ptDia * .2),
 					stroke: s.stroke,
 					space: _ptDia * 2,
+<<<<<<< HEAD
+=======
+					paths: pointsPath,
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 					_stroke: null,
 					_fill: null,
 				}, s.points);
 				points.show   = fnOrSelf(points.show);
+<<<<<<< HEAD
 				points.fill   = fnOrSelf(points.fill);
 				points.stroke = fnOrSelf(points.stroke);
 			}
@@ -2646,6 +3674,25 @@ var uPlot = (function () {
 				{ legendRows.splice(i, 0, initLegendRow(s, i)); }
 
 			if (cursor.show) {
+=======
+				points.filter = fnOrSelf(points.filter);
+				points.fill   = fnOrSelf(points.fill);
+				points.stroke = fnOrSelf(points.stroke);
+				points.paths  = fnOrSelf(points.paths);
+				points.pxAlign = s.pxAlign;
+			}
+
+			if (showLegend) {
+				var rowCells = initLegendRow(s, i);
+				legendRows.splice(i, 0, rowCells[0]);
+				legendCells.splice(i, 0, rowCells[1]);
+				legend.values.push(null);	// NULL_LEGEND_VALS not yet avil here :(
+			}
+
+			if (cursor.show) {
+				activeIdxs.splice(i, 0, null);
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 				var pt = initCursorPt(s, i);
 				pt && cursorPts.splice(i, 0, pt);
 			}
@@ -2663,16 +3710,37 @@ var uPlot = (function () {
 
 		function delSeries(i) {
 			series.splice(i, 1);
+<<<<<<< HEAD
 			showLegend && legendRows.splice(i, 1)[0][0].parentNode.remove();
 			cursorPts.length > 1 && cursorPts.splice(i, 1)[0].remove();
+=======
+
+			if (showLegend) {
+				legend.values.splice(i, 1);
+
+				legendCells.splice(i, 1);
+				var tr = legendRows.splice(i, 1)[0];
+				offMouse(null, tr.firstChild);
+				tr.remove();
+			}
+
+			if (cursor.show) {
+				activeIdxs.splice(i, 1);
+
+				cursorPts.length > 1 && cursorPts.splice(i, 1)[0].remove();
+			}
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 			// TODO: de-init no-longer-needed scales?
 		}
 
 		self.delSeries = delSeries;
 
+<<<<<<< HEAD
 		series.forEach(initSeries);
 
+=======
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		var sidesWithAxes = [false, false, false, false];
 
 		function initAxis(axis, i) {
@@ -2705,9 +3773,20 @@ var uPlot = (function () {
 				var av = axis.values;
 
 				axis.values = (
+<<<<<<< HEAD
 					isTime ? (
 						isArr(av) ?
 							timeAxisVals(_tzDate, timeAxisStamps(av, _fmtDate)) :
+=======
+					// static array of tick values
+					isArr(av) && !isArr(av[0]) ? fnOrSelf(av) :
+					// temporal
+					isTime ? (
+						// config array of fmtDate string tpls
+						isArr(av) ?
+							timeAxisVals(_tzDate, timeAxisStamps(av, _fmtDate)) :
+						// fmtDate string tpl
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 						isStr(av) ?
 							timeAxisVal(_tzDate, av) :
 						av || _timeAxisVals
@@ -2733,9 +3812,12 @@ var uPlot = (function () {
 			}
 		}
 
+<<<<<<< HEAD
 		// set axis defaults
 		axes.forEach(initAxis);
 
+=======
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		function autoPadSide(self, side, sidesWithAxes, cycleNum) {
 			var hasTopAxis = sidesWithAxes[0];
 			var hasRgtAxis = sidesWithAxes[1];
@@ -2768,11 +3850,18 @@ var uPlot = (function () {
 		var viaAutoScaleX = false;
 
 		function setData(_data, _resetScales) {
+<<<<<<< HEAD
 			_data = _data || [];
 			_data[0] = _data[0] || [];
 
 			self.data = _data;
 			data = _data.slice();
+=======
+			data = (_data || []).slice();
+			data[0] = data[0] || [];
+
+			self.data = data.slice();
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			data0 = data[0];
 			dataLen = data0.length;
 
@@ -2825,9 +3914,15 @@ var uPlot = (function () {
 					else if (xScaleDistr == 4)
 						{ (assign$1 = rangeAsinh(_min, _min, scaleX.log, false), _min = assign$1[0], _max = assign$1[1]); }
 					else if (scaleX.time)
+<<<<<<< HEAD
 						{ _max = _min + 86400 / ms; }
 					else
 						{ (assign$2 = rangeNum(_min, _max, 0.1, true), _min = assign$2[0], _max = assign$2[1]); }
+=======
+						{ _max = _min + round(86400 / ms); }
+					else
+						{ (assign$2 = rangeNum(_min, _max, rangePad, true), _min = assign$2[0], _max = assign$2[1]); }
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 				}
 			}
 			else {
@@ -2978,13 +4073,18 @@ var uPlot = (function () {
 				}
 
 				if (cursor.show)
+<<<<<<< HEAD
 					{ shouldSetCursor = cursor.left >= 0; }
+=======
+					{ shouldSetCursor = shouldSetLegend = cursor.left >= 0; }
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			}
 
 			for (var k$5 in pendScales)
 				{ pendScales[k$5] = null; }
 		}
 
+<<<<<<< HEAD
 		// TODO: drawWrap(si, drawPoints) (save, restore, translate, clip)
 		function drawPoints(si) {
 		//	log("drawPoints()", arguments);
@@ -3066,6 +4166,8 @@ var uPlot = (function () {
 			_pxAlign && ctx.translate(-offset, -offset);
 		}
 
+=======
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		// grabs the nearest indices with y data outside of x-scale limits
 		function getOuterIdxs(ydata) {
 			var _i0 = clamp(i0 - 1, 0, dataLen - 1);
@@ -3091,11 +4193,30 @@ var uPlot = (function () {
 
 				series.forEach((s, i) => {
 					if (i > 0 && s.show) {
+<<<<<<< HEAD
 						if (s._paths)
 							{ drawPath(i); }
 
 						if (s.points.show(self, i, i0, i1))
 							{ drawPoints(i); }
+=======
+						{
+							cacheStrokeFill(i, false);
+							s._paths && drawPath(i, false);
+						}
+
+						{
+							cacheStrokeFill(i, true);
+
+							var show = s.points.show(self, i, i0, i1);
+							var idxs = s.points.filter(self, i, show, s._paths ? s._paths.gaps : null);
+
+							if (show || idxs) {
+								s.points._paths = s.points.paths(self, i, i0, i1, idxs);
+								drawPath(i, true);
+							}
+						}
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 						fire("drawSeries", i);
 					}
@@ -3103,13 +4224,29 @@ var uPlot = (function () {
 			}
 		}
 
+<<<<<<< HEAD
 		function drawPath(si) {
 			var s = series[si];
+=======
+		function cacheStrokeFill(si, _points) {
+			var s = _points ? series[si].points : series[si];
+
+			s._stroke = s.stroke(self, si);
+			s._fill   = s.fill(self, si);
+		}
+
+		function drawPath(si, _points) {
+			var s = _points ? series[si].points : series[si];
+
+			var strokeStyle = s._stroke;
+			var fillStyle   = s._fill;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 			var ref = s._paths;
 			var stroke = ref.stroke;
 			var fill = ref.fill;
 			var clip = ref.clip;
+<<<<<<< HEAD
 			var width = roundDec(s.width * pxRatio, 3);
 			var offset = (width % 2) / 2;
 
@@ -3119,11 +4256,24 @@ var uPlot = (function () {
 			ctx.globalAlpha = s.alpha;
 
 			var _pxAlign = pxAlign && s.pxAlign;
+=======
+			var flags = ref.flags;
+			var width = roundDec(s.width * pxRatio, 3);
+			var offset = (width % 2) / 2;
+
+			if (_points && fillStyle == null)
+				{ fillStyle = width > 0 ? "#fff" : strokeStyle; }
+
+			ctx.globalAlpha = s.alpha;
+
+			var _pxAlign = s.pxAlign == 1;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 			_pxAlign && ctx.translate(offset, offset);
 
 			ctx.save();
 
+<<<<<<< HEAD
 			var lft = plotLft,
 				top = plotTop,
 				wid = plotWid,
@@ -3146,6 +4296,35 @@ var uPlot = (function () {
 			clip && ctx.clip(clip);
 
 			fillStroke(si, strokeStyle, width, s.dash, s.cap, fillStyle, stroke, fill);
+=======
+			if (!_points) {
+				var lft = plotLft,
+					top = plotTop,
+					wid = plotWid,
+					hgt = plotHgt;
+
+				var halfWid = width * pxRatio / 2;
+
+				if (s.min == 0)
+					{ hgt += halfWid; }
+
+				if (s.max == 0) {
+					top -= halfWid;
+					hgt += halfWid;
+				}
+
+				ctx.beginPath();
+				ctx.rect(lft, top, wid, hgt);
+				ctx.clip();
+			}
+
+			clip && ctx.clip(clip);
+
+			if (_points)
+				{ strokeFill(strokeStyle, width, s.dash, s.cap, fillStyle, stroke, fill, null, flags); }
+			else
+				{ fillStroke(si, strokeStyle, width, s.dash, s.cap, fillStyle, stroke, fill, flags); }
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 			ctx.restore();
 
@@ -3154,7 +4333,11 @@ var uPlot = (function () {
 			ctx.globalAlpha = 1;
 		}
 
+<<<<<<< HEAD
 		function fillStroke(si, strokeStyle, lineWidth, lineDash, lineCap, fillStyle, strokePath, fillPath) {
+=======
+		function fillStroke(si, strokeStyle, lineWidth, lineDash, lineCap, fillStyle, strokePath, fillPath, flags) {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			var didStrokeFill = false;
 
 			// for all bands where this series is the top edge, create upwards clips using the bottom edges
@@ -3171,12 +4354,21 @@ var uPlot = (function () {
 					var _fillStyle = null;
 
 					// hasLowerEdge?
+<<<<<<< HEAD
 					if (lowerEdge.show && clip) {
 						_fillStyle = b.fill(self, bi) || fillStyle;
 						ctx.clip(clip);
 					}
 
 					strokeFill(strokeStyle, lineWidth, lineDash, lineCap, _fillStyle, strokePath, fillPath);
+=======
+					if (lowerEdge.show && clip)
+						{ _fillStyle = b.fill(self, bi) || fillStyle; }
+					else
+						{ clip = null; }
+
+					strokeFill(strokeStyle, lineWidth, lineDash, lineCap, _fillStyle, strokePath, fillPath, clip, flags);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 					ctx.restore();
 
@@ -3185,6 +4377,7 @@ var uPlot = (function () {
 			});
 
 			if (!didStrokeFill)
+<<<<<<< HEAD
 				{ strokeFill(strokeStyle, lineWidth, lineDash, lineCap, fillStyle, strokePath, fillPath); }
 		}
 
@@ -3194,6 +4387,49 @@ var uPlot = (function () {
 			strokeStyle && strokePath && lineWidth && ctx.stroke(strokePath);
 		}
 
+=======
+				{ strokeFill(strokeStyle, lineWidth, lineDash, lineCap, fillStyle, strokePath, fillPath, null, flags); }
+		}
+
+		var CLIP_FILL_STROKE = BAND_CLIP_FILL | BAND_CLIP_STROKE;
+
+		function strokeFill(strokeStyle, lineWidth, lineDash, lineCap, fillStyle, strokePath, fillPath, clip, flags) {
+			setCtxStyle(strokeStyle, lineWidth, lineDash, lineCap, fillStyle);
+
+			if (clip) {
+				if ((flags & CLIP_FILL_STROKE) == CLIP_FILL_STROKE) {
+					ctx.clip(clip);
+					doFill(fillStyle, fillPath);
+					doStroke(strokeStyle, strokePath, lineWidth);
+				}
+				else if (flags & BAND_CLIP_STROKE) {
+					doFill(fillStyle, fillPath);
+					ctx.clip(clip);
+					doStroke(strokeStyle, strokePath, lineWidth);
+				}
+				else if (flags & BAND_CLIP_FILL) {
+					ctx.save();
+					ctx.clip(clip);
+					doFill(fillStyle, fillPath);
+					ctx.restore();
+					doStroke(strokeStyle, strokePath, lineWidth);
+				}
+			}
+			else {
+				doFill(fillStyle, fillPath);
+				doStroke(strokeStyle, strokePath, lineWidth);
+			}
+		}
+
+		function doStroke(strokeStyle, strokePath, lineWidth) {
+			strokeStyle && strokePath && lineWidth && ctx.stroke(strokePath);
+		}
+
+		function doFill(fillStyle, fillPath) {
+			fillStyle   && fillPath && ctx.fill(fillPath);
+		}
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		function getIncrSpace(axisIdx, min, max, fullDim) {
 			var axis = axes[axisIdx];
 
@@ -3213,7 +4449,11 @@ var uPlot = (function () {
 		function drawOrthoLines(offs, filts, ori, side, pos0, len, width, stroke, dash, cap) {
 			var offset = (width % 2) / 2;
 
+<<<<<<< HEAD
 			pxAlign && ctx.translate(offset, offset);
+=======
+			pxAlign == 1 && ctx.translate(offset, offset);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 			setCtxStyle(stroke, width, dash, cap);
 
@@ -3245,7 +4485,11 @@ var uPlot = (function () {
 
 			ctx.stroke();
 
+<<<<<<< HEAD
 			pxAlign && ctx.translate(-offset, -offset);
+=======
+			pxAlign == 1 && ctx.translate(-offset, -offset);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		}
 
 		function axesCalc(cycleNum) {
@@ -3334,6 +4578,7 @@ var uPlot = (function () {
 				if (!axis.show || !axis._show)
 					{ return; }
 
+<<<<<<< HEAD
 				var scale = scales[axis.scale];
 				var side = axis.side;
 				var ori = side % 2;
@@ -3345,10 +4590,66 @@ var uPlot = (function () {
 
 				var ticks = axis.ticks;
 				var tickSize = ticks.show ? round(ticks.size * pxRatio) : 0;
+=======
+				var side = axis.side;
+				var ori = side % 2;
+
+				var x, y;
+
+				var fillStyle = axis.stroke(self, i);
+
+				var shiftDir = side == 0 || side == 3 ? -1 : 1;
+
+				// axis label
+				if (axis.label) {
+					var shiftAmt$1 = axis.labelGap * shiftDir;
+					var baseLpos = round((axis._lpos + shiftAmt$1) * pxRatio);
+
+					ctx.save();
+
+					if (ori == 1) {
+						x = y = 0;
+
+						ctx.translate(
+							baseLpos,
+							round(plotTop + plotHgt / 2)
+						);
+						ctx.rotate((side == 3 ? -PI : PI) / 2);
+
+					}
+					else {
+						x = round(plotLft + plotWid / 2);
+						y = baseLpos;
+					}
+
+					ctx.font         = axis.labelFont[0];
+					ctx.fillStyle    = fillStyle;
+					ctx.textAlign    = "center";
+					ctx.textBaseline = side == 2 ? TOP : BOTTOM;
+
+					ctx.fillText(axis.label, x, y);
+
+					ctx.restore();
+				}
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 				var ref = axis._found;
 				var _incr = ref[0];
 				var _space = ref[1];
+<<<<<<< HEAD
+=======
+
+				if (_space == 0)
+					{ return; }
+
+				var scale = scales[axis.scale];
+
+				var plotDim = ori == 0 ? plotWid : plotHgt;
+				var plotOff = ori == 0 ? plotLft : plotTop;
+
+				var axisGap = round(axis.gap * pxRatio);
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 				var _splits = axis._splits;
 
 				// tick labels
@@ -3356,6 +4657,7 @@ var uPlot = (function () {
 				var splits = scale.distr == 2 ? _splits.map(i => data0[i]) : _splits;
 				var incr   = scale.distr == 2 ? data0[_splits[1]] - data0[_splits[0]] : _incr;
 
+<<<<<<< HEAD
 				// rotating of labels only supported on bottom x axis
 				var angle = axis._rotate * -PI/180;
 
@@ -3368,6 +4670,22 @@ var uPlot = (function () {
 
 				ctx.font         = axis.font[0];
 				ctx.fillStyle    = axis.stroke(self, i);									// rgba?
+=======
+				var ticks = axis.ticks;
+				var tickSize = ticks.show ? round(ticks.size * pxRatio) : 0;
+
+				// rotating of labels only supported on bottom x axis
+				var angle = axis._rotate * -PI/180;
+
+				var basePos  = pxRound(axis._pos * pxRatio);
+				var shiftAmt = (tickSize + axisGap) * shiftDir;
+				var finalPos = basePos + shiftAmt;
+				    y        = ori == 0 ? finalPos : 0;
+				    x        = ori == 1 ? finalPos : 0;
+
+				ctx.font         = axis.font[0];
+				ctx.fillStyle    = fillStyle;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 				ctx.textAlign    = axis.align == 1 ? LEFT :
 				                   axis.align == 2 ? RIGHT :
 				                   angle > 0 ? LEFT :
@@ -3378,7 +4696,11 @@ var uPlot = (function () {
 
 				var lineHeight = axis.font[1] * lineMult;
 
+<<<<<<< HEAD
 				var canOffs = _splits.map(val => round(getPos(val, scale, plotDim, plotOff)));
+=======
+				var canOffs = _splits.map(val => pxRound(getPos(val, scale, plotDim, plotOff)));
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 				axis._values.forEach((val, i) => {
 					if (val == null)
@@ -3402,6 +4724,7 @@ var uPlot = (function () {
 					});
 				});
 
+<<<<<<< HEAD
 				// axis label
 				if (axis.label) {
 					ctx.save();
@@ -3433,6 +4756,8 @@ var uPlot = (function () {
 					ctx.restore();
 				}
 
+=======
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 				// ticks
 				if (ticks.show) {
 					drawOrthoLines(
@@ -3525,7 +4850,11 @@ var uPlot = (function () {
 				can.width  = round(fullWidCss * pxRatio);
 				can.height = round(fullHgtCss * pxRatio);
 
+<<<<<<< HEAD
 				syncRect();
+=======
+				syncRect(false);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 				fire("setSize");
 
@@ -3689,7 +5018,11 @@ var uPlot = (function () {
 
 		function toggleDOM(i, onOff) {
 			var s = series[i];
+<<<<<<< HEAD
 			var label = showLegend ? legendRows[i][0].parentNode : null;
+=======
+			var label = showLegend ? legendRows[i] : null;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 			if (s.show)
 				{ label && remClass(label, OFF); }
@@ -3726,6 +5059,30 @@ var uPlot = (function () {
 
 		self.setSeries = setSeries;
 
+<<<<<<< HEAD
+=======
+		function setBand(bi, opts) {
+			assign(bands[bi], opts);
+		}
+
+		function addBand(opts, bi) {
+			opts.fill = fnOrSelf(opts.fill || null);
+			bi = bi == null ? bands.length : bi;
+			bands.splice(bi, 0, opts);
+		}
+
+		function delBand(bi) {
+			if (bi == null)
+				{ bands.length = 0; }
+			else
+				{ bands.splice(bi, 1); }
+		}
+
+		self.addBand = addBand;
+		self.setBand = setBand;
+		self.delBand = delBand;
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		function setAlpha(i, value) {
 			series[i].alpha = value;
 
@@ -3733,7 +5090,11 @@ var uPlot = (function () {
 				{ cursorPts[i].style.opacity = value; }
 
 			if (showLegend && legendRows[i])
+<<<<<<< HEAD
 				{ legendRows[i][0].parentNode.style.opacity = value; }
+=======
+				{ legendRows[i].style.opacity = value; }
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		}
 
 		// y-distance
@@ -3771,9 +5132,18 @@ var uPlot = (function () {
 			});
 		}
 
+<<<<<<< HEAD
 		function posToVal(pos, scale) {
 			var sc = scales[scale];
 
+=======
+		function posToVal(pos, scale, can) {
+			var sc = scales[scale];
+
+			if (can)
+				{ pos = pos / pxRatio - (sc.ori == 1 ? plotTopCss : plotLftCss); }
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			var dim = plotWidCss;
 
 			if (sc.ori == 1) {
@@ -3799,8 +5169,13 @@ var uPlot = (function () {
 			);
 		}
 
+<<<<<<< HEAD
 		function closestIdxFromXpos(pos) {
 			var v = posToVal(pos, xScaleKey);
+=======
+		function closestIdxFromXpos(pos, can) {
+			var v = posToVal(pos, xScaleKey, can);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			return closestIdx(v, data[0], i0, i1);
 		}
 
@@ -3827,11 +5202,19 @@ var uPlot = (function () {
 
 		self.batch = batch;
 
+<<<<<<< HEAD
 		(self.setCursor = opts => {
 			mouseLeft1 = opts.left;
 			mouseTop1 = opts.top;
 		//	assign(cursor, opts);
 			updateCursor();
+=======
+		(self.setCursor = (opts, _fire) => {
+			mouseLeft1 = opts.left;
+			mouseTop1 = opts.top;
+		//	assign(cursor, opts);
+			updateCursor(null, null, _fire);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		});
 
 		function setSelH(off, dim) {
@@ -3847,7 +5230,61 @@ var uPlot = (function () {
 		var setSelX = scaleX.ori == 0 ? setSelH : setSelV;
 		var setSelY = scaleX.ori == 1 ? setSelH : setSelV;
 
+<<<<<<< HEAD
 		function updateCursor(ts, src) {
+=======
+		function syncLegend() {
+			if (showLegend && legend.live) {
+				for (var i = 0; i < series.length; i++) {
+					if (i == 0 && multiValLegend)
+						{ continue; }
+
+					var vals = legend.values[i];
+
+					var j = 0;
+
+					for (var k in vals)
+						{ legendCells[i][j++].firstChild.nodeValue = vals[k]; }
+				}
+			}
+		}
+
+		function setLegend(opts, _fire) {
+			if (opts != null) {
+				var idx = opts.idx;
+
+				legend.idx = idx;
+				series.forEach((s, sidx) => {
+					(sidx > 0 || !multiValLegend) && setLegendValues(sidx, idx);
+				});
+			}
+
+			if (showLegend && legend.live)
+				{ syncLegend(); }
+
+			shouldSetLegend = false;
+
+			_fire !== false && fire("setLegend");
+		}
+
+		self.setLegend = setLegend;
+
+		function setLegendValues(sidx, idx) {
+			var val;
+
+			if (idx == null)
+				{ val = NULL_LEGEND_VALUES; }
+			else {
+				var s = series[sidx];
+				var src = sidx == 0 && xScaleDistr == 2 ? data0 : data[sidx];
+				val = multiValLegend ? s.values(self, sidx, idx) : {_: s.value(self, src[idx], sidx, idx)};
+			}
+
+			legend.values[sidx] = val;
+		}
+
+		function updateCursor(ts, src, _fire) {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			var assign;
 
 		//	ts == null && log("updateCursor()", arguments);
@@ -3882,6 +5319,7 @@ var uPlot = (function () {
 					if (i > 0) {
 						cursorPts.length > 1 && trans(cursorPts[i], -10, -10, plotWidCss, plotHgtCss);
 					}
+<<<<<<< HEAD
 
 					if (showLegend && legend.live) {
 						if (i == 0 && multiValLegend)
@@ -3890,10 +5328,23 @@ var uPlot = (function () {
 						for (var j = 0; j < legendRows[i].length; j++)
 							{ legendRows[i][j].firstChild.nodeValue = '--'; }
 					}
+=======
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 				}
 
 				if (cursorFocus)
 					{ setSeries(null, FOCUS_TRUE, syncOpts.setSeries); }
+<<<<<<< HEAD
+=======
+
+				if (legend.live) {
+					activeIdxs.fill(null);
+					shouldSetLegend = true;
+
+					for (var i$1 = 0; i$1 < series.length; i$1++)
+						{ legend.values[i$1] = NULL_LEGEND_VALUES; }
+				}
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			}
 			else {
 			//	let pctY = 1 - (y / rect.height);
@@ -3906,6 +5357,7 @@ var uPlot = (function () {
 
 				var xPos = incrRoundUp(valToPosX(data[0][idx], scaleX, xDim, 0), 0.5);
 
+<<<<<<< HEAD
 				for (var i$1 = 0; i$1 < series.length; i$1++) {
 					var s = series[i$1];
 
@@ -3916,13 +5368,34 @@ var uPlot = (function () {
 						var valAtIdx = data[i$1][idx2];
 
 						var yPos = valAtIdx == null ? -10 : incrRoundUp(valToPosY(valAtIdx, scales[s.scale], yDim, 0), 0.5);
+=======
+				for (var i$2 = 0; i$2 < series.length; i$2++) {
+					var s = series[i$2];
+
+					var idx2 = cursor.dataIdx(self, i$2, idx, valAtPosX);
+
+					var yVal2 = data[i$2][idx2];
+
+					shouldSetLegend = shouldSetLegend || yVal2 != data[i$2][activeIdxs[i$2]];
+
+					activeIdxs[i$2] = idx2;
+
+					var xPos2 = idx2 == idx ? xPos : incrRoundUp(valToPosX(data[0][idx2], scaleX, xDim, 0), 0.5);
+
+					if (i$2 > 0 && s.show) {
+						var yPos = yVal2 == null ? -10 : incrRoundUp(valToPosY(yVal2, scales[s.scale], yDim, 0), 0.5);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 						if (yPos > 0) {
 							var dist = abs(yPos - mouseTop1);
 
 							if (dist <= closestDist) {
 								closestDist = dist;
+<<<<<<< HEAD
 								closestSeries = i$1;
+=======
+								closestSeries = i$2;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 							}
 						}
 
@@ -3937,6 +5410,7 @@ var uPlot = (function () {
 							vPos = xPos2;
 						}
 
+<<<<<<< HEAD
 						cursorPts.length > 1 && trans(cursorPts[i$1], hPos, vPos, plotWidCss, plotHgtCss);
 					}
 
@@ -3956,6 +5430,26 @@ var uPlot = (function () {
 				}
 
 				shouldSetLegend = false;
+=======
+						if (shouldSetLegend && cursorPts.length > 1) {
+							trans(cursorPts[i$2], hPos, vPos, plotWidCss, plotHgtCss);
+							color(cursorPts[i$2], cursor.points.fill(self, i$2), cursor.points.stroke(self, i$2));
+						}
+					}
+
+					if (legend.live) {
+						if (!shouldSetLegend || i$2 == 0 && multiValLegend)
+							{ continue; }
+
+						setLegendValues(i$2, idx2);
+					}
+				}
+			}
+
+			if (shouldSetLegend) {
+				legend.idx = idx;
+				setLegend();
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			}
 
 			// nit: cursor.drag.setSelect is assumed always true
@@ -3964,24 +5458,48 @@ var uPlot = (function () {
 					var ref = syncOpts.scales;
 					var xKey = ref[0];
 					var yKey = ref[1];
+<<<<<<< HEAD
+=======
+					var ref$1 = syncOpts.match;
+					var matchXKeys = ref$1[0];
+					var matchYKeys = ref$1[1];
+					var ref$2 = src.cursor.sync.scales;
+					var xKeySrc = ref$2[0];
+					var yKeySrc = ref$2[1];
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 					// match the dragX/dragY implicitness/explicitness of src
 					var sdrag = src.cursor.drag;
 					dragX = sdrag._x;
 					dragY = sdrag._y;
 
+<<<<<<< HEAD
 					var ref$1 = src.select;
 					var left = ref$1.left;
 					var top = ref$1.top;
 					var width = ref$1.width;
 					var height = ref$1.height;
+=======
+					var ref$3 = src.select;
+					var left = ref$3.left;
+					var top = ref$3.top;
+					var width = ref$3.width;
+					var height = ref$3.height;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 					var sori = src.scales[xKey].ori;
 					var sPosToVal = src.posToVal;
 
 					var sOff, sDim, sc, a, b;
 
+<<<<<<< HEAD
 					if (xKey) {
+=======
+					var matchingX = xKey != null && matchXKeys(xKey, xKeySrc);
+					var matchingY = yKey != null && matchYKeys(yKey, yKeySrc);
+
+					if (matchingX) {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 						if (sori == 0) {
 							sOff = left;
 							sDim = width;
@@ -3991,6 +5509,7 @@ var uPlot = (function () {
 							sDim = height;
 						}
 
+<<<<<<< HEAD
 						sc = scales[xKey];
 
 						a = valToPosX(sPosToVal(sOff, xKey),        sc, xDim, 0);
@@ -4003,6 +5522,24 @@ var uPlot = (function () {
 					}
 
 					if (yKey) {
+=======
+						if (dragX) {
+							sc = scales[xKey];
+
+							a = valToPosX(sPosToVal(sOff, xKeySrc),        sc, xDim, 0);
+							b = valToPosX(sPosToVal(sOff + sDim, xKeySrc), sc, xDim, 0);
+
+							setSelX(min(a,b), abs(b-a));
+						}
+						else
+							{ setSelX(0, xDim); }
+
+						if (!matchingY)
+							{ setSelY(0, yDim); }
+					}
+
+					if (matchingY) {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 						if (sori == 1) {
 							sOff = left;
 							sDim = width;
@@ -4012,6 +5549,7 @@ var uPlot = (function () {
 							sDim = height;
 						}
 
+<<<<<<< HEAD
 						sc = scales[yKey];
 
 						a = valToPosY(sPosToVal(sOff, yKey),        sc, yDim, 0);
@@ -4020,6 +5558,20 @@ var uPlot = (function () {
 						setSelY(min(a,b), abs(b-a));
 
 						if (!xKey)
+=======
+						if (dragY) {
+							sc = scales[yKey];
+
+							a = valToPosY(sPosToVal(sOff, yKeySrc),        sc, yDim, 0);
+							b = valToPosY(sPosToVal(sOff + sDim, yKeySrc), sc, yDim, 0);
+
+							setSelY(min(a,b), abs(b-a));
+						}
+						else
+							{ setSelY(0, yDim); }
+
+						if (!matchingX)
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 							{ setSelX(0, xDim); }
 					}
 				}
@@ -4107,9 +5659,24 @@ var uPlot = (function () {
 
 			// if ts is present, means we're implicitly syncing own cursor
 			if (ts != null) {
+<<<<<<< HEAD
 				// this is not technically a "mousemove" event, since it's debounced, rename to setCursor?
 				// since this is internal, we can tweak it later
 				pubSync(mousemove, self, mouseLeft1, mouseTop1, xDim, yDim, idx);
+=======
+				if (syncKey != null) {
+					var ref$4 = syncOpts.scales;
+					var xSyncKey = ref$4[0];
+					var ySyncKey = ref$4[1];
+
+					syncOpts.values[0] = xSyncKey != null ? posToVal(scaleX.ori == 0 ? mouseLeft1 : mouseTop1, xSyncKey) : null;
+					syncOpts.values[1] = ySyncKey != null ? posToVal(scaleX.ori == 1 ? mouseLeft1 : mouseTop1, ySyncKey) : null;
+				}
+
+				// this is not technically a "mousemove" event, since it's debounced, rename to setCursor?
+				// since this is internal, we can tweak it later
+				pubSync(mousemove, self, mouseLeft1, mouseTop1, plotWidCss, plotHgtCss, idx);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 				if (cursorFocus) {
 					var o = syncOpts.setSeries;
@@ -4128,13 +5695,27 @@ var uPlot = (function () {
 				}
 			}
 
+<<<<<<< HEAD
 			ready && fire("setCursor");
+=======
+			ready && _fire !== false && fire("setCursor");
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		}
 
 		var rect = null;
 
+<<<<<<< HEAD
 		function syncRect() {
 			rect = over.getBoundingClientRect();
+=======
+		function syncRect(defer) {
+			if (defer === true)
+				{ rect = null; }
+			else {
+				rect = over.getBoundingClientRect();
+				fire("syncRect", rect);
+			}
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		}
 
 		function mouseMove(e, src, _l, _t, _w, _h, _i) {
@@ -4152,6 +5733,12 @@ var uPlot = (function () {
 		function cacheMouse(e, src, _l, _t, _w, _h, _i, initial, snap) {
 			var assign;
 
+<<<<<<< HEAD
+=======
+			if (rect == null)
+				{ syncRect(false); }
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			if (e != null) {
 				_l = e.clientX - rect.left;
 				_t = e.clientY - rect.top;
@@ -4163,6 +5750,7 @@ var uPlot = (function () {
 					return;
 				}
 
+<<<<<<< HEAD
 				var xDim = plotWidCss,
 					yDim = plotHgtCss,
 					_xDim = _w,
@@ -4175,10 +5763,13 @@ var uPlot = (function () {
 					yDim = plotWidCss;
 				}
 
+=======
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 				var ref = syncOpts.scales;
 				var xKey = ref[0];
 				var yKey = ref[1];
 
+<<<<<<< HEAD
 				if (src.scales[xKey].ori == 1) {
 					_xDim = _h;
 					_yDim = _w;
@@ -4193,6 +5784,35 @@ var uPlot = (function () {
 
 				if (yKey != null)
 					{ _t = getPos(src.posToVal(_yPos, yKey), scales[yKey], yDim, 0); }
+=======
+				var syncOptsSrc = src.cursor.sync;
+				var ref$1 = syncOptsSrc.values;
+				var xValSrc = ref$1[0];
+				var yValSrc = ref$1[1];
+				var ref$2 = syncOptsSrc.scales;
+				var xKeySrc = ref$2[0];
+				var yKeySrc = ref$2[1];
+				var ref$3 = syncOpts.match;
+				var matchXKeys = ref$3[0];
+				var matchYKeys = ref$3[1];
+
+				var rotSrc = src.scales[xKeySrc].ori == 1;
+
+				var xDim = scaleX.ori == 0 ? plotWidCss : plotHgtCss,
+					yDim = scaleX.ori == 1 ? plotWidCss : plotHgtCss,
+					_xDim = rotSrc ? _h : _w,
+					_yDim = rotSrc ? _w : _h,
+					_xPos = rotSrc ? _t : _l,
+					_yPos = rotSrc ? _l : _t;
+
+				if (xKeySrc != null)
+					{ _l = matchXKeys(xKey, xKeySrc) ? getPos(xValSrc, scales[xKey], xDim, 0) : -10; }
+				else
+					{ _l = xDim * (_xPos/_xDim); }
+
+				if (yKeySrc != null)
+					{ _t = matchYKeys(yKey, yKeySrc) ? getPos(yValSrc, scales[yKey], yDim, 0) : -10; }
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 				else
 					{ _t = yDim * (_yPos/_yDim); }
 
@@ -4367,6 +5987,16 @@ var uPlot = (function () {
 				{ pubSync(dblclick, self, mouseLeft1, mouseTop1, plotWidCss, plotHgtCss, null); }
 		}
 
+<<<<<<< HEAD
+=======
+		function syncPxRatio() {
+			axes.forEach(syncFontSize);
+			_setSize(self.width, self.height, true);
+		}
+
+		on(ddpxchange, win, syncPxRatio);
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		// internal pub/sub
 		var events = {};
 
@@ -4378,8 +6008,11 @@ var uPlot = (function () {
 			setSeries(idx, opts);
 		};
 
+<<<<<<< HEAD
 		var deb;
 
+=======
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		if (cursor.show) {
 			onMouse(mousedown,  over, mouseDown);
 			onMouse(mousemove,  over, mouseMove);
@@ -4388,10 +6021,14 @@ var uPlot = (function () {
 
 			onMouse(dblclick, over, dblClick);
 
+<<<<<<< HEAD
 			deb = debounce(syncRect, 100);
 
 			on(resize, win, deb);
 			on(scroll, win, deb);
+=======
+			cursorPlots.add(self);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 			self.syncRect = syncRect;
 		}
@@ -4419,9 +6056,19 @@ var uPlot = (function () {
 				pub: retTrue,
 				sub: retTrue,
 			},
+<<<<<<< HEAD
 			scales: [xScaleKey, null]
 		}, cursor.sync);
 
+=======
+			scales: [xScaleKey, series[1] ? series[1].scale : null],
+			match: [retEq, retEq],
+			values: [null, null],
+		}, cursor.sync);
+
+		(cursor.sync = syncOpts);
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		var syncKey = syncOpts.key;
 
 		var sync = _sync(syncKey);
@@ -4442,8 +6089,14 @@ var uPlot = (function () {
 
 		function destroy() {
 			sync.unsub(self);
+<<<<<<< HEAD
 			off(resize, win, deb);
 			off(scroll, win, deb);
+=======
+			cursorPlots.delete(self);
+			mouseListeners.clear();
+			off(ddpxchange, win, syncPxRatio);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			root.remove();
 			fire("destroy");
 		}
@@ -4467,6 +6120,13 @@ var uPlot = (function () {
 			setSelect(select, false);
 		}
 
+<<<<<<< HEAD
+=======
+		series.forEach(initSeries);
+
+		axes.forEach(initAxis);
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		if (then) {
 			if (then instanceof HTMLElement) {
 				then.appendChild(root);
@@ -4505,12 +6165,23 @@ var uPlot = (function () {
 		uPlot.addGap = addGap;
 		uPlot.clipGaps = clipGaps;
 
+<<<<<<< HEAD
 		var paths = uPlot.paths = {};
 
 		(paths.linear  = linear);
 		(paths.spline  = spline);
 		(paths.stepped = stepped);
 		(paths.bars    = bars);
+=======
+		var paths = uPlot.paths = {
+			points: points,
+		};
+
+		(paths.linear  = linear);
+		(paths.stepped = stepped);
+		(paths.bars    = bars);
+		(paths.spline  = monotoneCubic);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	}
 
 	return uPlot;

@@ -222,6 +222,32 @@
   };
 
   var l10 = {
+<<<<<<< HEAD
+=======
+    code: 'bn',
+    week: {
+      dow: 0, // Sunday is the first day of the week.
+      doy: 6, // The week that contains Jan 1st is the first week of the year.
+    },
+    buttonText: {
+      prev: 'পেছনে',
+      next: 'সামনে',
+      today: 'আজ',
+      month: 'মাস',
+      week: 'সপ্তাহ',
+      day: 'দিন',
+      list: 'তালিকা',
+    },
+    weekText: 'সপ্তাহ',
+    allDayText: 'সারাদিন',
+    moreLinkText: function(n) {
+      return '+অন্যান্য ' + n
+    },
+    noEventsText: 'কোনো ইভেন্ট নেই',
+  };
+
+  var l11 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'bs',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -244,7 +270,11 @@
     noEventsText: 'Nema događaja za prikazivanje',
   };
 
+<<<<<<< HEAD
   var l11 = {
+=======
+  var l12 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'ca',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -265,7 +295,11 @@
     noEventsText: 'No hi ha esdeveniments per mostrar',
   };
 
+<<<<<<< HEAD
   var l12 = {
+=======
+  var l13 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'cs',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -288,7 +322,11 @@
     noEventsText: 'Žádné akce k zobrazení',
   };
 
+<<<<<<< HEAD
   var l13 = {
+=======
+  var l14 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'cy',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -310,7 +348,11 @@
     noEventsText: 'Dim digwyddiadau',
   };
 
+<<<<<<< HEAD
   var l14 = {
+=======
+  var l15 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'da',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -331,7 +373,11 @@
     noEventsText: 'Ingen arrangementer at vise',
   };
 
+<<<<<<< HEAD
   var l15 = {
+=======
+  var l16 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'de-at',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -355,7 +401,11 @@
     noEventsText: 'Keine Ereignisse anzuzeigen',
   };
 
+<<<<<<< HEAD
   var l16 = {
+=======
+  var l17 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'de',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -379,7 +429,11 @@
     noEventsText: 'Keine Ereignisse anzuzeigen',
   };
 
+<<<<<<< HEAD
   var l17 = {
+=======
+  var l18 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'el',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -400,7 +454,11 @@
     noEventsText: 'Δεν υπάρχουν γεγονότα προς εμφάνιση',
   };
 
+<<<<<<< HEAD
   var l18 = {
+=======
+  var l19 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'en-au',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -408,7 +466,11 @@
     },
   };
 
+<<<<<<< HEAD
   var l19 = {
+=======
+  var l20 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'en-gb',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -416,7 +478,11 @@
     },
   };
 
+<<<<<<< HEAD
   var l20 = {
+=======
+  var l21 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'en-nz',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -424,7 +490,11 @@
     },
   };
 
+<<<<<<< HEAD
   var l21 = {
+=======
+  var l22 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'eo',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -445,7 +515,11 @@
     noEventsText: 'Neniuj eventoj por montri',
   };
 
+<<<<<<< HEAD
   var l22 = {
+=======
+  var l23 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'es',
     week: {
       dow: 0, // Sunday is the first day of the week.
@@ -466,7 +540,11 @@
     noEventsText: 'No hay eventos para mostrar',
   };
 
+<<<<<<< HEAD
   var l23 = {
+=======
+  var l24 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'es',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -487,7 +565,11 @@
     noEventsText: 'No hay eventos para mostrar',
   };
 
+<<<<<<< HEAD
   var l24 = {
+=======
+  var l25 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'et',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -510,7 +592,11 @@
     noEventsText: 'Kuvamiseks puuduvad sündmused',
   };
 
+<<<<<<< HEAD
   var l25 = {
+=======
+  var l26 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'eu',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -531,7 +617,11 @@
     noEventsText: 'Ez dago ekitaldirik erakusteko',
   };
 
+<<<<<<< HEAD
   var l26 = {
+=======
+  var l27 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'fa',
     week: {
       dow: 6, // Saturday is the first day of the week.
@@ -555,7 +645,11 @@
     noEventsText: 'هیچ رویدادی به نمایش',
   };
 
+<<<<<<< HEAD
   var l27 = {
+=======
+  var l28 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'fi',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -576,7 +670,11 @@
     noEventsText: 'Ei näytettäviä tapahtumia',
   };
 
+<<<<<<< HEAD
   var l28 = {
+=======
+  var l29 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'fr',
     buttonText: {
       prev: 'Précédent',
@@ -594,7 +692,11 @@
     noEventsText: 'Aucun événement à afficher',
   };
 
+<<<<<<< HEAD
   var l29 = {
+=======
+  var l30 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'fr-ch',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -616,7 +718,11 @@
     noEventsText: 'Aucun événement à afficher',
   };
 
+<<<<<<< HEAD
   var l30 = {
+=======
+  var l31 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'fr',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -638,7 +744,11 @@
     noEventsText: 'Aucun événement à afficher',
   };
 
+<<<<<<< HEAD
   var l31 = {
+=======
+  var l32 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'gl',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -659,7 +769,11 @@
     noEventsText: 'Non hai eventos para amosar',
   };
 
+<<<<<<< HEAD
   var l32 = {
+=======
+  var l33 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'he',
     direction: 'rtl',
     buttonText: {
@@ -677,7 +791,11 @@
     weekText: 'שבוע',
   };
 
+<<<<<<< HEAD
   var l33 = {
+=======
+  var l34 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'hi',
     week: {
       dow: 0, // Sunday is the first day of the week.
@@ -700,7 +818,11 @@
     noEventsText: 'कोई घटनाओं को प्रदर्शित करने के लिए',
   };
 
+<<<<<<< HEAD
   var l34 = {
+=======
+  var l35 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'hr',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -723,7 +845,11 @@
     noEventsText: 'Nema događaja za prikaz',
   };
 
+<<<<<<< HEAD
   var l35 = {
+=======
+  var l36 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'hu',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -736,7 +862,11 @@
       month: 'Hónap',
       week: 'Hét',
       day: 'Nap',
+<<<<<<< HEAD
       list: 'Napló',
+=======
+      list: 'Lista',
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     },
     weekText: 'Hét',
     allDayText: 'Egész nap',
@@ -744,7 +874,11 @@
     noEventsText: 'Nincs megjeleníthető esemény',
   };
 
+<<<<<<< HEAD
   var l36 = {
+=======
+  var l37 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'hy-am',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -767,7 +901,11 @@
     noEventsText: 'Բացակայում է իրադարձությունը ցուցադրելու',
   };
 
+<<<<<<< HEAD
   var l37 = {
+=======
+  var l38 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'id',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -788,7 +926,11 @@
     noEventsText: 'Tidak ada acara untuk ditampilkan',
   };
 
+<<<<<<< HEAD
   var l38 = {
+=======
+  var l39 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'is',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -809,7 +951,11 @@
     noEventsText: 'Engir viðburðir til að sýna',
   };
 
+<<<<<<< HEAD
   var l39 = {
+=======
+  var l40 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'it',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -832,7 +978,11 @@
     noEventsText: 'Non ci sono eventi da visualizzare',
   };
 
+<<<<<<< HEAD
   var l40 = {
+=======
+  var l41 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'ja',
     buttonText: {
       prev: '前',
@@ -851,7 +1001,11 @@
     noEventsText: '表示する予定はありません',
   };
 
+<<<<<<< HEAD
   var l41 = {
+=======
+  var l42 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'ka',
     week: {
       dow: 1,
@@ -874,7 +1028,11 @@
     noEventsText: 'ღონისძიებები არ არის',
   };
 
+<<<<<<< HEAD
   var l42 = {
+=======
+  var l43 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'kk',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -897,7 +1055,33 @@
     noEventsText: 'Көрсету үшін оқиғалар жоқ',
   };
 
+<<<<<<< HEAD
   var l43 = {
+=======
+  var l44 = {
+    code: 'km',
+    week: {
+      dow: 1, // Monday is the first day of the week.
+      doy: 4, // The week that contains Jan 4th is the first week of the year.
+    },
+    buttonText: {
+      prev: 'មុន',
+      next: 'បន្ទាប់',
+      today: 'ថ្ងៃនេះ',
+      year: 'ឆ្នាំ',
+      month: 'ខែ',
+      week: 'សប្តាហ៍',
+      day: 'ថ្ងៃ',
+      list: 'បញ្ជី',
+    },
+    weekText: 'សប្តាហ៍',
+    allDayText: 'ពេញមួយថ្ងៃ',
+    moreLinkText: 'ច្រើនទៀត',
+    noEventsText: 'គ្មានព្រឹត្តិការណ៍ត្រូវបង្ហាញ',
+  };
+
+  var l45 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'ko',
     buttonText: {
       prev: '이전달',
@@ -914,7 +1098,33 @@
     noEventsText: '일정이 없습니다',
   };
 
+<<<<<<< HEAD
   var l44 = {
+=======
+  var l46 = {
+    code: 'ku',
+    week: {
+      dow: 6, // Saturday is the first day of the week.
+      doy: 12, // The week that contains Jan 1st is the first week of the year.
+    },
+    direction: 'rtl',
+    buttonText: {
+      prev: 'پێشتر',
+      next: 'دواتر',
+      today: 'ئەمڕو',
+      month: 'مانگ',
+      week: 'هەفتە',
+      day: 'ڕۆژ',
+      list: 'بەرنامە',
+    },
+    weekText: 'هەفتە',
+    allDayText: 'هەموو ڕۆژەکە',
+    moreLinkText: 'زیاتر',
+    noEventsText: 'هیچ ڕووداوێك نیە',
+  };
+
+  var l47 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'lb',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -935,7 +1145,11 @@
     noEventsText: 'Nee Evenementer ze affichéieren',
   };
 
+<<<<<<< HEAD
   var l45 = {
+=======
+  var l48 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'lt',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -956,7 +1170,11 @@
     noEventsText: 'Nėra įvykių rodyti',
   };
 
+<<<<<<< HEAD
   var l46 = {
+=======
+  var l49 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'lv',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -979,7 +1197,11 @@
     noEventsText: 'Nav notikumu',
   };
 
+<<<<<<< HEAD
   var l47 = {
+=======
+  var l50 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'mk',
     buttonText: {
       prev: 'претходно',
@@ -998,7 +1220,11 @@
     noEventsText: 'Нема настани за прикажување',
   };
 
+<<<<<<< HEAD
   var l48 = {
+=======
+  var l51 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'ms',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -1021,7 +1247,11 @@
     noEventsText: 'Tiada peristiwa untuk dipaparkan',
   };
 
+<<<<<<< HEAD
   var l49 = {
+=======
+  var l52 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'nb',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -1042,7 +1272,11 @@
     noEventsText: 'Ingen hendelser å vise',
   };
 
+<<<<<<< HEAD
   var l50 = {
+=======
+  var l53 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'ne', // code for nepal
     week: {
       dow: 7, // Sunday is the first day of the week.
@@ -1063,7 +1297,11 @@
     noEventsText: 'देखाउनको लागि कुनै घटनाहरू छैनन्',
   };
 
+<<<<<<< HEAD
   var l51 = {
+=======
+  var l54 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'nl',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -1084,7 +1322,11 @@
     noEventsText: 'Geen evenementen om te laten zien',
   };
 
+<<<<<<< HEAD
   var l52 = {
+=======
+  var l55 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'nn',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -1105,7 +1347,11 @@
     noEventsText: 'Ingen hendelser å vise',
   };
 
+<<<<<<< HEAD
   var l53 = {
+=======
+  var l56 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'pl',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -1126,7 +1372,11 @@
     noEventsText: 'Brak wydarzeń do wyświetlenia',
   };
 
+<<<<<<< HEAD
   var l54 = {
+=======
+  var l57 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'pt-br',
     buttonText: {
       prev: 'Anterior',
@@ -1145,7 +1395,11 @@
     noEventsText: 'Não há eventos para mostrar',
   };
 
+<<<<<<< HEAD
   var l55 = {
+=======
+  var l58 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'pt',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -1166,7 +1420,11 @@
     noEventsText: 'Não há eventos para mostrar',
   };
 
+<<<<<<< HEAD
   var l56 = {
+=======
+  var l59 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'ro',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -1189,7 +1447,11 @@
     noEventsText: 'Nu există evenimente de afișat',
   };
 
+<<<<<<< HEAD
   var l57 = {
+=======
+  var l60 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'ru',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -1212,7 +1474,11 @@
     noEventsText: 'Нет событий для отображения',
   };
 
+<<<<<<< HEAD
   var l58 = {
+=======
+  var l61 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'sk',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -1235,7 +1501,11 @@
     noEventsText: 'Žiadne akcie na zobrazenie',
   };
 
+<<<<<<< HEAD
   var l59 = {
+=======
+  var l62 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'sl',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -1256,7 +1526,28 @@
     noEventsText: 'Ni dogodkov za prikaz',
   };
 
+<<<<<<< HEAD
   var l60 = {
+=======
+  var l63 = {
+    code: 'sm',
+    buttonText: {
+      prev: 'Talu ai',
+      next: 'Mulimuli atu',
+      today: 'Aso nei',
+      month: 'Masina',
+      week: 'Vaiaso',
+      day: 'Aso',
+      list: 'Faasologa',
+    },
+    weekText: 'Vaiaso',
+    allDayText: 'Aso atoa',
+    moreLinkText: 'sili atu',
+    noEventsText: 'Leai ni mea na tutupu',
+  };
+
+  var l64 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'sq',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -1279,7 +1570,11 @@
     noEventsText: 'Nuk ka evente për të shfaqur',
   };
 
+<<<<<<< HEAD
   var l61 = {
+=======
+  var l65 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'sr-cyrl',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -1302,7 +1597,11 @@
     noEventsText: 'Нема догађаја за приказ',
   };
 
+<<<<<<< HEAD
   var l62 = {
+=======
+  var l66 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'sr',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -1325,7 +1624,11 @@
     noEventsText: 'Nеma događaja za prikaz',
   };
 
+<<<<<<< HEAD
   var l63 = {
+=======
+  var l67 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'sv',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -1346,7 +1649,11 @@
     noEventsText: 'Inga händelser att visa',
   };
 
+<<<<<<< HEAD
   var l64 = {
+=======
+  var l68 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'ta-in',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -1357,19 +1664,34 @@
       next: 'அடுத்தது',
       today: 'இன்று',
       month: 'மாதம்',
+<<<<<<< HEAD
       week: 'சனிக்கிழமை',
       day: 'நாள்',
       list: 'தினசரி கதை',
     },
     weekText: 'வார',
+=======
+      week: 'வாரம்',
+      day: 'நாள்',
+      list: 'தினசரி அட்டவணை',
+    },
+    weekText: 'வாரம்',
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     allDayText: 'நாள் முழுவதும்',
     moreLinkText: function(n) {
       return '+ மேலும் ' + n
     },
+<<<<<<< HEAD
     noEventsText: 'நிகழ்வைக் காட்டவில்லை',
   };
 
   var l65 = {
+=======
+    noEventsText: 'காண்பிக்க நிகழ்வுகள் இல்லை',
+  };
+
+  var l69 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'th',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -1393,7 +1715,11 @@
     noEventsText: 'ไม่มีกิจกรรมที่จะแสดง',
   };
 
+<<<<<<< HEAD
   var l66 = {
+=======
+  var l70 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'tr',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -1414,7 +1740,11 @@
     noEventsText: 'Gösterilecek etkinlik yok',
   };
 
+<<<<<<< HEAD
   var l67 = {
+=======
+  var l71 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'ug',
     buttonText: {
       month: 'ئاي',
@@ -1425,7 +1755,11 @@
     allDayText: 'پۈتۈن كۈن',
   };
 
+<<<<<<< HEAD
   var l68 = {
+=======
+  var l72 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'uk',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -1448,7 +1782,11 @@
     noEventsText: 'Немає подій для відображення',
   };
 
+<<<<<<< HEAD
   var l69 = {
+=======
+  var l73 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'uz',
     buttonText: {
       month: 'Oy',
@@ -1463,7 +1801,11 @@
     noEventsText: "Ko'rsatish uchun voqealar yo'q",
   };
 
+<<<<<<< HEAD
   var l70 = {
+=======
+  var l74 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'vi',
     week: {
       dow: 1, // Monday is the first day of the week.
@@ -1486,7 +1828,11 @@
     noEventsText: 'Không có sự kiện để hiển thị',
   };
 
+<<<<<<< HEAD
   var l71 = {
+=======
+  var l75 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'zh-cn',
     week: {
       // GB/T 7408-1994《数据元和交换格式·信息交换·日期和时间表示法》与ISO 8601:1988等效
@@ -1510,7 +1856,11 @@
     noEventsText: '没有事件显示',
   };
 
+<<<<<<< HEAD
   var l72 = {
+=======
+  var l76 = {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     code: 'zh-tw',
     buttonText: {
       prev: '上月',
@@ -1530,7 +1880,11 @@
   /* eslint max-len: off */
 
   var localesAll = [
+<<<<<<< HEAD
     l0, l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12, l13, l14, l15, l16, l17, l18, l19, l20, l21, l22, l23, l24, l25, l26, l27, l28, l29, l30, l31, l32, l33, l34, l35, l36, l37, l38, l39, l40, l41, l42, l43, l44, l45, l46, l47, l48, l49, l50, l51, l52, l53, l54, l55, l56, l57, l58, l59, l60, l61, l62, l63, l64, l65, l66, l67, l68, l69, l70, l71, l72, 
+=======
+    l0, l1, l2, l3, l4, l5, l6, l7, l8, l9, l10, l11, l12, l13, l14, l15, l16, l17, l18, l19, l20, l21, l22, l23, l24, l25, l26, l27, l28, l29, l30, l31, l32, l33, l34, l35, l36, l37, l38, l39, l40, l41, l42, l43, l44, l45, l46, l47, l48, l49, l50, l51, l52, l53, l54, l55, l56, l57, l58, l59, l60, l61, l62, l63, l64, l65, l66, l67, l68, l69, l70, l71, l72, l73, l74, l75, l76, 
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
   ];
 
   return localesAll;

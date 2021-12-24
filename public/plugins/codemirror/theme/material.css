@@ -24,6 +24,15 @@
 .cm-s-material .CodeMirror-cursor {
   border-left: 1px solid #FFCC00;
 }
+<<<<<<< HEAD
+=======
+.cm-s-material.cm-fat-cursor .CodeMirror-cursor {
+  background-color: #5d6d5c80 !important;
+}
+.cm-s-material .cm-animate-fat-cursor {
+  background-color: #5d6d5c80 !important;
+}
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 .cm-s-material div.CodeMirror-selected {
   background: rgba(128, 203, 196, 0.2);
@@ -132,4 +141,8 @@
 .cm-s-material .CodeMirror-matchingbracket {
   text-decoration: underline;
   color: white !important;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)

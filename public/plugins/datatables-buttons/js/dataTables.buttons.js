@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /*! Buttons for DataTables 1.7.0
+=======
+/*! Buttons for DataTables 1.7.1
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
  * ©2016-2021 SpryMedia Ltd - datatables.net/license
  */
 
@@ -1041,6 +1045,7 @@ $.extend( Buttons.prototype, {
 
 		// Align the popover relative to the DataTables container
 		// Useful for wide popovers such as SearchPanes
+<<<<<<< HEAD
 		if (
 			position === 'absolute' &&
 			(
@@ -1054,22 +1059,43 @@ $.extend( Buttons.prototype, {
 
 			display.css( {
 				top: hostPosition.top + hostNode.outerHeight(),
+=======
+		if (position === 'absolute') {
+			// Align relative to the host button
+			var hostPosition = hostNode.position();
+			var buttonPosition = $(hostButton.node()).position();
+
+			display.css( {
+				top: buttonPosition.top + hostNode.outerHeight(),
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 				left: hostPosition.left
 			} );
 
 			// calculate overflow when positioned beneath
 			var collectionHeight = display.outerHeight();
 			var tableBottom = tableContainer.offset().top + tableContainer.height();
+<<<<<<< HEAD
 			var listBottom = hostPosition.top + hostNode.outerHeight() + collectionHeight;
 			var bottomOverflow = listBottom - tableBottom;
 
 			// calculate overflow when positioned above
 			var listTop = hostPosition.top - collectionHeight;
+=======
+			var listBottom = buttonPosition.top + hostNode.outerHeight() + collectionHeight;
+			var bottomOverflow = listBottom - tableBottom;
+
+			// calculate overflow when positioned above
+			var listTop = buttonPosition.top - collectionHeight;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			var tableTop = tableContainer.offset().top;
 			var topOverflow = tableTop - listTop;
 
 			// if bottom overflow is larger, move to the top because it fits better, or if dropup is requested
+<<<<<<< HEAD
 			var moveTop = hostPosition.top - collectionHeight - 5;
+=======
+			var moveTop = buttonPosition.top - collectionHeight - 5;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			if ( (bottomOverflow > topOverflow || options.dropup) && -moveTop < tableTop ) {
 				display.css( 'top', moveTop);
 			}
@@ -1088,6 +1114,7 @@ $.extend( Buttons.prototype, {
 			var buttonsLeft = hostNode.offset().left;
 			var buttonsWidth = hostNode.outerWidth()
 			var buttonsRight = buttonsLeft + buttonsWidth;
+<<<<<<< HEAD
 			
 			// You've then got all the numbers you need to do some calculations and if statements,
 			//  so we can do some quick JS maths and apply it only once
@@ -1175,6 +1202,68 @@ $.extend( Buttons.prototype, {
 				: buttonsLeft - popoverLeft;
 
 			display.css('left', display.position().left + popoverShuffle);
+=======
+
+			if (
+				display.hasClass( options.rightAlignClassName ) ||
+				display.hasClass( options.leftAlignClassName ) ||
+				options.align === 'dt-container'
+			){
+				// You've then got all the numbers you need to do some calculations and if statements,
+				//  so we can do some quick JS maths and apply it only once
+				// If it has the right align class OR the buttons are right aligned OR the button container is floated right,
+				//  then calculate left position for the popover to align the popover to the right hand
+				//  side of the button - check to see if the left of the popover is inside the table container.
+				// If not, move the popover so it is, but not more than it means that the popover is to the right of the table container
+				var popoverShuffle = 0;
+				if ( display.hasClass( options.rightAlignClassName )) {
+					popoverShuffle = buttonsRight - popoverRight;
+					if(tableLeft > (popoverLeft + popoverShuffle)){
+						var leftGap = tableLeft - (popoverLeft + popoverShuffle);
+						var rightGap = tableRight - (popoverRight + popoverShuffle);
+		
+						if(leftGap > rightGap){
+							popoverShuffle += rightGap; 
+						}
+						else {
+							popoverShuffle += leftGap;
+						}
+					}
+				}
+				// else attempt to left align the popover to the button. Similar to above, if the popover's right goes past the table container's right,
+				//  then move it back, but not so much that it goes past the left of the table container
+				else {
+					popoverShuffle = tableLeft - popoverLeft;
+	
+					if(tableRight < (popoverRight + popoverShuffle)){
+						var leftGap = tableLeft - (popoverLeft + popoverShuffle);
+						var rightGap = tableRight - (popoverRight + popoverShuffle);
+	
+						if(leftGap > rightGap ){
+							popoverShuffle += rightGap;
+						}
+						else {
+							popoverShuffle += leftGap;
+						}
+	
+					}
+				}
+	
+				display.css('left', display.position().left + popoverShuffle);
+			}
+			else {
+				var top = hostNode.offset().top
+				var popoverShuffle = 0;
+
+				popoverShuffle = options.align === 'button-right'
+					? buttonsRight - popoverRight
+					: buttonsLeft - popoverLeft;
+
+				display.css('left', display.position().left + popoverShuffle);
+			}
+			
+			
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		}
 		else {
 			// Fix position - centre on screen
@@ -1479,6 +1568,7 @@ Buttons.stripData = function ( str, config ) {
 	// Always remove comments
 	str = str.replace( /<!\-\-.*?\-\->/g, '' );
 
+<<<<<<< HEAD
 	if ( config.stripHtml ) {
 		str = str.replace( /<[^>]*>/g, '' );
 	}
@@ -1492,6 +1582,21 @@ Buttons.stripData = function ( str, config ) {
 	}
 
 	if ( config.decodeEntities ) {
+=======
+	if ( ! config || config.stripHtml ) {
+		str = str.replace( /<[^>]*>/g, '' );
+	}
+
+	if ( ! config || config.trim ) {
+		str = str.replace( /^\s+|\s+$/g, '' );
+	}
+
+	if ( ! config || config.stripNewlines ) {
+		str = str.replace( /\n/g, ' ' );
+	}
+
+	if ( ! config || config.decodeEntities ) {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		_exportTextarea.innerHTML = str;
 		str = _exportTextarea.value;
 	}
@@ -1537,7 +1642,11 @@ Buttons.defaults = {
  * @type {string}
  * @static
  */
+<<<<<<< HEAD
 Buttons.version = '1.7.0';
+=======
+Buttons.version = '1.7.1';
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 
 $.extend( _dtButtons, {

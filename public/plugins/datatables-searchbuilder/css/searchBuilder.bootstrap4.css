@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 div.dt-datetime {
   position: absolute;
   background-color: white;
@@ -207,6 +208,16 @@ div.dt-datetime-error {
 
 div.dt-button-collection {
   overflow: visible !important;
+=======
+div.dt-button-collection {
+  overflow: visible !important;
+  z-index: 2002 !important;
+}
+div.dt-button-collection div.dtsb-searchBuilder {
+  width: 99% !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 }
 
 .dtsb-greyscale {
@@ -270,6 +281,10 @@ div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria input.dtsb-input {
   padding: 0.4em;
   margin-right: 0.8em;
   max-width: 20em;
+<<<<<<< HEAD
+=======
+  background-color: rgba(200, 200, 200, 0.3);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 }
 div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria select.dtsb-dropDown option.dtsb-notItalic,
 div.dtsb-searchBuilder div.dtsb-group div.dtsb-criteria input.dtsb-input option.dtsb-notItalic {
@@ -329,12 +344,27 @@ div.dtsb-searchBuilder div.dtsb-group div.dtsb-logicContainer button.dtsb-logic 
   border-radius: 0px;
   flex-grow: 1;
   flex-shrink: 0;
+<<<<<<< HEAD
   flex-basis: 40px;
+=======
+  flex-basis: 3em;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
   margin: 0px;
 }
 div.dtsb-searchBuilder div.dtsb-group div.dtsb-logicContainer button.dtsb-clearGroup {
   border: none;
   border-radius: 0px;
+<<<<<<< HEAD
   width: 30px;
   margin: 0px;
 }
+=======
+  width: 2em;
+  margin: 0px;
+}
+
+div.dt-button-collection div.dtsb-searchBuilder {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)

@@ -68,6 +68,10 @@
     var flags = "";
     if (val instanceof RegExp) {
       if (val.ignoreCase) flags = "i";
+<<<<<<< HEAD
+=======
+      if (val.unicode) flags += "u"
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
       val = val.source;
     } else {
       val = String(val);

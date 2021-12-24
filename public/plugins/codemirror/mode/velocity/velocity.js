@@ -82,6 +82,10 @@ CodeMirror.defineMode("velocity", function() {
         }
         // variable?
         else if (ch == "$") {
+<<<<<<< HEAD
+=======
+            stream.eat("!");
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
             stream.eatWhile(/[\w\d\$_\.{}-]/);
             // is it one of the specials?
             if (specials && specials.propertyIsEnumerable(stream.current())) {

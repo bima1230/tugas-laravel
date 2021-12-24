@@ -195,7 +195,11 @@ CodeMirror.defineMode("cobol", function () {
       case "string": // multi-line string parsing mode
         var next = false;
         while ((next = stream.next()) != null) {
+<<<<<<< HEAD
           if (next == "\"" || next == "\'") {
+=======
+          if ((next == "\"" || next == "\'") && !stream.match(/['"]/, false)) {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
             state.mode = false;
             break;
           }

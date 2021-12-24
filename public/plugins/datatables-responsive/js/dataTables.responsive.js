@@ -1,11 +1,19 @@
+<<<<<<< HEAD
 /*! Responsive 2.2.7
+=======
+/*! Responsive 2.2.9
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
  * 2014-2021 SpryMedia Ltd - datatables.net/license
  */
 
 /**
  * @summary     Responsive
  * @description Responsive tables plug-in for DataTables
+<<<<<<< HEAD
  * @version     2.2.7
+=======
+ * @version     2.2.9
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
  * @file        dataTables.responsive.js
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     www.sprymedia.co.uk/contact
@@ -1443,7 +1451,11 @@ Api.registerPlural( 'columns().responsiveHidden()', 'column().responsiveHidden()
  * @name Responsive.version
  * @static
  */
+<<<<<<< HEAD
 Responsive.version = '2.2.7';
+=======
+Responsive.version = '2.2.9';
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 
 $.fn.dataTable.Responsive = Responsive;

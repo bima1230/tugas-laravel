@@ -24,6 +24,11 @@
     "@inject?": paramData,
     "@state": paramData,
     "template": { soyState: "templ-def", variableScope: true},
+<<<<<<< HEAD
+=======
+    "extern": {soyState: "param-def"},
+    "export": {soyState: "export"},
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     "literal": { },
     "msg": {},
     "fallbackmsg": { noEndTag: true, reduceIndent: true},
@@ -31,6 +36,11 @@
     "plural": {},
     "let": { soyState: "var-def" },
     "if": {},
+<<<<<<< HEAD
+=======
+    "javaimpl": {},
+    "jsimpl": {},
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     "elseif": { noEndTag: true, reduceIndent: true},
     "else": { noEndTag: true, reduceIndent: true},
     "switch": {},
@@ -46,6 +56,11 @@
     "delcall": { soyState: "templ-ref" },
     "log": {},
     "element": { variableScope: true },
+<<<<<<< HEAD
+=======
+    "velog": {},
+    "const": { soyState: "const-def"},
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
   };
 
   var indentingTags = Object.keys(tags).filter(function(tag) {
@@ -522,6 +537,30 @@
               return this.token(stream, state);
             }
             return tokenUntil(stream, state, /\{\/literal}/);
+<<<<<<< HEAD
+=======
+          case "export":
+            if (match = stream.match(/\w+/)) {
+              state.soyState.pop();
+              if (match == "const") {
+                state.soyState.push("const-def")
+                return "keyword";
+              } else if (match == "extern") {
+                state.soyState.push("param-def")
+                return "keyword";
+              }
+            } else {
+              stream.next();
+            }
+            return null;
+          case "const-def":
+            if (stream.match(/^\w+/)) {
+              state.soyState.pop();
+              return "def";
+            }
+            stream.next();
+            return null;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
         }
 
         if (stream.match('{literal}')) {
@@ -552,7 +591,12 @@
               state.context = new Context(state.context, state.tag, tag.variableScope ? state.variables : null);
             // Otherwise close the current context.
             } else if (endTag) {
+<<<<<<< HEAD
               if (!state.context || state.context.tag != tagName) {
+=======
+              var isBalancedForExtern = tagName == 'extern' && (state.context && state.context.tag == 'export');
+              if (!state.context || ((state.context.tag != tagName) && !isBalancedForExtern)) {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
                 tagError = true;
               } else if (state.context) {
                 if (state.context.kind) {

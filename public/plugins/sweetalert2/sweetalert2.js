@@ -1,5 +1,9 @@
 /*!
+<<<<<<< HEAD
 * sweetalert2 v10.15.6
+=======
+* sweetalert2 v10.16.9
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 * Released under the MIT License.
 */
 (function (global, factory) {
@@ -339,7 +343,11 @@
 
     return result;
   };
+<<<<<<< HEAD
   var swalClasses = prefix(['container', 'shown', 'height-auto', 'iosfix', 'popup', 'modal', 'no-backdrop', 'no-transition', 'toast', 'toast-shown', 'toast-column', 'show', 'hide', 'close', 'title', 'header', 'content', 'html-container', 'actions', 'confirm', 'deny', 'cancel', 'footer', 'icon', 'icon-content', 'image', 'input', 'file', 'range', 'select', 'radio', 'checkbox', 'label', 'textarea', 'inputerror', 'input-label', 'validation-message', 'progress-steps', 'active-progress-step', 'progress-step', 'progress-step-line', 'loader', 'loading', 'styled', 'top', 'top-start', 'top-end', 'top-left', 'top-right', 'center', 'center-start', 'center-end', 'center-left', 'center-right', 'bottom', 'bottom-start', 'bottom-end', 'bottom-left', 'bottom-right', 'grow-row', 'grow-column', 'grow-fullscreen', 'rtl', 'timer-progress-bar', 'timer-progress-bar-container', 'scrollbar-measure', 'icon-success', 'icon-warning', 'icon-info', 'icon-question', 'icon-error']);
+=======
+  var swalClasses = prefix(['container', 'shown', 'height-auto', 'iosfix', 'popup', 'modal', 'no-backdrop', 'no-transition', 'toast', 'toast-shown', 'show', 'hide', 'close', 'title', 'header', 'content', 'html-container', 'actions', 'confirm', 'deny', 'cancel', 'footer', 'icon', 'icon-content', 'image', 'input', 'file', 'range', 'select', 'radio', 'checkbox', 'label', 'textarea', 'inputerror', 'input-label', 'validation-message', 'progress-steps', 'active-progress-step', 'progress-step', 'progress-step-line', 'loader', 'loading', 'styled', 'top', 'top-start', 'top-end', 'top-left', 'top-right', 'center', 'center-start', 'center-end', 'center-left', 'center-right', 'bottom', 'bottom-start', 'bottom-end', 'bottom-left', 'bottom-right', 'grow-row', 'grow-column', 'grow-fullscreen', 'rtl', 'timer-progress-bar', 'timer-progress-bar-container', 'scrollbar-measure', 'icon-success', 'icon-warning', 'icon-info', 'icon-question', 'icon-error']);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
   var iconTypes = prefix(['success', 'warning', 'info', 'question', 'error']);
 
   var getContainer = function getContainer() {
@@ -1295,6 +1303,10 @@
    */
 
   var queue = function queue(steps) {
+<<<<<<< HEAD
+=======
+    warnAboutDeprecation('Swal.queue()', "async/await");
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     var Swal = this;
     currentSteps = steps;
 
@@ -1404,7 +1416,11 @@
 
   var renderTitle = function renderTitle(instance, params) {
     var title = getTitle();
+<<<<<<< HEAD
     toggle(title, params.title || params.titleText);
+=======
+    toggle(title, params.title || params.titleText, 'block');
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
     if (params.title) {
       parseHtmlToContainer(params.title, title);
@@ -1628,8 +1644,17 @@
   }; // Restore previous active (focused) element
 
 
+<<<<<<< HEAD
   var restoreActiveElement = function restoreActiveElement() {
     return new Promise(function (resolve) {
+=======
+  var restoreActiveElement = function restoreActiveElement(returnFocus) {
+    return new Promise(function (resolve) {
+      if (!returnFocus) {
+        return resolve();
+      }
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
       var x = window.scrollX;
       var y = window.scrollY;
       globalState.restoreFocusTimeout = setTimeout(function () {
@@ -1637,8 +1662,11 @@
         resolve();
       }, RESTORE_FOCUS_TIMEOUT); // issues/900
 
+<<<<<<< HEAD
       /* istanbul ignore if */
 
+=======
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
       if (typeof x !== 'undefined' && typeof y !== 'undefined') {
         // IE doesn't have scrollX/scrollY support
         window.scrollTo(x, y);
@@ -1787,6 +1815,10 @@
     focusConfirm: true,
     focusDeny: false,
     focusCancel: false,
+<<<<<<< HEAD
+=======
+    returnFocus: true,
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     showCloseButton: false,
     closeButtonHtml: '&times;',
     closeButtonAriaLabel: 'Close this dialog',
@@ -1831,7 +1863,11 @@
     didDestroy: undefined,
     scrollbarPadding: true
   };
+<<<<<<< HEAD
   var updatableParams = ['allowEscapeKey', 'allowOutsideClick', 'background', 'buttonsStyling', 'cancelButtonAriaLabel', 'cancelButtonColor', 'cancelButtonText', 'closeButtonAriaLabel', 'closeButtonHtml', 'confirmButtonAriaLabel', 'confirmButtonColor', 'confirmButtonText', 'currentProgressStep', 'customClass', 'denyButtonAriaLabel', 'denyButtonColor', 'denyButtonText', 'didClose', 'didDestroy', 'footer', 'hideClass', 'html', 'icon', 'iconColor', 'iconHtml', 'imageAlt', 'imageHeight', 'imageUrl', 'imageWidth', 'onAfterClose', 'onClose', 'onDestroy', 'progressSteps', 'reverseButtons', 'showCancelButton', 'showCloseButton', 'showConfirmButton', 'showDenyButton', 'text', 'title', 'titleText', 'willClose'];
+=======
+  var updatableParams = ['allowEscapeKey', 'allowOutsideClick', 'background', 'buttonsStyling', 'cancelButtonAriaLabel', 'cancelButtonColor', 'cancelButtonText', 'closeButtonAriaLabel', 'closeButtonHtml', 'confirmButtonAriaLabel', 'confirmButtonColor', 'confirmButtonText', 'currentProgressStep', 'customClass', 'denyButtonAriaLabel', 'denyButtonColor', 'denyButtonText', 'didClose', 'didDestroy', 'footer', 'hideClass', 'html', 'icon', 'iconColor', 'iconHtml', 'imageAlt', 'imageHeight', 'imageUrl', 'imageWidth', 'onAfterClose', 'onClose', 'onDestroy', 'progressSteps', 'returnFocus', 'reverseButtons', 'showCancelButton', 'showCloseButton', 'showConfirmButton', 'showDenyButton', 'text', 'title', 'titleText', 'willClose'];
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
   var deprecatedParams = {
     animation: 'showClass" and "hideClass',
     onBeforeOpen: 'willOpen',
@@ -1841,7 +1877,11 @@
     onAfterClose: 'didClose',
     onDestroy: 'didDestroy'
   };
+<<<<<<< HEAD
   var toastIncompatibleParams = ['allowOutsideClick', 'allowEnterKey', 'backdrop', 'focusConfirm', 'focusDeny', 'focusCancel', 'heightAuto', 'keydownListenerCapture'];
+=======
+  var toastIncompatibleParams = ['allowOutsideClick', 'allowEnterKey', 'backdrop', 'focusConfirm', 'focusDeny', 'focusCancel', 'returnFocus', 'heightAuto', 'keydownListenerCapture'];
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
   /**
    * Is valid parameter
    * @param {String} paramName
@@ -2171,11 +2211,19 @@
    * Instance method to close sweetAlert
    */
 
+<<<<<<< HEAD
   function removePopupAndResetState(instance, container, isToast$$1, didClose) {
     if (isToast$$1) {
       triggerDidCloseAndDispose(instance, didClose);
     } else {
       restoreActiveElement().then(function () {
+=======
+  function removePopupAndResetState(instance, container, returnFocus, didClose) {
+    if (isToast()) {
+      triggerDidCloseAndDispose(instance, didClose);
+    } else {
+      restoreActiveElement(returnFocus).then(function () {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
         return triggerDidCloseAndDispose(instance, didClose);
       });
       globalState.keydownTarget.removeEventListener('keydown', globalState.keydownHandler, {
@@ -2199,7 +2247,11 @@
   }
 
   function removeBodyClasses() {
+<<<<<<< HEAD
     removeClass([document.documentElement, document.body], [swalClasses.shown, swalClasses['height-auto'], swalClasses['no-backdrop'], swalClasses['toast-shown'], swalClasses['toast-column']]);
+=======
+    removeClass([document.documentElement, document.body], [swalClasses.shown, swalClasses['height-auto'], swalClasses['no-backdrop'], swalClasses['toast-shown']]);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
   }
 
   function close(resolveValue) {
@@ -2255,10 +2307,17 @@
     runDidClose(popup, willClose, onClose);
 
     if (animationIsSupported) {
+<<<<<<< HEAD
       animatePopup(instance, popup, container, didClose || onAfterClose);
     } else {
       // Otherwise, remove immediately
       removePopupAndResetState(instance, container, isToast(), didClose || onAfterClose);
+=======
+      animatePopup(instance, popup, container, innerParams.returnFocus, didClose || onAfterClose);
+    } else {
+      // Otherwise, remove immediately
+      removePopupAndResetState(instance, container, innerParams.returnFocus, didClose || onAfterClose);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     }
   };
 
@@ -2270,8 +2329,13 @@
     }
   };
 
+<<<<<<< HEAD
   var animatePopup = function animatePopup(instance, popup, container, didClose) {
     globalState.swalCloseEventFinishedCallback = removePopupAndResetState.bind(null, instance, container, isToast(), didClose);
+=======
+  var animatePopup = function animatePopup(instance, popup, container, returnFocus, didClose) {
+    globalState.swalCloseEventFinishedCallback = removePopupAndResetState.bind(null, instance, container, returnFocus, didClose);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     popup.addEventListener(animationEndEvent, function (e) {
       if (e.target === popup) {
         globalState.swalCloseEventFinishedCallback();
@@ -2644,7 +2708,11 @@
 
       if (tag) {
         showWarningsForAttributes(tag, []);
+<<<<<<< HEAD
         result[paramName.replace(/^swal-/, '')] = tag.innerHTML;
+=======
+        result[paramName.replace(/^swal-/, '')] = tag.innerHTML.trim();
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
       }
     }
 
@@ -3124,6 +3192,13 @@
   var keydownHandler = function keydownHandler(instance, e, dismissWith) {
     var innerParams = privateProps.innerParams.get(instance);
 
+<<<<<<< HEAD
+=======
+    if (!innerParams) {
+      return; // This instance has already been destroyed
+    }
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     if (innerParams.stopKeydownPropagation) {
       e.stopPropagation();
     } // ENTER
@@ -3303,6 +3378,7 @@
   var prepareParams = function prepareParams(userParams, mixinParams) {
     var templateParams = getTemplateParams(userParams);
 
+<<<<<<< HEAD
     var showClass = _extends({}, defaultParams.showClass, mixinParams.showClass, templateParams.showClass, userParams.showClass);
 
     var hideClass = _extends({}, defaultParams.hideClass, mixinParams.hideClass, templateParams.hideClass, userParams.hideClass);
@@ -3312,6 +3388,13 @@
 
     params.showClass = showClass;
     params.hideClass = hideClass; // @deprecated
+=======
+    var params = _extends({}, defaultParams, mixinParams, templateParams, userParams); // precedence is described in #2131
+
+
+    params.showClass = _extends({}, defaultParams.showClass, params.showClass);
+    params.hideClass = _extends({}, defaultParams.hideClass, params.hideClass); // @deprecated
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
     if (userParams.animation === false) {
       params.showClass = {
@@ -3354,6 +3437,7 @@
 
       handlePopupClick(instance, domCache, dismissWith);
       addKeydownHandler(instance, globalState, innerParams, dismissWith);
+<<<<<<< HEAD
 
       if (innerParams.toast && (innerParams.input || innerParams.footer || innerParams.showCloseButton)) {
         addClass(document.body, swalClasses['toast-column']);
@@ -3361,6 +3445,8 @@
         removeClass(document.body, swalClasses['toast-column']);
       }
 
+=======
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
       handleInputOptionsAndValue(instance, innerParams);
       openPopup(innerParams);
       setupTimer(globalState, innerParams, dismissWith);
@@ -3629,7 +3715,11 @@
     };
   });
   SweetAlert.DismissReason = DismissReason;
+<<<<<<< HEAD
   SweetAlert.version = '10.15.6';
+=======
+  SweetAlert.version = '10.16.9';
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
   var Swal = SweetAlert;
   Swal["default"] = Swal;

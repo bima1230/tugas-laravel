@@ -24,6 +24,15 @@
 .cm-s-material-palenight .CodeMirror-cursor {
   border-left: 1px solid #FFCC00;
 }
+<<<<<<< HEAD
+=======
+.cm-s-material-palenight.cm-fat-cursor .CodeMirror-cursor {
+  background-color: #607c8b80 !important;
+}
+.cm-s-material-palenight .cm-animate-fat-cursor {
+  background-color: #607c8b80 !important;
+}
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 .cm-s-material-palenight div.CodeMirror-selected {
   background: rgba(113, 124, 180, 0.2);
@@ -132,4 +141,8 @@
 .cm-s-material-palenight .CodeMirror-matchingbracket {
   text-decoration: underline;
   color: white !important;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)

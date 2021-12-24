@@ -19,7 +19,11 @@
     {name: "Brainfuck", mime: "text/x-brainfuck", mode: "brainfuck", ext: ["b", "bf"]},
     {name: "C", mime: "text/x-csrc", mode: "clike", ext: ["c", "h", "ino"]},
     {name: "C++", mime: "text/x-c++src", mode: "clike", ext: ["cpp", "c++", "cc", "cxx", "hpp", "h++", "hh", "hxx"], alias: ["cpp"]},
+<<<<<<< HEAD
     {name: "Cobol", mime: "text/x-cobol", mode: "cobol", ext: ["cob", "cpy"]},
+=======
+    {name: "Cobol", mime: "text/x-cobol", mode: "cobol", ext: ["cob", "cpy", "cbl"]},
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     {name: "C#", mime: "text/x-csharp", mode: "clike", ext: ["cs"], alias: ["csharp", "cs"]},
     {name: "Clojure", mime: "text/x-clojure", mode: "clojure", ext: ["clj", "cljc", "cljx"]},
     {name: "ClojureScript", mime: "text/x-clojurescript", mode: "clojure", ext: ["cljs"]},
@@ -76,7 +80,11 @@
     {name: "JSON-LD", mime: "application/ld+json", mode: "javascript", ext: ["jsonld"], alias: ["jsonld"]},
     {name: "JSX", mime: "text/jsx", mode: "jsx", ext: ["jsx"]},
     {name: "Jinja2", mime: "text/jinja2", mode: "jinja2", ext: ["j2", "jinja", "jinja2"]},
+<<<<<<< HEAD
     {name: "Julia", mime: "text/x-julia", mode: "julia", ext: ["jl"]},
+=======
+    {name: "Julia", mime: "text/x-julia", mode: "julia", ext: ["jl"], alias: ["jl"]},
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     {name: "Kotlin", mime: "text/x-kotlin", mode: "clike", ext: ["kt"]},
     {name: "LESS", mime: "text/x-less", mode: "css", ext: ["less"]},
     {name: "LiveScript", mime: "text/x-livescript", mode: "livescript", ext: ["ls"], alias: ["ls"]},

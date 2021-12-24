@@ -1,11 +1,19 @@
+<<<<<<< HEAD
 /*! KeyTable 2.6.1
+=======
+/*! KeyTable 2.6.4
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
  * ©2009-2021 SpryMedia Ltd - datatables.net/license
  */
 
 /**
  * @summary     KeyTable
  * @description Spreadsheet like keyboard navigation for DataTables
+<<<<<<< HEAD
  * @version     2.6.1
+=======
+ * @version     2.6.4
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
  * @file        dataTables.keyTable.js
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     www.sprymedia.co.uk/contact
@@ -471,8 +479,15 @@ $.extend( KeyTable.prototype, {
 				if ( editor ) {
 					// Got Editor - need to activate inline editing,
 					// set the value and submit
+<<<<<<< HEAD
 					editor
 						.inline( focused.cell.index() )
+=======
+					var options = that._inlineOptions(focused.cell.index());
+
+					editor
+						.inline(options.cell, options.field, options.options)
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 						.set( editor.displayed()[0], pastedText )
 						.submit();
 				}
@@ -562,6 +577,11 @@ $.extend( KeyTable.prototype, {
 		}
 
 		var editInline = function () {
+<<<<<<< HEAD
+=======
+			var options = that._inlineOptions(editCell.index());
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			editor
 				.one( 'open'+namespace, function () {
 					// Remove cancel open
@@ -616,7 +636,11 @@ $.extend( KeyTable.prototype, {
 					// might be that the open event handler isn't needed
 					editor.off( namespace );
 				} )
+<<<<<<< HEAD
 				.inline( editCell.index() );
+=======
+				.inline(options.cell, options.field, options.options);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		};
 
 		// Editor 1.7 listens for `return` on keyup, so if return is the trigger
@@ -635,6 +659,23 @@ $.extend( KeyTable.prototype, {
 	},
 
 
+<<<<<<< HEAD
+=======
+	_inlineOptions: function (cellIdx)
+	{
+		if (this.c.editorOptions) {
+			return this.c.editorOptions(cellIdx);
+		}
+
+		return {
+			cell: cellIdx,
+			field: undefined,
+			options: undefined
+		};
+	},
+
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	/**
 	 * Emit an event on the DataTable for listeners
 	 *
@@ -841,7 +882,11 @@ $.extend( KeyTable.prototype, {
 				break;
 
 			case 27: // esc
+<<<<<<< HEAD
 				if ( this.s.blurable && enable === true ) {
+=======
+				if ( this.c.blurable && enable === true ) {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 					this._blur();
 				}
 				break;
@@ -1023,6 +1068,19 @@ $.extend( KeyTable.prototype, {
 			row = currRow,
 			column = columns[ currCol ]; // row is the display, column is an index
 
+<<<<<<< HEAD
+=======
+		// If the direction is rtl then the logic needs to be inverted from this point forwards
+		if($(dt.table().node()).css('direction') === 'rtl') {
+			if(direction === 'right') {
+				direction = 'left';
+			}
+			else if(direction === 'left'){
+				direction = 'right';
+			}
+		}
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		if ( direction === 'right' ) {
 			if ( currCol >= columns.length - 1 ) {
 				row++;
@@ -1189,6 +1247,15 @@ KeyTable.defaults = {
 	editOnFocus: false,
 
 	/**
+<<<<<<< HEAD
+=======
+	 * Options to pass to Editor's inline method
+	 * @type {function}
+	 */
+	editorOptions: null,
+
+	/**
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	 * Select a cell to automatically select on start up. `null` for no
 	 * automatic selection
 	 * @type {cell-selector}
@@ -1210,7 +1277,11 @@ KeyTable.defaults = {
 
 
 
+<<<<<<< HEAD
 KeyTable.version = "2.6.1";
+=======
+KeyTable.version = "2.6.4";
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 
 $.fn.dataTable.KeyTable = KeyTable;

@@ -1311,6 +1311,10 @@
       if (span.marker == marker) { return span }
     } }
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
   // Remove a span from an array, returning undefined if no spans are
   // left (we don't store arrays for lines without spans).
   function removeMarkedSpan(spans, span) {
@@ -1319,9 +1323,22 @@
       { if (spans[i] != span) { (r || (r = [])).push(spans[i]); } }
     return r
   }
+<<<<<<< HEAD
   // Add a span to a line.
   function addMarkedSpan(line, span) {
     line.markedSpans = line.markedSpans ? line.markedSpans.concat([span]) : [span];
+=======
+
+  // Add a span to a line.
+  function addMarkedSpan(line, span, op) {
+    var inThisOp = op && window.WeakSet && (op.markedSpans || (op.markedSpans = new WeakSet));
+    if (inThisOp && inThisOp.has(line.markedSpans)) {
+      line.markedSpans.push(span);
+    } else {
+      line.markedSpans = line.markedSpans ? line.markedSpans.concat([span]) : [span];
+      if (inThisOp) { inThisOp.add(line.markedSpans); }
+    }
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     span.marker.attachLine(line);
   }
 
@@ -2186,6 +2203,10 @@
     if (cm.options.lineNumbers || markers) {
       var wrap$1 = ensureLineWrapped(lineView);
       var gutterWrap = lineView.gutter = elt("div", null, "CodeMirror-gutter-wrapper", ("left: " + (cm.options.fixedGutter ? dims.fixedPos : -dims.gutterTotalWidth) + "px"));
+<<<<<<< HEAD
+=======
+      gutterWrap.setAttribute("aria-hidden", "true");
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
       cm.display.input.setUneditable(gutterWrap);
       wrap$1.insertBefore(gutterWrap, lineView.text);
       if (lineView.line.gutterClass)
@@ -3163,6 +3184,14 @@
     cursor.style.top = pos.top + "px";
     cursor.style.height = Math.max(0, pos.bottom - pos.top) * cm.options.cursorHeight + "px";
 
+<<<<<<< HEAD
+=======
+    if (/\bcm-fat-cursor\b/.test(cm.getWrapperElement().className)) {
+      var charPos = charCoords(cm, head, "div", null, null);
+      cursor.style.width = Math.max(0, charPos.right - charPos.left) + "px";
+    }
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     if (pos.other) {
       // Secondary cursor, shown when on a 'jump' in bi-directional text
       var otherCursor = output.appendChild(elt("div", "\u00a0", "CodeMirror-cursor CodeMirror-secondarycursor"));
@@ -3430,8 +3459,13 @@
       // Set pos and end to the cursor positions around the character pos sticks to
       // If pos.sticky == "before", that is around pos.ch - 1, otherwise around pos.ch
       // If pos == Pos(_, 0, "before"), pos and end are unchanged
+<<<<<<< HEAD
       pos = pos.ch ? Pos(pos.line, pos.sticky == "before" ? pos.ch - 1 : pos.ch, "after") : pos;
       end = pos.sticky == "before" ? Pos(pos.line, pos.ch + 1, "before") : pos;
+=======
+      end = pos.sticky == "before" ? Pos(pos.line, pos.ch + 1, "before") : pos;
+      pos = pos.ch ? Pos(pos.line, pos.sticky == "before" ? pos.ch - 1 : pos.ch, "after") : pos;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     }
     for (var limit = 0; limit < 5; limit++) {
       var changed = false;
@@ -3782,7 +3816,12 @@
       scrollLeft: null, scrollTop: null, // Intermediate scroll position, not pushed to DOM yet
       scrollToPos: null,       // Used to scroll to a specific position
       focus: false,
+<<<<<<< HEAD
       id: ++nextOpId           // Unique ID
+=======
+      id: ++nextOpId,          // Unique ID
+      markArrays: null         // Used by addMarkedSpan
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     };
     pushOperation(cm.curOp);
   }
@@ -4235,6 +4274,11 @@
   function updateGutterSpace(display) {
     var width = display.gutters.offsetWidth;
     display.sizer.style.marginLeft = width + "px";
+<<<<<<< HEAD
+=======
+    // Send an event to consumers responding to changes in gutter width.
+    signalLater(display, "gutterChanged", display);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
   }
 
   function setDocumentHeight(cm, measure) {
@@ -4374,6 +4418,13 @@
     // The element in which the editor lives.
     d.wrapper = elt("div", [d.scrollbarFiller, d.gutterFiller, d.scroller], "CodeMirror");
 
+<<<<<<< HEAD
+=======
+    // This attribute is respected by automatic translation systems such as Google Translate,
+    // and may also be respected by tools used by human translators.
+    d.wrapper.setAttribute('translate', 'no');
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     // Work around IE7 z-index bug (not perfect, hence IE7 not really being supported)
     if (ie && ie_version < 8) { d.gutters.style.zIndex = -1; d.scroller.style.paddingRight = 0; }
     if (!webkit && !(gecko && mobile)) { d.scroller.draggable = true; }
@@ -4782,6 +4833,10 @@
     estimateLineHeights(cm);
     loadMode(cm);
     setDirectionClass(cm);
+<<<<<<< HEAD
+=======
+    cm.options.direction = doc.direction;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     if (!cm.options.lineWrapping) { findMaxLine(cm); }
     cm.options.mode = doc.modeOption;
     regChange(cm);
@@ -5958,7 +6013,11 @@
       if (marker.collapsed && curLine != from.line) { updateLineHeight(line, 0); }
       addMarkedSpan(line, new MarkedSpan(marker,
                                          curLine == from.line ? from.ch : null,
+<<<<<<< HEAD
                                          curLine == to.line ? to.ch : null));
+=======
+                                         curLine == to.line ? to.ch : null), doc.cm && doc.cm.curOp);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
       ++curLine;
     });
     // lineIsHidden depends on the presence of the spans, so needs a second pass
@@ -6130,6 +6189,10 @@
     getRange: function(from, to, lineSep) {
       var lines = getBetween(this, clipPos(this, from), clipPos(this, to));
       if (lineSep === false) { return lines }
+<<<<<<< HEAD
+=======
+      if (lineSep === '') { return lines.join('') }
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
       return lines.join(lineSep || this.lineSeparator())
     },
 
@@ -6684,10 +6747,16 @@
   // Very basic readline/emacs-style bindings, which are standard on Mac.
   keyMap.emacsy = {
     "Ctrl-F": "goCharRight", "Ctrl-B": "goCharLeft", "Ctrl-P": "goLineUp", "Ctrl-N": "goLineDown",
+<<<<<<< HEAD
     "Alt-F": "goWordRight", "Alt-B": "goWordLeft", "Ctrl-A": "goLineStart", "Ctrl-E": "goLineEnd",
     "Ctrl-V": "goPageDown", "Shift-Ctrl-V": "goPageUp", "Ctrl-D": "delCharAfter", "Ctrl-H": "delCharBefore",
     "Alt-D": "delWordAfter", "Alt-Backspace": "delWordBefore", "Ctrl-K": "killLine", "Ctrl-T": "transposeChars",
     "Ctrl-O": "openLine"
+=======
+    "Ctrl-A": "goLineStart", "Ctrl-E": "goLineEnd", "Ctrl-V": "goPageDown", "Shift-Ctrl-V": "goPageUp",
+    "Ctrl-D": "delCharAfter", "Ctrl-H": "delCharBefore", "Alt-Backspace": "delWordBefore", "Ctrl-K": "killLine",
+    "Ctrl-T": "transposeChars", "Ctrl-O": "openLine"
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
   };
   keyMap.macDefault = {
     "Cmd-A": "selectAll", "Cmd-D": "deleteLine", "Cmd-Z": "undo", "Shift-Cmd-Z": "redo", "Cmd-Y": "redo",
@@ -8833,7 +8902,11 @@
       var kludge = hiddenTextarea(), te = kludge.firstChild;
       cm.display.lineSpace.insertBefore(kludge, cm.display.lineSpace.firstChild);
       te.value = lastCopied.text.join("\n");
+<<<<<<< HEAD
       var hadFocus = document.activeElement;
+=======
+      var hadFocus = activeElt();
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
       selectInput(te);
       setTimeout(function () {
         cm.display.lineSpace.removeChild(kludge);
@@ -8856,7 +8929,11 @@
 
   ContentEditableInput.prototype.prepareSelection = function () {
     var result = prepareSelection(this.cm, false);
+<<<<<<< HEAD
     result.focus = document.activeElement == this.div;
+=======
+    result.focus = activeElt() == this.div;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     return result
   };
 
@@ -8952,7 +9029,11 @@
 
   ContentEditableInput.prototype.focus = function () {
     if (this.cm.options.readOnly != "nocursor") {
+<<<<<<< HEAD
       if (!this.selectionInEditor() || document.activeElement != this.div)
+=======
+      if (!this.selectionInEditor() || activeElt() != this.div)
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
         { this.showSelection(this.prepareSelection(), true); }
       this.div.focus();
     }
@@ -9794,7 +9875,11 @@
 
   addLegacyProps(CodeMirror);
 
+<<<<<<< HEAD
   CodeMirror.version = "5.60.0";
+=======
+  CodeMirror.version = "5.62.3";
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
   return CodeMirror;
 

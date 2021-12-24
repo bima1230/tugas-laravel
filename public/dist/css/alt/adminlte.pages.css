@@ -1,5 +1,9 @@
 /*!
+<<<<<<< HEAD
  *   AdminLTE v3.1.0
+=======
+ *   AdminLTE v3.2.0-rc
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
  *     Only Pages
  *   Author: Colorlib
  *   Website: AdminLTE.io <https://adminlte.io>
@@ -472,6 +476,7 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
 
 .login-page,
 .register-page {
+<<<<<<< HEAD
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
@@ -484,6 +489,16 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   flex-direction: column;
   height: 100vh;
   -webkit-justify-content: center;
+=======
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: #e9ecef;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100vh;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
   -ms-flex-pack: center;
   justify-content: center;
 }
@@ -692,10 +707,15 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
 }
 
 .product-image-thumbs {
+<<<<<<< HEAD
   -webkit-align-items: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
   display: -webkit-flex;
+=======
+  -ms-flex-align: stretch;
+  align-items: stretch;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
   display: -ms-flexbox;
   display: flex;
   margin-top: 2rem;
@@ -706,7 +726,10 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   border-radius: 0.25rem;
   background-color: #fff;
   border: 1px solid #dee2e6;
+<<<<<<< HEAD
   display: -webkit-flex;
+=======
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
   display: -ms-flexbox;
   display: flex;
   margin-right: 1rem;
@@ -717,7 +740,10 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
 .product-image-thumb img {
   max-width: 100%;
   height: auto;
+<<<<<<< HEAD
   -webkit-align-self: center;
+=======
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
   -ms-flex-item-align: center;
   align-self: center;
 }
@@ -768,6 +794,13 @@ body.iframe-mode-fullscreen {
   overflow: hidden;
 }
 
+<<<<<<< HEAD
+=======
+body.iframe-mode-fullscreen.layout-navbar-fixed .wrapper .content-wrapper {
+  margin-top: 0 !important;
+}
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 .content-wrapper {
   height: 100%;
 }
@@ -837,6 +870,7 @@ body.iframe-mode-fullscreen {
 
 .content-wrapper.iframe-mode .tab-empty {
   width: 100%;
+<<<<<<< HEAD
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -844,6 +878,12 @@ body.iframe-mode-fullscreen {
   -ms-flex-pack: center;
   justify-content: center;
   -webkit-align-items: center;
+=======
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
   -ms-flex-align: center;
   align-items: center;
 }
@@ -858,6 +898,7 @@ body.iframe-mode-fullscreen {
 }
 
 .content-wrapper.iframe-mode .tab-loading > div {
+<<<<<<< HEAD
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -865,6 +906,12 @@ body.iframe-mode-fullscreen {
   -ms-flex-pack: center;
   justify-content: center;
   -webkit-align-items: center;
+=======
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
   -ms-flex-align: center;
   align-items: center;
   width: 100%;
@@ -901,6 +948,13 @@ body.iframe-mode-fullscreen .content-wrapper.iframe-mode {
   opacity: 1;
 }
 
+<<<<<<< HEAD
+=======
+.dark-mode .content-wrapper.iframe-mode .tab-loading {
+  background-color: #343a40;
+}
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 .content-wrapper.kanban {
   height: 1px;
 }
@@ -916,10 +970,15 @@ body.iframe-mode-fullscreen .content-wrapper.iframe-mode {
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
+<<<<<<< HEAD
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   -webkit-align-items: stretch;
+=======
+  display: -ms-flexbox;
+  display: flex;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
   -ms-flex-align: stretch;
   align-items: stretch;
 }

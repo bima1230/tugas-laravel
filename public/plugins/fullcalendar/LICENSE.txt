@@ -1,6 +1,10 @@
 MIT License
 
+<<<<<<< HEAD
 Copyright (c) 2020 Adam Shaw
+=======
+Copyright (c) 2021 Adam Shaw
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

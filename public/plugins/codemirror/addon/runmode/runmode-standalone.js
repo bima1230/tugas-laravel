@@ -251,6 +251,10 @@
 
   CodeMirror.registerHelper = CodeMirror.registerGlobalHelper = Math.min;
   CodeMirror.splitLines = function(string) { return string.split(/\r?\n|\r/) };
+<<<<<<< HEAD
+=======
+  CodeMirror.countColumn = countColumn;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
   CodeMirror.defaults = { indentUnit: 2 };
 
@@ -322,7 +326,11 @@
       if (!stream.string && mode.blankLine) { mode.blankLine(state); }
       while (!stream.eol()) {
         var style = mode.token(stream, state);
+<<<<<<< HEAD
         callback(stream.current(), style, i, stream.start, state);
+=======
+        callback(stream.current(), style, i, stream.start, state, mode);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
         stream.start = stream.pos;
       }
     }

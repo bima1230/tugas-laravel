@@ -1,5 +1,9 @@
 /*!
+<<<<<<< HEAD
  * Font Awesome Free 5.15.3 by @fontawesome - https://fontawesome.com
+=======
+ * Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  */
 .fa,
@@ -4089,9 +4093,12 @@ readers do not read off random characters that represent icons */
 .fa-trello:before {
   content: "\f181"; }
 
+<<<<<<< HEAD
 .fa-tripadvisor:before {
   content: "\f262"; }
 
+=======
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 .fa-trophy:before {
   content: "\f091"; }
 

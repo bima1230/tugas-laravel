@@ -14,6 +14,13 @@
   ],
   "rules": {
     "capitalized-comments": "off",
+<<<<<<< HEAD
+=======
+    "comma-dangle": [
+      "error",
+      "never"
+    ],
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     "indent": [
       "error",
       2,
@@ -26,10 +33,19 @@
       "error",
       "always-multiline"
     ],
+<<<<<<< HEAD
+=======
+    "no-var": "off",
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     "object-curly-spacing": [
       "error",
       "always"
     ],
+<<<<<<< HEAD
+=======
+    "object-shorthand": "off",
+    "prefer-arrow-callback": "off",
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     "semi": [
       "error",
       "never"
@@ -38,8 +54,15 @@
     "unicorn/no-array-for-each": "off",
     "unicorn/no-for-loop": "off",
     "unicorn/no-null": "off",
+<<<<<<< HEAD
     "unicorn/prefer-dataset": "off",
     "unicorn/prefer-includes": "off",
+=======
+    "unicorn/numeric-separators-style": "off",
+    "unicorn/prefer-dataset": "off",
+    "unicorn/prefer-includes": "off",
+    "unicorn/prefer-module": "off",
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     "unicorn/prefer-node-append": "off",
     "unicorn/prefer-query-selector": "off",
     "unicorn/prefer-spread": "off",

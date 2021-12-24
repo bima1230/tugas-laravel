@@ -962,7 +962,11 @@ DataTable.ext.buttons.csvHtml5 = {
 		}
 
 		if ( config.bom ) {
+<<<<<<< HEAD
 			output = '\ufeff' + output;
+=======
+			output = String.fromCharCode(0xFEFF) + output;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		}
 
 		_saveAs(

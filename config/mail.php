@@ -29,7 +29,11 @@ return [
     | mailers below. You are free to add additional mailers as required.
     |
     | Supported: "smtp", "sendmail", "mailgun", "ses",
+<<<<<<< HEAD
     |            "postmark", "log", "array", "failover"
+=======
+    |            "postmark", "log", "array"
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     |
     */
 

@@ -1,15 +1,28 @@
+<<<<<<< HEAD
 /*! Scroller 2.0.3
  * ©2011-2020 SpryMedia Ltd - datatables.net/license
+=======
+/*! Scroller 2.0.5
+ * ©2011-2021 SpryMedia Ltd - datatables.net/license
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
  */
 
 /**
  * @summary     Scroller
  * @description Virtual rendering for DataTables
+<<<<<<< HEAD
  * @version     2.0.3
  * @file        dataTables.scroller.js
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     www.sprymedia.co.uk/contact
  * @copyright   Copyright 2011-2020 SpryMedia Ltd.
+=======
+ * @version     2.0.5
+ * @file        dataTables.scroller.js
+ * @author      SpryMedia Ltd (www.sprymedia.co.uk)
+ * @contact     www.sprymedia.co.uk/contact
+ * @copyright   Copyright 2011-2021 SpryMedia Ltd.
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
  *
  * This source file is free software, available under the following license:
  *   MIT license - http://datatables.net/license/mit
@@ -82,7 +95,11 @@ var DataTable = $.fn.dataTable;
  *  @constructor
  *  @global
  *  @param {object} dt DataTables settings object or API instance
+<<<<<<< HEAD
  *  @param {object} [opts={}] Configuration object for FixedColumns. Options 
+=======
+ *  @param {object} [opts={}] Configuration object for Scroller. Options 
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
  *    are defined by {@link Scroller.defaults}
  *
  *  @requires jQuery 1.7+
@@ -216,7 +233,12 @@ var Scroller = function ( dt, opts ) {
 			 *  @default  0
 			 */
 			viewport: null,
+<<<<<<< HEAD
 			labelFactor: 1
+=======
+			labelHeight: 0,
+			xbar: 0
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		},
 
 		topRowFloat: 0,
@@ -295,7 +317,13 @@ $.extend( Scroller.prototype, {
 		}
 
 		var label = this.dom.label.outerHeight();
+<<<<<<< HEAD
 		heights.labelFactor = (heights.viewport-label) / heights.scroll;
+=======
+		
+		heights.xbar = this.dom.scroller.offsetHeight - this.dom.scroller.clientHeight;
+		heights.labelHeight = label;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 		if ( redraw === undefined || redraw )
 		{
@@ -748,6 +776,11 @@ $.extend( Scroller.prototype, {
 			}, 0 );
 		}
 
+<<<<<<< HEAD
+=======
+		$(this.s.dt.nTable).triggerHandler('position.dts.dt', tableTop);
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		// Hide the loading indicator
 		if ( this.dom.loader && this.s.loaderVisible ) {
 			this.dom.loader.css( 'display', 'none' );
@@ -1066,9 +1099,17 @@ $.extend( Scroller.prototype, {
 			this.s.labelVisible = true;
 		}
 		if (this.s.labelVisible) {
+<<<<<<< HEAD
 			this.dom.label
 				.html( this.s.dt.fnFormatNumber( parseInt( this.s.topRowFloat, 10 )+1 ) )
 				.css( 'top', iScrollTop + (iScrollTop * heights.labelFactor ) )
+=======
+			var labelFactor = (heights.viewport-heights.labelHeight - heights.xbar) / heights.scroll;
+
+			this.dom.label
+				.html( this.s.dt.fnFormatNumber( parseInt( this.s.topRowFloat, 10 )+1 ) )
+				.css( 'top', iScrollTop + (iScrollTop * labelFactor) )
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 				.css( 'display', 'block' );
 		}
 	},
@@ -1191,7 +1232,11 @@ Scroller.oDefaults = Scroller.defaults;
  *  @name      Scroller.version
  *  @static
  */
+<<<<<<< HEAD
 Scroller.version = "2.0.3";
+=======
+Scroller.version = "2.0.5";
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 
 

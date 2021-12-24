@@ -1,11 +1,19 @@
+<<<<<<< HEAD
 /*! DataTables 1.10.24
+=======
+/*! DataTables 1.11.0
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
  * ©2008-2021 SpryMedia Ltd - datatables.net/license
  */
 
 /**
  * @summary     DataTables
  * @description Paginate, search and order HTML tables
+<<<<<<< HEAD
  * @version     1.10.24
+=======
+ * @version     1.11.0
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
  * @file        jquery.dataTables.js
  * @author      SpryMedia Ltd
  * @contact     www.datatables.net
@@ -53,7 +61,11 @@
 	}
 	else {
 		// Browser
+<<<<<<< HEAD
 		factory( jQuery, window, document );
+=======
+		window.DataTable = factory( jQuery, window, document );
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	}
 }
 (function( $, window, document, undefined ) {
@@ -91,8 +103,22 @@
 	 *      } );
 	 *    } );
 	 */
+<<<<<<< HEAD
 	var DataTable = function ( options )
 	{
+=======
+	var DataTable = function ( selector, options )
+	{
+		// When creating with `new`, create a new DataTable, returning the API instance
+		if (this instanceof DataTable) {
+			return $(selector).DataTable(options);
+		}
+		else {
+			// Argument switching
+			options = selector;
+		}
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		/**
 		 * Perform a jQuery selector action on the table's TR elements (from the tbody) and
 		 * return the resulting jQuery object.
@@ -1253,7 +1279,11 @@
 			
 				var tbody = $this.children('tbody');
 				if ( tbody.length === 0 ) {
+<<<<<<< HEAD
 					tbody = $('<tbody/>').appendTo($this);
+=======
+					tbody = $('<tbody/>').insertAfter(thead);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 				}
 				oSettings.nTBody = tbody[0];
 			
@@ -1301,10 +1331,18 @@
 			};
 			
 			/* Must be done after everything which can be overridden by the state saving! */
+<<<<<<< HEAD
 			if ( oInit.bStateSave )
 			{
 				features.bStateSave = true;
 				_fnCallbackReg( oSettings, 'aoDrawCallback', _fnSaveState, 'state_save' );
+=======
+			_fnCallbackReg( oSettings, 'aoDrawCallback', _fnSaveState, 'state_save' );
+			
+			if ( oInit.bStateSave )
+			{
+				features.bStateSave = true;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 				_fnLoadState( oSettings, oInit, loadedInit );
 			}
 			else {
@@ -1675,6 +1713,230 @@
 		 */
 		escapeRegex: function ( val ) {
 			return val.replace( _re_escape_regex, '\\$1' );
+<<<<<<< HEAD
+=======
+		},
+	
+		/**
+		 * Create a function that will write to a nested object or array
+		 * @param {*} source JSON notation string
+		 * @returns Write function
+		 */
+		set: function ( source ) {
+			if ( $.isPlainObject( source ) ) {
+				/* Unlike get, only the underscore (global) option is used for for
+				 * setting data since we don't know the type here. This is why an object
+				 * option is not documented for `mData` (which is read/write), but it is
+				 * for `mRender` which is read only.
+				 */
+				return DataTable.util.set( source._ );
+			}
+			else if ( source === null ) {
+				// Nothing to do when the data source is null
+				return function () {};
+			}
+			else if ( typeof source === 'function' ) {
+				return function (data, val, meta) {
+					source( data, 'set', val, meta );
+				};
+			}
+			else if ( typeof source === 'string' && (source.indexOf('.') !== -1 ||
+					  source.indexOf('[') !== -1 || source.indexOf('(') !== -1) )
+			{
+				// Like the get, we need to get data from a nested object
+				var setData = function (data, val, src) {
+					var a = _fnSplitObjNotation( src ), b;
+					var aLast = a[a.length-1];
+					var arrayNotation, funcNotation, o, innerSrc;
+		
+					for ( var i=0, iLen=a.length-1 ; i<iLen ; i++ ) {
+						// Protect against prototype pollution
+						if (a[i] === '__proto__' || a[i] === 'constructor') {
+							throw new Error('Cannot set prototype values');
+						}
+		
+						// Check if we are dealing with an array notation request
+						arrayNotation = a[i].match(__reArray);
+						funcNotation = a[i].match(__reFn);
+		
+						if ( arrayNotation ) {
+							a[i] = a[i].replace(__reArray, '');
+							data[ a[i] ] = [];
+		
+							// Get the remainder of the nested object to set so we can recurse
+							b = a.slice();
+							b.splice( 0, i+1 );
+							innerSrc = b.join('.');
+		
+							// Traverse each entry in the array setting the properties requested
+							if ( Array.isArray( val ) ) {
+								for ( var j=0, jLen=val.length ; j<jLen ; j++ ) {
+									o = {};
+									setData( o, val[j], innerSrc );
+									data[ a[i] ].push( o );
+								}
+							}
+							else {
+								// We've been asked to save data to an array, but it
+								// isn't array data to be saved. Best that can be done
+								// is to just save the value.
+								data[ a[i] ] = val;
+							}
+		
+							// The inner call to setData has already traversed through the remainder
+							// of the source and has set the data, thus we can exit here
+							return;
+						}
+						else if ( funcNotation ) {
+							// Function call
+							a[i] = a[i].replace(__reFn, '');
+							data = data[ a[i] ]( val );
+						}
+		
+						// If the nested object doesn't currently exist - since we are
+						// trying to set the value - create it
+						if ( data[ a[i] ] === null || data[ a[i] ] === undefined ) {
+							data[ a[i] ] = {};
+						}
+						data = data[ a[i] ];
+					}
+		
+					// Last item in the input - i.e, the actual set
+					if ( aLast.match(__reFn ) ) {
+						// Function call
+						data = data[ aLast.replace(__reFn, '') ]( val );
+					}
+					else {
+						// If array notation is used, we just want to strip it and use the property name
+						// and assign the value. If it isn't used, then we get the result we want anyway
+						data[ aLast.replace(__reArray, '') ] = val;
+					}
+				};
+		
+				return function (data, val) { // meta is also passed in, but not used
+					return setData( data, val, source );
+				};
+			}
+			else {
+				// Array or flat object mapping
+				return function (data, val) { // meta is also passed in, but not used
+					data[source] = val;
+				};
+			}
+		},
+	
+		/**
+		 * Create a function that will read nested objects from arrays, based on JSON notation
+		 * @param {*} source JSON notation string
+		 * @returns Value read
+		 */
+		get: function ( source ) {
+			if ( $.isPlainObject( source ) ) {
+				// Build an object of get functions, and wrap them in a single call
+				var o = {};
+				$.each( source, function (key, val) {
+					if ( val ) {
+						o[key] = DataTable.util.get( val );
+					}
+				} );
+		
+				return function (data, type, row, meta) {
+					var t = o[type] || o._;
+					return t !== undefined ?
+						t(data, type, row, meta) :
+						data;
+				};
+			}
+			else if ( source === null ) {
+				// Give an empty string for rendering / sorting etc
+				return function (data) { // type, row and meta also passed, but not used
+					return data;
+				};
+			}
+			else if ( typeof source === 'function' ) {
+				return function (data, type, row, meta) {
+					return source( data, type, row, meta );
+				};
+			}
+			else if ( typeof source === 'string' && (source.indexOf('.') !== -1 ||
+					  source.indexOf('[') !== -1 || source.indexOf('(') !== -1) )
+			{
+				/* If there is a . in the source string then the data source is in a
+				 * nested object so we loop over the data for each level to get the next
+				 * level down. On each loop we test for undefined, and if found immediately
+				 * return. This allows entire objects to be missing and sDefaultContent to
+				 * be used if defined, rather than throwing an error
+				 */
+				var fetchData = function (data, type, src) {
+					var arrayNotation, funcNotation, out, innerSrc;
+		
+					if ( src !== "" ) {
+						var a = _fnSplitObjNotation( src );
+		
+						for ( var i=0, iLen=a.length ; i<iLen ; i++ ) {
+							// Check if we are dealing with special notation
+							arrayNotation = a[i].match(__reArray);
+							funcNotation = a[i].match(__reFn);
+		
+							if ( arrayNotation ) {
+								// Array notation
+								a[i] = a[i].replace(__reArray, '');
+		
+								// Condition allows simply [] to be passed in
+								if ( a[i] !== "" ) {
+									data = data[ a[i] ];
+								}
+								out = [];
+		
+								// Get the remainder of the nested object to get
+								a.splice( 0, i+1 );
+								innerSrc = a.join('.');
+		
+								// Traverse each entry in the array getting the properties requested
+								if ( Array.isArray( data ) ) {
+									for ( var j=0, jLen=data.length ; j<jLen ; j++ ) {
+										out.push( fetchData( data[j], type, innerSrc ) );
+									}
+								}
+		
+								// If a string is given in between the array notation indicators, that
+								// is used to join the strings together, otherwise an array is returned
+								var join = arrayNotation[0].substring(1, arrayNotation[0].length-1);
+								data = (join==="") ? out : out.join(join);
+		
+								// The inner call to fetchData has already traversed through the remainder
+								// of the source requested, so we exit from the loop
+								break;
+							}
+							else if ( funcNotation ) {
+								// Function call
+								a[i] = a[i].replace(__reFn, '');
+								data = data[ a[i] ]();
+								continue;
+							}
+		
+							if ( data === null || data[ a[i] ] === undefined ) {
+								return undefined;
+							}
+	
+							data = data[ a[i] ];
+						}
+					}
+		
+					return data;
+				};
+		
+				return function (data, type) { // row and meta also passed, but not used
+					return fetchData( data, type, source );
+				};
+			}
+			else {
+				// Array or flat object mapping
+				return function (data, type) { // row and meta also passed, but not used
+					return data[source];
+				};
+			}
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		}
 	};
 	
@@ -2189,7 +2451,11 @@
 	
 	
 	/**
+<<<<<<< HEAD
 	 * Covert the index of a visible column to the index in the data array (take account
+=======
+	 * Convert the index of a visible column to the index in the data array (take account
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	 * of hidden columns)
 	 *  @param {object} oSettings dataTables settings object
 	 *  @param {int} iMatch Visible column index to lookup
@@ -2207,7 +2473,11 @@
 	
 	
 	/**
+<<<<<<< HEAD
 	 * Covert the index of an index in the data array and convert it to the visible
+=======
+	 * Convert the index of an index in the data array and convert it to the visible
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	 *   column index (take account of hidden columns)
 	 *  @param {int} iMatch Column index to lookup
 	 *  @param {object} oSettings dataTables settings object
@@ -2308,8 +2578,14 @@
 						}
 	
 						// Only a single match is needed for html type since it is
+<<<<<<< HEAD
 						// bottom of the pile and very similar to string
 						if ( detectedType === 'html' ) {
+=======
+						// bottom of the pile and very similar to string - but it
+						// must not be empty
+						if ( detectedType === 'html' && ! _empty(cache[k]) ) {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 							break;
 						}
 					}
@@ -2520,12 +2796,26 @@
 	 *  @param {object} settings dataTables settings object
 	 *  @param {int} rowIdx aoData row id
 	 *  @param {int} colIdx Column index
+<<<<<<< HEAD
 	 *  @param {string} type data get type ('display', 'type' 'filter' 'sort')
+=======
+	 *  @param {string} type data get type ('display', 'type' 'filter|search' 'sort|order')
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	 *  @returns {*} Cell data
 	 *  @memberof DataTable#oApi
 	 */
 	function _fnGetCellData( settings, rowIdx, colIdx, type )
 	{
+<<<<<<< HEAD
+=======
+		if (type === 'search') {
+			type = 'filter';
+		}
+		else if (type === 'order') {
+			type = 'sort';
+		}
+	
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		var draw           = settings.iDraw;
 		var col            = settings.aoColumns[colIdx];
 		var rowData        = settings.aoData[rowIdx]._aData;
@@ -2609,6 +2899,7 @@
 	 *  @returns {function} Data get function
 	 *  @memberof DataTable#oApi
 	 */
+<<<<<<< HEAD
 	function _fnGetObjectDataFn( mSource )
 	{
 		if ( $.isPlainObject( mSource ) )
@@ -2725,6 +3016,9 @@
 			};
 		}
 	}
+=======
+	var _fnGetObjectDataFn = DataTable.util.get;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	
 	
 	/**
@@ -2734,6 +3028,7 @@
 	 *  @returns {function} Data set function
 	 *  @memberof DataTable#oApi
 	 */
+<<<<<<< HEAD
 	function _fnSetObjectDataFn( mSource )
 	{
 		if ( $.isPlainObject( mSource ) )
@@ -2850,6 +3145,9 @@
 			};
 		}
 	}
+=======
+	var _fnSetObjectDataFn = DataTable.util.set;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	
 	
 	/**
@@ -3278,9 +3576,12 @@
 		if ( createHeader ) {
 			_fnDetectHeader( oSettings.aoHeader, thead );
 		}
+<<<<<<< HEAD
 		
 		/* ARIA role for the rows */
 		$(thead).children('tr').attr('role', 'row');
+=======
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	
 		/* Deal with the footer - add classes if required */
 		$(thead).children('tr').children('th, td').addClass( classes.sHeaderTH );
@@ -3414,9 +3715,16 @@
 	/**
 	 * Insert the required TR nodes into the table for display
 	 *  @param {object} oSettings dataTables settings object
+<<<<<<< HEAD
 	 *  @memberof DataTable#oApi
 	 */
 	function _fnDraw( oSettings )
+=======
+	 *  @param ajaxComplete true after ajax call to complete rendering
+	 *  @memberof DataTable#oApi
+	 */
+	function _fnDraw( oSettings, ajaxComplete )
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	{
 		/* Provide a pre-callback function which can be used to cancel the draw is false is returned */
 		var aPreDraw = _fnCallbackFire( oSettings, 'aoPreDrawCallback', 'preDraw', [oSettings] );
@@ -3465,8 +3773,14 @@
 		{
 			oSettings.iDraw++;
 		}
+<<<<<<< HEAD
 		else if ( !oSettings.bDestroying && !_fnAjaxUpdate( oSettings ) )
 		{
+=======
+		else if ( !oSettings.bDestroying && !ajaxComplete)
+		{
+			_fnAjaxUpdate( oSettings );
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			return;
 		}
 	
@@ -3897,6 +4211,25 @@
 		var ajax = oSettings.ajax;
 		var instance = oSettings.oInstance;
 		var callback = function ( json ) {
+<<<<<<< HEAD
+=======
+			var status = oSettings.jqXhr
+				? oSettings.jqXhr.status
+				: null;
+	
+			if ( json === null || (typeof status === 'number' && status == 204 ) ) {
+				json = {};
+				_fnAjaxDataSrc( oSettings, json, [] );
+			}
+	
+			var error = json.error || json.sError;
+			if ( error ) {
+				_fnLog( oSettings, 0, error );
+			}
+	
+			oSettings.json = json;
+	
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			_fnCallbackFire( oSettings, null, 'xhr', [oSettings, json, oSettings.jqXHR] );
 			fn( json );
 		};
@@ -3921,6 +4254,7 @@
 	
 		var baseAjax = {
 			"data": data,
+<<<<<<< HEAD
 			"success": function (json) {
 				var error = json.error || json.sError;
 				if ( error ) {
@@ -3930,6 +4264,9 @@
 				oSettings.json = json;
 				callback( json );
 			},
+=======
+			"success": callback,
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			"dataType": "json",
 			"cache": false,
 			"type": oSettings.sServerMethod,
@@ -3998,6 +4335,7 @@
 	 */
 	function _fnAjaxUpdate( settings )
 	{
+<<<<<<< HEAD
 		if ( settings.bAjaxDataGet ) {
 			settings.iDraw++;
 			_fnProcessingDisplay( settings, true );
@@ -4013,6 +4351,18 @@
 			return false;
 		}
 		return true;
+=======
+		settings.iDraw++;
+		_fnProcessingDisplay( settings, true );
+	
+		_fnBuildAjax(
+			settings,
+			_fnAjaxParameters( settings ),
+			function(json) {
+				_fnAjaxUpdateDraw( settings, json );
+			}
+		);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	}
 	
 	
@@ -4156,6 +4506,14 @@
 			settings.iDraw = draw * 1;
 		}
 	
+<<<<<<< HEAD
+=======
+		// No data in returned object, so rather than an array, we show an empty table
+		if ( ! data ) {
+			data = [];
+		}
+	
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		_fnClearTable( settings );
 		settings._iRecordsTotal   = parseInt(recordsTotal, 10);
 		settings._iRecordsDisplay = parseInt(recordsFiltered, 10);
@@ -4165,14 +4523,21 @@
 		}
 		settings.aiDisplay = settings.aiDisplayMaster.slice();
 	
+<<<<<<< HEAD
 		settings.bAjaxDataGet = false;
 		_fnDraw( settings );
+=======
+		_fnDraw( settings, true );
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	
 		if ( ! settings._bInitComplete ) {
 			_fnInitComplete( settings, json );
 		}
 	
+<<<<<<< HEAD
 		settings.bAjaxDataGet = true;
+=======
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		_fnProcessingDisplay( settings, false );
 	}
 	
@@ -4185,12 +4550,18 @@
 	 *  @param  {object} json Data source object / array from the server
 	 *  @return {array} Array of data to use
 	 */
+<<<<<<< HEAD
 	function _fnAjaxDataSrc ( oSettings, json )
 	{
+=======
+	 function _fnAjaxDataSrc ( oSettings, json, write )
+	 {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		var dataSrc = $.isPlainObject( oSettings.ajax ) && oSettings.ajax.dataSrc !== undefined ?
 			oSettings.ajax.dataSrc :
 			oSettings.sAjaxDataProp; // Compatibility with 1.9-.
 	
+<<<<<<< HEAD
 		// Compatibility with 1.9-. In order to read from aaData, check if the
 		// default has been changed, if not, check for aaData
 		if ( dataSrc === 'data' ) {
@@ -4200,6 +4571,22 @@
 		return dataSrc !== "" ?
 			_fnGetObjectDataFn( dataSrc )( json ) :
 			json;
+=======
+		if ( ! write ) {
+			if ( dataSrc === 'data' ) {
+				// If the default, then we still want to support the old style, and safely ignore
+				// it if possible
+				return json.aaData || json[dataSrc];
+			}
+	
+			return dataSrc !== "" ?
+				_fnGetObjectDataFn( dataSrc )( json ) :
+				json;
+		}
+	
+		// set
+		_fnSetObjectDataFn( dataSrc )( json, write );
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	}
 	
 	/**
@@ -4228,18 +4615,33 @@
 			} )
 			.append( $('<label/>' ).append( str ) );
 	
+<<<<<<< HEAD
 		var searchFn = function() {
 			/* Update all other filter input elements for the new display */
 			var n = features.f;
 			var val = !this.value ? "" : this.value; // mental IE8 fix :-(
 	
+=======
+		var searchFn = function(event) {
+			/* Update all other filter input elements for the new display */
+			var n = features.f;
+			var val = !this.value ? "" : this.value; // mental IE8 fix :-(
+			if(previousSearch.return && event.key !== "Enter") {
+				return;
+			}
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			/* Now do the filter */
 			if ( val != previousSearch.sSearch ) {
 				_fnFilterComplete( settings, {
 					"sSearch": val,
 					"bRegex": previousSearch.bRegex,
 					"bSmart": previousSearch.bSmart ,
+<<<<<<< HEAD
 					"bCaseInsensitive": previousSearch.bCaseInsensitive
+=======
+					"bCaseInsensitive": previousSearch.bCaseInsensitive,
+					"return": previousSearch.return
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 				} );
 	
 				// Need to redraw, without resorting
@@ -4268,7 +4670,11 @@
 				// on the clear icon (Edge bug 17584515). This is safe in other browsers as `searchFn`
 				// checks the value to see if it has changed. In other browsers it won't have.
 				setTimeout( function () {
+<<<<<<< HEAD
 					searchFn.call(jqFilter[0]);
+=======
+					searchFn.call(jqFilter[0], e);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 				}, 10);
 			} )
 			.on( 'keypress.DT', function(e) {
@@ -4314,6 +4720,10 @@
 			oPrevSearch.bRegex = oFilter.bRegex;
 			oPrevSearch.bSmart = oFilter.bSmart;
 			oPrevSearch.bCaseInsensitive = oFilter.bCaseInsensitive;
+<<<<<<< HEAD
+=======
+			oPrevSearch.return = oFilter.return;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		};
 		var fnRegex = function ( o ) {
 			// Backwards compatibility with the bEscapeRegex option
@@ -4328,7 +4738,11 @@
 		if ( _fnDataSource( oSettings ) != 'ssp' )
 		{
 			/* Global filter */
+<<<<<<< HEAD
 			_fnFilter( oSettings, oInput.sSearch, iForce, fnRegex(oInput), oInput.bSmart, oInput.bCaseInsensitive );
+=======
+			_fnFilter( oSettings, oInput.sSearch, iForce, fnRegex(oInput), oInput.bSmart, oInput.bCaseInsensitive, oInput.return );
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			fnSaveFilter( oInput );
 	
 			/* Now do the individual column filter */
@@ -4391,7 +4805,11 @@
 	 *  @param {int} iColumn column to filter
 	 *  @param {bool} bRegex treat search string as a regular expression or not
 	 *  @param {bool} bSmart use smart filtering or not
+<<<<<<< HEAD
 	 *  @param {bool} bCaseInsensitive Do case insenstive matching or not
+=======
+	 *  @param {bool} bCaseInsensitive Do case insensitive matching or not
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	 *  @memberof DataTable#oApi
 	 */
 	function _fnFilterColumn ( settings, searchStr, colIdx, regex, smart, caseInsensitive )
@@ -4424,7 +4842,11 @@
 	 *  @param {int} force optional - force a research of the master array (1) or not (undefined or 0)
 	 *  @param {bool} regex treat as a regular expression or not
 	 *  @param {bool} smart perform smart filtering or not
+<<<<<<< HEAD
 	 *  @param {bool} caseInsensitive Do case insenstive matching or not
+=======
+	 *  @param {bool} caseInsensitive Do case insensitive matching or not
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	 *  @memberof DataTable#oApi
 	 */
 	function _fnFilter( settings, input, force, regex, smart, caseInsensitive )
@@ -5085,9 +5507,12 @@
 	{
 		var table = $(settings.nTable);
 	
+<<<<<<< HEAD
 		// Add the ARIA grid role to the table
 		table.attr( 'role', 'grid' );
 	
+=======
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		// Scrolling from here on in
 		var scroll = settings.oScroll;
 	
@@ -5375,17 +5800,30 @@
 	
 		// Read all widths in next pass
 		_fnApplyToChildren( function(nSizer) {
+<<<<<<< HEAD
 			headerContent.push( nSizer.innerHTML );
 			headerWidths.push( _fnStringToCss( $(nSizer).css('width') ) );
+=======
+			let style = window.getComputedStyle ?
+				window.getComputedStyle(nSizer).width :
+				_fnStringToCss( $(nSizer).width() );
+	
+			headerContent.push( nSizer.innerHTML );
+			headerWidths.push( style );
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		}, headerSrcEls );
 	
 		// Apply all widths in final pass
 		_fnApplyToChildren( function(nToSize, i) {
+<<<<<<< HEAD
 			// Only apply widths to the DataTables detected header cells - this
 			// prevents complex headers from having contradictory sizes applied
 			if ( $.inArray( nToSize, dtHeaderCells ) !== -1 ) {
 				nToSize.style.width = headerWidths[i];
 			}
+=======
+			nToSize.style.width = headerWidths[i];
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		}, headerTrgEls );
 	
 		$(headerSrcEls).height(0);
@@ -6101,7 +6539,11 @@
 		{
 			var col = columns[i];
 			var asSorting = col.asSorting;
+<<<<<<< HEAD
 			var sTitle = col.sTitle.replace( /<.*?>/g, "" );
+=======
+			var sTitle = col.ariaTitle || col.sTitle.replace( /<.*?>/g, "" );
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			var th = col.nTh;
 	
 			// IE7 is throwing an error when setting these properties with jQuery's
@@ -6342,11 +6784,14 @@
 	 */
 	function _fnSaveState ( settings )
 	{
+<<<<<<< HEAD
 		if ( !settings.oFeatures.bStateSave || settings.bDestroying )
 		{
 			return;
 		}
 	
+=======
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		/* Store the interesting variables */
 		var state = {
 			time:    +new Date(),
@@ -6362,10 +6807,20 @@
 			} )
 		};
 	
+<<<<<<< HEAD
 		_fnCallbackFire( settings, "aoStateSaveParams", 'stateSaveParams', [settings, state] );
 	
 		settings.oSavedState = state;
 		settings.fnStateSaveCallback.call( settings.oInstance, settings, state );
+=======
+		settings.oSavedState = state;
+		_fnCallbackFire( settings, "aoStateSaveParams", 'stateSaveParams', [settings, state] );
+		
+		if ( settings.oFeatures.bStateSave && !settings.bDestroying )
+		{
+			settings.fnStateSaveCallback.call( settings.oInstance, settings, state );
+		}	
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	}
 	
 	
@@ -7864,7 +8319,11 @@
 				_range( 0, displayMaster.length );
 		}
 		else if ( page == 'current' ) {
+<<<<<<< HEAD
 			// Current page implies that order=current and fitler=applied, since it is
+=======
+			// Current page implies that order=current and filter=applied, since it is
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			// fairly senseless otherwise, regardless of what order and search actually
 			// are
 			for ( i=settings._iDisplayStart, ien=settings.fnDisplayEnd() ; i<ien ; i++ ) {
@@ -8245,6 +8704,27 @@
 	} );
 	
 	
+<<<<<<< HEAD
+=======
+	$(document).on('plugin-init.dt', function (e, context) {
+		var api = new _Api( context );
+		api.on( 'stateSaveParams', function ( e, settings, data ) {
+			var indexes = api.rows().iterator( 'row', function ( settings, idx ) {
+				return settings.aoData[idx]._detailsShow ? idx : undefined;
+			});
+	
+			data.childRows = api.rows( indexes ).ids( true ).toArray();
+		})
+	
+		var loaded = api.state.loaded();
+	
+		if ( loaded && loaded.childRows ) {
+			api.rows( loaded.childRows ).every( function () {
+				_fnCallbackFire( context, null, 'requestChild', [ this ] )
+			})
+		}
+	})
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	
 	var __details_add = function ( ctx, row, data, klass )
 	{
@@ -8303,6 +8783,11 @@
 	
 				row._detailsShow = undefined;
 				row._details = undefined;
+<<<<<<< HEAD
+=======
+				$( row.nTr ).removeClass( 'dt-hasChild' );
+				_fnSaveState( ctx[0] );
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			}
 		}
 	};
@@ -8319,12 +8804,26 @@
 	
 				if ( show ) {
 					row._details.insertAfter( row.nTr );
+<<<<<<< HEAD
 				}
 				else {
 					row._details.detach();
 				}
 	
 				__details_events( ctx[0] );
+=======
+					$( row.nTr ).addClass( 'dt-hasChild' );
+				}
+				else {
+					row._details.detach();
+					$( row.nTr ).removeClass( 'dt-hasChild' );
+				}
+	
+				_fnCallbackFire( ctx[0], null, 'childRow', [ show, api.row( api[0] ) ] )
+	
+				__details_events( ctx[0] );
+				_fnSaveState( ctx[0] );
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			}
 		}
 	};
@@ -9535,7 +10034,11 @@
 	 *  @type string
 	 *  @default Version number
 	 */
+<<<<<<< HEAD
 	DataTable.version = "1.10.24";
+=======
+	DataTable.version = "1.11.0";
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 	/**
 	 * Private data store, containing all of the settings objects that are
@@ -9595,7 +10098,19 @@
 		 *  @type boolean
 		 *  @default true
 		 */
+<<<<<<< HEAD
 		"bSmart": true
+=======
+		"bSmart": true,
+	
+		/**
+		 * Flag to indicate if DataTables should only trigger a search when
+		 * the return key is pressed.
+		 *  @type boolean
+		 *  @default false
+		 */
+		"return": false
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 	};
 	
 	
@@ -12491,7 +13006,11 @@
 		 *          "data": function ( source, type, val ) {
 		 *            if (type === 'set') {
 		 *              source.price = val;
+<<<<<<< HEAD
 		 *              // Store the computed dislay and filter values for efficiency
+=======
+		 *              // Store the computed display and filter values for efficiency
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		 *              source.price_display = val=="" ? "" : "$"+numberFormat(val);
 		 *              source.price_filter  = val=="" ? "" : "$"+numberFormat(val)+" "+val;
 		 *              return;
@@ -13040,7 +13559,11 @@
 			 * Delay the creation of TR and TD elements until they are actually
 			 * needed by a driven page draw. This can give a significant speed
 			 * increase for Ajax source and Javascript source data, but makes no
+<<<<<<< HEAD
 			 * difference at all fro DOM and server-side processing tables.
+=======
+			 * difference at all for DOM and server-side processing tables.
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 			 * Note that this parameter will be set by the initialisation routine. To
 			 * set a default use {@link DataTable.defaults}.
 			 *  @type boolean
@@ -13617,6 +14140,7 @@
 		"sAjaxDataProp": null,
 	
 		/**
+<<<<<<< HEAD
 		 * Note if draw should be blocked while getting data
 		 *  @type boolean
 		 *  @default true
@@ -13624,6 +14148,8 @@
 		"bAjaxDataGet": true,
 	
 		/**
+=======
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		 * The last jQuery XHR object that was used for server-side data gathering.
 		 * This can be used for working with the XHR information in one of the
 		 * callbacks
@@ -14405,7 +14931,11 @@
 	
 		//
 		// Depreciated
+<<<<<<< HEAD
 		// The following properties are retained for backwards compatiblity only.
+=======
+		// The following properties are retained for backwards compatibility only.
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		// The should not be used in new projects and will be removed in a future
 		// version
 		//
@@ -15053,6 +15583,14 @@
 						decimal+(d - intPart).toFixed( precision ).substring( 2 ):
 						'';
 	
+<<<<<<< HEAD
+=======
+					// If zero, then can't have a negative prefix
+					if (intPart === 0 && parseFloat(floatPart) === 0) {
+						negative = '';
+					}
+	
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 					return negative + (prefix||'') +
 						intPart.toString().replace(
 							/\B(?=(\d{3})+(?!\d))/g, thousands
@@ -15220,6 +15758,7 @@
 		$.fn.DataTable[ prop ] = val;
 	} );
 
+<<<<<<< HEAD
 
 	// Information about events fired by DataTables - for documentation.
 	/**
@@ -15384,4 +15923,7 @@
 	 */
 
 	return $.fn.dataTable;
+=======
+	return DataTable;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 }));

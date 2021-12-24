@@ -7029,8 +7029,14 @@ var defaultOptions = {
 
   /**
    * The timeout for the XHR requests in milliseconds (since `v4.4.0`).
+<<<<<<< HEAD
    */
   timeout: 30000,
+=======
+   * If set to null or 0, no timeout is going to be set.
+   */
+  timeout: null,
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
   /**
    * How many file uploads to process in parallel (See the
@@ -9217,7 +9223,11 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
             _this14._uploadData(files, [dataBlock]);
           };
 
+<<<<<<< HEAD
           file.upload.finishedChunkUpload = function (chunk) {
+=======
+          file.upload.finishedChunkUpload = function (chunk, response) {
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
             var allFinished = true;
             chunk.status = Dropzone.SUCCESS; // Clear the data from the chunk
 
@@ -9237,7 +9247,11 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
 
             if (allFinished) {
               _this14.options.chunksUploaded(file, function () {
+<<<<<<< HEAD
                 _this14._finished(files, "", null);
+=======
+                _this14._finished(files, response, null);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
               });
             }
           };
@@ -9307,7 +9321,12 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
       var url = this.resolveOption(this.options.url, files);
       xhr.open(method, url, true); // Setting the timeout after open because of IE11 issue: https://gitlab.com/meno/dropzone/issues/8
 
+<<<<<<< HEAD
       xhr.timeout = this.resolveOption(this.options.timeout, files); // Has to be after `.open()`. See https://github.com/enyo/dropzone/issues/179
+=======
+      var timeout = this.resolveOption(this.options.timeout, files);
+      if (timeout) xhr.timeout = this.resolveOption(this.options.timeout, files); // Has to be after `.open()`. See https://github.com/enyo/dropzone/issues/179
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
       xhr.withCredentials = !!this.options.withCredentials;
 
@@ -9479,6 +9498,7 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
   }, {
     key: "_updateFilesUploadProgress",
     value: function _updateFilesUploadProgress(files, xhr, e) {
+<<<<<<< HEAD
       var progress;
 
       if (typeof e !== "undefined") {
@@ -9582,6 +9602,77 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
         } finally {
           _iterator20.f();
         }
+=======
+      if (!files[0].upload.chunked) {
+        // Handle file uploads without chunking
+        var _iterator17 = dropzone_createForOfIteratorHelper(files, true),
+            _step17;
+
+        try {
+          for (_iterator17.s(); !(_step17 = _iterator17.n()).done;) {
+            var file = _step17.value;
+
+            if (file.upload.total && file.upload.bytesSent && file.upload.bytesSent == file.upload.total) {
+              // If both, the `total` and `bytesSent` have already been set, and
+              // they are equal (meaning progress is at 100%), we can skip this
+              // file, since an upload progress shouldn't go down.
+              continue;
+            }
+
+            if (e) {
+              file.upload.progress = 100 * e.loaded / e.total;
+              file.upload.total = e.total;
+              file.upload.bytesSent = e.loaded;
+            } else {
+              // No event, so we're at 100%
+              file.upload.progress = 100;
+              file.upload.bytesSent = file.upload.total;
+            }
+
+            this.emit("uploadprogress", file, file.upload.progress, file.upload.bytesSent);
+          }
+        } catch (err) {
+          _iterator17.e(err);
+        } finally {
+          _iterator17.f();
+        }
+      } else {
+        // Handle chunked file uploads
+        // Chunked upload is not compatible with uploading multiple files in one
+        // request, so we know there's only one file.
+        var _file2 = files[0]; // Since this is a chunked upload, we need to update the appropriate chunk
+        // progress.
+
+        var chunk = this._getChunk(_file2, xhr);
+
+        if (e) {
+          chunk.progress = 100 * e.loaded / e.total;
+          chunk.total = e.total;
+          chunk.bytesSent = e.loaded;
+        } else {
+          // No event, so we're at 100%
+          chunk.progress = 100;
+          chunk.bytesSent = chunk.total;
+        } // Now tally the *file* upload progress from its individual chunks
+
+
+        _file2.upload.progress = 0;
+        _file2.upload.total = 0;
+        _file2.upload.bytesSent = 0;
+
+        for (var i = 0; i < _file2.upload.totalChunkCount; i++) {
+          if (_file2.upload.chunks[i] && typeof _file2.upload.chunks[i].progress !== "undefined") {
+            _file2.upload.progress += _file2.upload.chunks[i].progress;
+            _file2.upload.total += _file2.upload.chunks[i].total;
+            _file2.upload.bytesSent += _file2.upload.chunks[i].bytesSent;
+          }
+        } // Since the process is a percentage, we need to divide by the amount of
+        // chunks we've used.
+
+
+        _file2.upload.progress = _file2.upload.progress / _file2.upload.totalChunkCount;
+        this.emit("uploadprogress", _file2, _file2.upload.progress, _file2.upload.bytesSent);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
       }
     }
   }, {
@@ -9610,13 +9701,21 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
         }
       }
 
+<<<<<<< HEAD
       this._updateFilesUploadProgress(files);
+=======
+      this._updateFilesUploadProgress(files, xhr);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
       if (!(200 <= xhr.status && xhr.status < 300)) {
         this._handleUploadError(files, xhr, response);
       } else {
         if (files[0].upload.chunked) {
+<<<<<<< HEAD
           files[0].upload.finishedChunkUpload(this._getChunk(files[0], xhr));
+=======
+          files[0].upload.finishedChunkUpload(this._getChunk(files[0], xhr), response);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
         } else {
           this._finished(files, response, e);
         }
@@ -9646,6 +9745,14 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
   }, {
     key: "submitRequest",
     value: function submitRequest(xhr, formData, files) {
+<<<<<<< HEAD
+=======
+      if (xhr.readyState != 1) {
+        console.warn("Cannot send this request because the XMLHttpRequest.readyState is not OPENED.");
+        return;
+      }
+
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
       xhr.send(formData);
     } // Called internally when processing is finished.
     // Individual callbacks have to be called in the appropriate sections.
@@ -9653,20 +9760,35 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
   }, {
     key: "_finished",
     value: function _finished(files, responseText, e) {
+<<<<<<< HEAD
       var _iterator21 = dropzone_createForOfIteratorHelper(files, true),
           _step21;
 
       try {
         for (_iterator21.s(); !(_step21 = _iterator21.n()).done;) {
           var file = _step21.value;
+=======
+      var _iterator18 = dropzone_createForOfIteratorHelper(files, true),
+          _step18;
+
+      try {
+        for (_iterator18.s(); !(_step18 = _iterator18.n()).done;) {
+          var file = _step18.value;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
           file.status = Dropzone.SUCCESS;
           this.emit("success", file, responseText, e);
           this.emit("complete", file);
         }
       } catch (err) {
+<<<<<<< HEAD
         _iterator21.e(err);
       } finally {
         _iterator21.f();
+=======
+        _iterator18.e(err);
+      } finally {
+        _iterator18.f();
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
       }
 
       if (this.options.uploadMultiple) {
@@ -9683,20 +9805,35 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
   }, {
     key: "_errorProcessing",
     value: function _errorProcessing(files, message, xhr) {
+<<<<<<< HEAD
       var _iterator22 = dropzone_createForOfIteratorHelper(files, true),
           _step22;
 
       try {
         for (_iterator22.s(); !(_step22 = _iterator22.n()).done;) {
           var file = _step22.value;
+=======
+      var _iterator19 = dropzone_createForOfIteratorHelper(files, true),
+          _step19;
+
+      try {
+        for (_iterator19.s(); !(_step19 = _iterator19.n()).done;) {
+          var file = _step19.value;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
           file.status = Dropzone.ERROR;
           this.emit("error", file, message, xhr);
           this.emit("complete", file);
         }
       } catch (err) {
+<<<<<<< HEAD
         _iterator22.e(err);
       } finally {
         _iterator22.f();
+=======
+        _iterator19.e(err);
+      } finally {
+        _iterator19.f();
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
       }
 
       if (this.options.uploadMultiple) {
@@ -9758,7 +9895,11 @@ var Dropzone = /*#__PURE__*/function (_Emitter) {
 
 
 Dropzone.initClass();
+<<<<<<< HEAD
 Dropzone.version = "5.8.1"; // This is a map of options for your different dropzones. Add configurations
+=======
+Dropzone.version = "5.9.2"; // This is a map of options for your different dropzones. Add configurations
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 // to this object for your different dropzone elemens.
 //
 // Example:
@@ -9814,12 +9955,21 @@ Dropzone.discover = function () {
       return function () {
         var result = [];
 
+<<<<<<< HEAD
         var _iterator23 = dropzone_createForOfIteratorHelper(elements, true),
             _step23;
 
         try {
           for (_iterator23.s(); !(_step23 = _iterator23.n()).done;) {
             var el = _step23.value;
+=======
+        var _iterator20 = dropzone_createForOfIteratorHelper(elements, true),
+            _step20;
+
+        try {
+          for (_iterator20.s(); !(_step20 = _iterator20.n()).done;) {
+            var el = _step20.value;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
             if (/(^| )dropzone($| )/.test(el.className)) {
               result.push(dropzones.push(el));
@@ -9828,9 +9978,15 @@ Dropzone.discover = function () {
             }
           }
         } catch (err) {
+<<<<<<< HEAD
           _iterator23.e(err);
         } finally {
           _iterator23.f();
+=======
+          _iterator20.e(err);
+        } finally {
+          _iterator20.f();
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
         }
 
         return result;
@@ -9844,12 +10000,21 @@ Dropzone.discover = function () {
   return function () {
     var result = [];
 
+<<<<<<< HEAD
     var _iterator24 = dropzone_createForOfIteratorHelper(dropzones, true),
         _step24;
 
     try {
       for (_iterator24.s(); !(_step24 = _iterator24.n()).done;) {
         var dropzone = _step24.value;
+=======
+    var _iterator21 = dropzone_createForOfIteratorHelper(dropzones, true),
+        _step21;
+
+    try {
+      for (_iterator21.s(); !(_step21 = _iterator21.n()).done;) {
+        var dropzone = _step21.value;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
         // Create a dropzone unless auto discover has been disabled for specific element
         if (Dropzone.optionsForElement(dropzone) !== false) {
@@ -9859,9 +10024,15 @@ Dropzone.discover = function () {
         }
       }
     } catch (err) {
+<<<<<<< HEAD
       _iterator24.e(err);
     } finally {
       _iterator24.f();
+=======
+      _iterator21.e(err);
+    } finally {
+      _iterator21.f();
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     }
 
     return result;
@@ -9895,12 +10066,21 @@ Dropzone.isBrowserSupported = function () {
       } // The browser supports the API, but may be blocked.
 
 
+<<<<<<< HEAD
       var _iterator25 = dropzone_createForOfIteratorHelper(Dropzone.blockedBrowsers, true),
           _step25;
 
       try {
         for (_iterator25.s(); !(_step25 = _iterator25.n()).done;) {
           var regex = _step25.value;
+=======
+      var _iterator22 = dropzone_createForOfIteratorHelper(Dropzone.blockedBrowsers, true),
+          _step22;
+
+      try {
+        for (_iterator22.s(); !(_step22 = _iterator22.n()).done;) {
+          var regex = _step22.value;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
           if (regex.test(navigator.userAgent)) {
             capableBrowser = false;
@@ -9908,9 +10088,15 @@ Dropzone.isBrowserSupported = function () {
           }
         }
       } catch (err) {
+<<<<<<< HEAD
         _iterator25.e(err);
       } finally {
         _iterator25.f();
+=======
+        _iterator22.e(err);
+      } finally {
+        _iterator22.f();
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
       }
     }
   } else {
@@ -10002,6 +10188,7 @@ Dropzone.getElements = function (els, name) {
     elements = [];
 
     try {
+<<<<<<< HEAD
       var _iterator26 = dropzone_createForOfIteratorHelper(els, true),
           _step26;
 
@@ -10014,6 +10201,20 @@ Dropzone.getElements = function (els, name) {
         _iterator26.e(err);
       } finally {
         _iterator26.f();
+=======
+      var _iterator23 = dropzone_createForOfIteratorHelper(els, true),
+          _step23;
+
+      try {
+        for (_iterator23.s(); !(_step23 = _iterator23.n()).done;) {
+          el = _step23.value;
+          elements.push(this.getElement(el, name));
+        }
+      } catch (err) {
+        _iterator23.e(err);
+      } finally {
+        _iterator23.f();
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
       }
     } catch (e) {
       elements = null;
@@ -10021,6 +10222,7 @@ Dropzone.getElements = function (els, name) {
   } else if (typeof els === "string") {
     elements = [];
 
+<<<<<<< HEAD
     var _iterator27 = dropzone_createForOfIteratorHelper(document.querySelectorAll(els), true),
         _step27;
 
@@ -10033,6 +10235,20 @@ Dropzone.getElements = function (els, name) {
       _iterator27.e(err);
     } finally {
       _iterator27.f();
+=======
+    var _iterator24 = dropzone_createForOfIteratorHelper(document.querySelectorAll(els), true),
+        _step24;
+
+    try {
+      for (_iterator24.s(); !(_step24 = _iterator24.n()).done;) {
+        el = _step24.value;
+        elements.push(el);
+      }
+    } catch (err) {
+      _iterator24.e(err);
+    } finally {
+      _iterator24.f();
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     }
   } else if (els.nodeType != null) {
     elements = [els];
@@ -10070,12 +10286,21 @@ Dropzone.isValidFile = function (file, acceptedFiles) {
   var mimeType = file.type;
   var baseMimeType = mimeType.replace(/\/.*$/, "");
 
+<<<<<<< HEAD
   var _iterator28 = dropzone_createForOfIteratorHelper(acceptedFiles, true),
       _step28;
 
   try {
     for (_iterator28.s(); !(_step28 = _iterator28.n()).done;) {
       var validType = _step28.value;
+=======
+  var _iterator25 = dropzone_createForOfIteratorHelper(acceptedFiles, true),
+      _step25;
+
+  try {
+    for (_iterator25.s(); !(_step25 = _iterator25.n()).done;) {
+      var validType = _step25.value;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
       validType = validType.trim();
 
       if (validType.charAt(0) === ".") {
@@ -10094,9 +10319,15 @@ Dropzone.isValidFile = function (file, acceptedFiles) {
       }
     }
   } catch (err) {
+<<<<<<< HEAD
     _iterator28.e(err);
   } finally {
     _iterator28.f();
+=======
+    _iterator25.e(err);
+  } finally {
+    _iterator25.f();
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
   }
 
   return false;

@@ -18,6 +18,11 @@ var kKeywords = [
     "call(_indirect|_ref)?",
     "current_memory",
     "\\bdata\\b",
+<<<<<<< HEAD
+=======
+    "catch(_all)?",
+    "delegate",
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     "drop",
     "elem",
     "else",
@@ -36,13 +41,25 @@ var kKeywords = [
     "offset",
     "param",
     "result",
+<<<<<<< HEAD
+=======
+    "rethrow",
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     "return(_call(_indirect|_ref)?)?",
     "select",
     "start",
     "table(\\.(size|get|set|size|grow|fill|init|copy))?",
     "then",
+<<<<<<< HEAD
     "type",
     "unreachable",
+=======
+    "throw",
+    "try",
+    "type",
+    "unreachable",
+    "unwind",
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
     // Numeric opcodes.
     "i(32|64)\\.(store(8|16)|(load(8|16)_[su]))",

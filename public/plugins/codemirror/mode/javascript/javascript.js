@@ -16,6 +16,10 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
   var statementIndent = parserConfig.statementIndent;
   var jsonldMode = parserConfig.jsonld;
   var jsonMode = parserConfig.json || jsonldMode;
+<<<<<<< HEAD
+=======
+  var trackScope = parserConfig.trackScope !== false
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
   var isTS = parserConfig.typescript;
   var wordRE = parserConfig.wordCharacters || /[\w$\xa1-\uffff]/;
 
@@ -231,6 +235,10 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
   }
 
   function inScope(state, varname) {
+<<<<<<< HEAD
+=======
+    if (!trackScope) return false
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     for (var v = state.localVars; v; v = v.next)
       if (v.name == varname) return true;
     for (var cx = state.context; cx; cx = cx.prev) {
@@ -277,6 +285,10 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
   function register(varname) {
     var state = cx.state;
     cx.marked = "def";
+<<<<<<< HEAD
+=======
+    if (!trackScope) return
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     if (state.context) {
       if (state.lexical.info == "var" && state.context && state.context.block) {
         // FIXME function decls are also not block scoped
@@ -376,7 +388,11 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
       return cont(pushlex("form"), parenExpr, statement, poplex, maybeelse);
     }
     if (type == "function") return cont(functiondef);
+<<<<<<< HEAD
     if (type == "for") return cont(pushlex("form"), forspec, statement, poplex);
+=======
+    if (type == "for") return cont(pushlex("form"), pushblockcontext, forspec, statement, popcontext, poplex);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     if (type == "class" || (isTS && value == "interface")) {
       cx.marked = "keyword"
       return cont(pushlex("form", type == "class" ? type : value), className, poplex)
@@ -479,7 +495,11 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
   function quasi(type, value) {
     if (type != "quasi") return pass();
     if (value.slice(value.length - 2) != "${") return cont(quasi);
+<<<<<<< HEAD
     return cont(expression, continueQuasi);
+=======
+    return cont(maybeexpression, continueQuasi);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
   }
   function continueQuasi(type) {
     if (type == "}") {
@@ -619,6 +639,10 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
     if (type == "{") return cont(pushlex("}"), typeprops, poplex, afterType)
     if (type == "(") return cont(commasep(typearg, ")"), maybeReturnType, afterType)
     if (type == "<") return cont(commasep(typeexpr, ">"), typeexpr)
+<<<<<<< HEAD
+=======
+    if (type == "quasi") { return pass(quasiType, afterType); }
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
   }
   function maybeReturnType(type) {
     if (type == "=>") return cont(typeexpr)
@@ -644,6 +668,21 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
       return cont()
     }
   }
+<<<<<<< HEAD
+=======
+  function quasiType(type, value) {
+    if (type != "quasi") return pass();
+    if (value.slice(value.length - 2) != "${") return cont(quasiType);
+    return cont(typeexpr, continueQuasiType);
+  }
+  function continueQuasiType(type) {
+    if (type == "}") {
+      cx.marked = "string-2";
+      cx.state.tokenize = tokenQuasi;
+      return cont(quasiType);
+    }
+  }
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
   function typearg(type, value) {
     if (type == "variable" && cx.stream.match(/^\s*[?:]/, false) || value == "?") return cont(typearg)
     if (type == ":") return cont(typeexpr)
@@ -783,6 +822,10 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
     if (value == "@") return cont(expression, classBody)
   }
   function classfield(type, value) {
+<<<<<<< HEAD
+=======
+    if (value == "!") return cont(classfield)
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     if (value == "?") return cont(classfield)
     if (type == ":") return cont(typeexpr, maybeAssign)
     if (value == "=") return cont(expressionNoComma)
@@ -883,7 +926,11 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
       if (!/^\s*else\b/.test(textAfter)) for (var i = state.cc.length - 1; i >= 0; --i) {
         var c = state.cc[i];
         if (c == poplex) lexical = lexical.prev;
+<<<<<<< HEAD
         else if (c != maybeelse) break;
+=======
+        else if (c != maybeelse && c != popcontext) break;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
       }
       while ((lexical.type == "stat" || lexical.type == "form") &&
              (firstChar == "}" || ((top = state.cc[state.cc.length - 1]) &&
@@ -920,8 +967,12 @@ CodeMirror.defineMode("javascript", function(config, parserConfig) {
     expressionAllowed: expressionAllowed,
 
     skipExpression: function(state) {
+<<<<<<< HEAD
       var top = state.cc[state.cc.length - 1]
       if (top == expression || top == expressionNoComma) state.cc.pop()
+=======
+      parseJS(state, "atom", "atom", "true", new CodeMirror.StringStream("", 2, null))
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     }
   };
 });

@@ -1,15 +1,28 @@
+<<<<<<< HEAD
 /*! AutoFill 2.3.5
  * ©2008-2020 SpryMedia Ltd - datatables.net/license
+=======
+/*! AutoFill 2.3.9
+ * ©2008-2021 SpryMedia Ltd - datatables.net/license
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
  */
 
 /**
  * @summary     AutoFill
  * @description Add Excel like click and drag auto-fill options to DataTables
+<<<<<<< HEAD
  * @version     2.3.5
  * @file        dataTables.autoFill.js
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     www.sprymedia.co.uk/contact
  * @copyright   Copyright 2010-2020 SpryMedia Ltd.
+=======
+ * @version     2.3.9
+ * @file        dataTables.autoFill.js
+ * @author      SpryMedia Ltd (www.sprymedia.co.uk)
+ * @contact     www.sprymedia.co.uk/contact
+ * @copyright   Copyright 2010-2021 SpryMedia Ltd.
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
  *
  * This source file is free software, available under the following license:
  *   MIT license - http://datatables.net/license/mit
@@ -603,8 +616,13 @@ $.extend( AutoFill.prototype, {
 			// jQuery doesn't give a `table` as the offset parent oddly, so use DOM directly
 			currOffsetParent = $( currNode.offsetParent );
 
+<<<<<<< HEAD
 			top += positionTop + parseInt( currOffsetParent.css('border-top-width') ) * 1;
 			left += positionLeft + parseInt( currOffsetParent.css('border-left-width') ) * 1;
+=======
+			top += positionTop + parseInt( currOffsetParent.css('border-top-width') || 0 ) * 1;
+			left += positionLeft + parseInt( currOffsetParent.css('border-left-width') || 0 ) * 1;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 			// Emergency fall back. Shouldn't happen, but just in case!
 			if ( currNode.nodeName.toLowerCase() === 'body' ) {
@@ -1027,7 +1045,11 @@ AutoFill.actions = {
 		},
 
 		option: function ( dt, cells ) {
+<<<<<<< HEAD
 			return dt.i18n('autoFill.fill', 'Fill all cells with <i>'+cells[0][0].label+'</i>' );
+=======
+			return dt.i18n('autoFill.fill', 'Fill all cells with <i>%d</i>', cells[0][0].label );
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 		},
 
 		execute: function ( dt, cells, node ) {
@@ -1102,7 +1124,11 @@ AutoFill.actions = {
  * @static
  * @type      String
  */
+<<<<<<< HEAD
 AutoFill.version = '2.3.5';
+=======
+AutoFill.version = '2.3.9';
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 
 /**

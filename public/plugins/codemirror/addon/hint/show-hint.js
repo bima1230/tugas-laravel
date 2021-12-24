@@ -224,6 +224,10 @@
   }
 
   function Widget(completion, data) {
+<<<<<<< HEAD
+=======
+    this.id = "cm-complete-" + Math.floor(Math.random(1e6))
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     this.completion = completion;
     this.data = data;
     this.picked = false;
@@ -232,6 +236,12 @@
     var parentWindow = ownerDocument.defaultView || ownerDocument.parentWindow;
 
     var hints = this.hints = ownerDocument.createElement("ul");
+<<<<<<< HEAD
+=======
+    hints.setAttribute("role", "listbox")
+    hints.setAttribute("aria-expanded", "true")
+    hints.id = this.id
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     var theme = completion.cm.options.theme;
     hints.className = "CodeMirror-hints " + theme;
     this.selectedHint = data.selectedHint || 0;
@@ -242,6 +252,12 @@
       var className = HINT_ELEMENT_CLASS + (i != this.selectedHint ? "" : " " + ACTIVE_HINT_ELEMENT_CLASS);
       if (cur.className != null) className = cur.className + " " + className;
       elt.className = className;
+<<<<<<< HEAD
+=======
+      if (i == this.selectedHint) elt.setAttribute("aria-selected", "true")
+      elt.id = this.id + "-" + i
+      elt.setAttribute("role", "option")
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
       if (cur.render) cur.render(elt, data, cur);
       else elt.appendChild(ownerDocument.createTextNode(cur.displayText || getText(cur)));
       elt.hintId = i;
@@ -267,6 +283,12 @@
     var winW = parentWindow.innerWidth || Math.max(ownerDocument.body.offsetWidth, ownerDocument.documentElement.offsetWidth);
     var winH = parentWindow.innerHeight || Math.max(ownerDocument.body.offsetHeight, ownerDocument.documentElement.offsetHeight);
     container.appendChild(hints);
+<<<<<<< HEAD
+=======
+    cm.getInputField().setAttribute("aria-autocomplete", "list")
+    cm.getInputField().setAttribute("aria-owns", this.id)
+    cm.getInputField().setAttribute("aria-activedescendant", this.id + "-" + this.selectedHint)
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
     var box = completion.options.moveOnOverlap ? hints.getBoundingClientRect() : new DOMRect();
     var scrolls = completion.options.paddingForScrollbar ? hints.scrollHeight > hints.clientHeight + 1 : false;
@@ -293,6 +315,10 @@
       }
     }
     var overlapX = box.right - winW;
+<<<<<<< HEAD
+=======
+    if (scrolls) overlapX += cm.display.nativeBarWidth;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     if (overlapX > 0) {
       if (box.right - box.left > winW) {
         hints.style.width = (winW - 5) + "px";
@@ -321,6 +347,10 @@
 
     cm.on("scroll", this.onScroll = function() {
       var curScroll = cm.getScrollInfo(), editor = cm.getWrapperElement().getBoundingClientRect();
+<<<<<<< HEAD
+=======
+      if (!startScroll) startScroll = cm.getScrollInfo();
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
       var newTop = top + startScroll.top - curScroll.top;
       var point = newTop - (parentWindow.pageYOffset || (ownerDocument.documentElement || ownerDocument.body).scrollTop);
       if (!below) point += hints.offsetHeight;
@@ -362,6 +392,12 @@
       this.completion.widget = null;
       if (this.hints.parentNode) this.hints.parentNode.removeChild(this.hints);
       this.completion.cm.removeKeyMap(this.keyMap);
+<<<<<<< HEAD
+=======
+      var input = this.completion.cm.getInputField()
+      input.removeAttribute("aria-activedescendant")
+      input.removeAttribute("aria-owns")
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
       var cm = this.completion.cm;
       if (this.completion.options.closeOnUnfocus) {
@@ -389,9 +425,20 @@
         i = avoidWrap ? 0  : this.data.list.length - 1;
       if (this.selectedHint == i) return;
       var node = this.hints.childNodes[this.selectedHint];
+<<<<<<< HEAD
       if (node) node.className = node.className.replace(" " + ACTIVE_HINT_ELEMENT_CLASS, "");
       node = this.hints.childNodes[this.selectedHint = i];
       node.className += " " + ACTIVE_HINT_ELEMENT_CLASS;
+=======
+      if (node) {
+        node.className = node.className.replace(" " + ACTIVE_HINT_ELEMENT_CLASS, "");
+        node.removeAttribute("aria-selected")
+      }
+      node = this.hints.childNodes[this.selectedHint = i];
+      node.className += " " + ACTIVE_HINT_ELEMENT_CLASS;
+      node.setAttribute("aria-selected", "true")
+      this.completion.cm.getInputField().setAttribute("aria-activedescendant", node.id)
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
       this.scrollToActive()
       CodeMirror.signal(this.data, "select", this.data.list[this.selectedHint], node);
     },

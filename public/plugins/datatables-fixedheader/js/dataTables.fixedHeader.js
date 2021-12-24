@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /*! FixedHeader 3.1.8
+=======
+/*! FixedHeader 3.1.9
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
  * ©2009-2021 SpryMedia Ltd - datatables.net/license
  */
 
@@ -6,7 +10,11 @@
  * @summary     FixedHeader
  * @description Fix a table's header or footer, so it is always visible while
  *              scrolling
+<<<<<<< HEAD
  * @version     3.1.8
+=======
+ * @version     3.1.9
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
  * @file        dataTables.fixedHeader.js
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     www.sprymedia.co.uk/contact
@@ -622,7 +630,11 @@ $.extend( FixedHeader.prototype, {
  * @type {String}
  * @static
  */
+<<<<<<< HEAD
 FixedHeader.version = "3.1.8";
+=======
+FixedHeader.version = "3.1.9";
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 /**
  * Defaults

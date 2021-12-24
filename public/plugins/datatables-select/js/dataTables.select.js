@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 /*! Select for DataTables 1.3.2
+=======
+/*! Select for DataTables 1.3.3
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
  * 2015-2021 SpryMedia Ltd - datatables.net/license/mit
  */
 
@@ -6,7 +10,11 @@
  * @summary     Select for DataTables
  * @description A collection of API methods, events and buttons for DataTables
  *   that provides selection options of the items in a DataTable
+<<<<<<< HEAD
  * @version     1.3.2
+=======
+ * @version     1.3.3
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
  * @file        dataTables.select.js
  * @author      SpryMedia Ltd (www.sprymedia.co.uk)
  * @contact     datatables.net/forums
@@ -54,7 +62,11 @@ var DataTable = $.fn.dataTable;
 // Version information for debugger
 DataTable.select = {};
 
+<<<<<<< HEAD
 DataTable.select.version = '1.3.2';
+=======
+DataTable.select.version = '1.3.3';
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
 DataTable.select.init = function ( dt ) {
 	var ctx = dt.settings()[0];

@@ -8,7 +8,11 @@ table.dt-rowReorder-float {
 }
 
 tr.dt-rowReorder-moving {
+<<<<<<< HEAD
   outline: 2px solid #888888;
+=======
+  outline: 2px solid #888;
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
   outline-offset: -2px;
 }
 

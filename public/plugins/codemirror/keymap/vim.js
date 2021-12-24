@@ -420,6 +420,12 @@
     var numbers = makeKeyRange(48, 10);
     var validMarks = [].concat(upperCaseAlphabet, lowerCaseAlphabet, numbers, ['<', '>']);
     var validRegisters = [].concat(upperCaseAlphabet, lowerCaseAlphabet, numbers, ['-', '"', '.', ':', '_', '/']);
+<<<<<<< HEAD
+=======
+    var upperCaseChars;
+    try { upperCaseChars = new RegExp("^[\\p{Lu}]$", "u"); }
+    catch (_) { upperCaseChars = /^[A-Z]$/; }
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
 
     function isLine(cm, line) {
       return line >= cm.firstLine() && line <= cm.lastLine();
@@ -434,7 +440,11 @@
       return numberRegex.test(k);
     }
     function isUpperCase(k) {
+<<<<<<< HEAD
       return (/^[A-Z]$/).test(k);
+=======
+      return upperCaseChars.test(k);
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
     }
     function isWhiteSpaceString(k) {
       return (/^\s*$/).test(k);
@@ -658,7 +668,11 @@
           this.latestRegister = registerName;
           if (cm.openDialog) {
             this.onRecordingDone = cm.openDialog(
+<<<<<<< HEAD
                 '(recording)['+registerName+']', null, {bottom:true});
+=======
+                document.createTextNode('(recording)['+registerName+']'), null, {bottom:true});
+>>>>>>> 0884518 (tugas migrasi,_view_dan_delete)
           }
           this.isRecording = true;
         }
